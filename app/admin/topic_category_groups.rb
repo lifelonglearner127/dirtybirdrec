@@ -1,7 +1,7 @@
 ActiveAdmin.register TopicCategoryGroup do
 
   permit_params :title, :prior, :image, 
-      categories_attributes: [:id, :title, :prior, :image, :group, :_destroy]
+      categories_attributes: [:id, :title, :prior, :image, :group, :new_category_option, :_destroy]
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
@@ -22,6 +22,7 @@ ActiveAdmin.register TopicCategoryGroup do
         t.input :image, hint: c_image, as: :jcropable
         t.input :image_cache, as: :hidden
         t.input :prior
+        t.input :new_category_option
       end
     end
 

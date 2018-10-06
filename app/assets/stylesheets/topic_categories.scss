@@ -81,7 +81,8 @@
     background-color: #fff;
     padding: 30px 0;
     margin-top: -50px;
-
+    border-radius: 7px;
+    
     .tcmc-content {
       padding: 20px 50px;    
 
@@ -139,7 +140,13 @@
       font-size: 18px;
       color: #080808;
       opacity: 0.76;
-      letter-spacing: 1px;      
+      letter-spacing: 1px;     
+
+      .new-category-icon {
+        position: absolute;
+        right: -10px;
+        top: -10px;      
+      } 
     }
   }
 }
