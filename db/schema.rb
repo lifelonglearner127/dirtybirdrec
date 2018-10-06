@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181001212906) do
+ActiveRecord::Schema.define(version: 20181003154610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,6 +219,15 @@ ActiveRecord::Schema.define(version: 20181001212906) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "follow_requests", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "followable_type"
+    t.integer "followable_id"
+    t.boolean "show_notify", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "follows", force: :cascade do |t|
     t.integer "user_id"
     t.integer "followable_id"
@@ -226,7 +235,6 @@ ActiveRecord::Schema.define(version: 20181001212906) do
     t.datetime "updated_at", null: false
     t.string "followable_type"
     t.boolean "show_notify", default: true
-    t.boolean "active", default: false
     t.index ["followable_id"], name: "index_follows_on_followable_id"
     t.index ["user_id", "followable_id", "followable_type"], name: "index_follows_on_user_id_and_followable_id_and_followable_type", unique: true
     t.index ["user_id"], name: "index_follows_on_user_id"

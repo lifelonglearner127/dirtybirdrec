@@ -61,6 +61,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update_resource(resource, params)
+    #TODO Why without password???
     resource.update_without_password(params) 
     # if resource.provider.present?
     #   resource.update_without_password(params) 
