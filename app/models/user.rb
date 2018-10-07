@@ -94,7 +94,7 @@ class User < ApplicationRecord
   end
 
   def releases_tracks
-    releases = releases.published.ids
+    releases = self.releases.published.ids
     Track.where("release_id IN (?)",releases)
   end
 
