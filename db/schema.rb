@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181003154610) do
+ActiveRecord::Schema.define(version: 20181008201443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -318,6 +318,15 @@ ActiveRecord::Schema.define(version: 20181003154610) do
     t.integer "replies_count", default: 0
     t.datetime "edited_at"
     t.integer "likes_count"
+  end
+
+  create_table "promo_areas", force: :cascade do |t|
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "topic_category_id"
+    t.string "image"
+    t.index ["topic_category_id"], name: "index_promo_areas_on_topic_category_id"
   end
 
   create_table "rates", force: :cascade do |t|
@@ -644,4 +653,5 @@ ActiveRecord::Schema.define(version: 20181003154610) do
 
   add_foreign_key "billing_order_histories", "users"
   add_foreign_key "notifications", "users"
+  add_foreign_key "promo_areas", "topic_categories"
 end
