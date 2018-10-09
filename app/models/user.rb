@@ -61,7 +61,7 @@ class User < ApplicationRecord
   has_many :downloads
   has_many :recently_items
   has_many :billing_order_histories
-  has_one :notification
+  has_one :notification, foreign_key: "user_id"
   
   include AlgoliaSearch
 
