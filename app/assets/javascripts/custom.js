@@ -244,11 +244,11 @@ var ready = function() {
     return false;
   });
 
-  if (window.location.hash !== "") {
-    $('html, body').animate({
-      scrollTop: $(window.location.hash).offset().top - 120
-    }, 600, function(){});
-  }
+  // if (window.location.hash !== "") {
+  //   $('html, body').animate({
+  //     scrollTop: $(window.location.hash).offset().top - 120
+  //   }, 600, function(){});
+  // }
 
   $(".emoji-area").emojioneArea({
                     search: false,
@@ -452,7 +452,7 @@ function dragDropAttach() {
       itemSelector : '.col-lg-6'
     });    
 
-    if ($('#topic-category-ctg-btn').length == 1) {
+    if ($('#topic-category-ctg-btn').length == 1 && window.location.href.indexOf('chirp#categories') > -1) {
       $('html, body').animate({
         scrollTop: $('#chirp-category-btn').offset().top - 120
       }, 600, function(){});      

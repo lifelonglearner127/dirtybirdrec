@@ -47,7 +47,7 @@ class TopicsController < ApplicationController
       flash[:alert] = topic.errors.full_messages.join(', ')
     end
 
-    redirect_to chirp_path(topic.category)
+    redirect_to chirp_topic_path(topic.category, topic)
   end
 
   def topic_params

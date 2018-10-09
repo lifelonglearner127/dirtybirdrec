@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181003154610) do
+ActiveRecord::Schema.define(version: 20181008201443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -320,6 +320,15 @@ ActiveRecord::Schema.define(version: 20181003154610) do
     t.integer "likes_count"
   end
 
+  create_table "promo_areas", force: :cascade do |t|
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "topic_category_id"
+    t.string "image"
+    t.index ["topic_category_id"], name: "index_promo_areas_on_topic_category_id"
+  end
+
   create_table "rates", force: :cascade do |t|
     t.bigint "rater_id"
     t.string "rateable_type"
@@ -456,6 +465,7 @@ ActiveRecord::Schema.define(version: 20181003154610) do
     t.datetime "updated_at", null: false
     t.integer "group_id"
     t.string "image"
+    t.boolean "new_category_option", default: false
   end
 
   create_table "topic_category_groups", force: :cascade do |t|
@@ -595,6 +605,7 @@ ActiveRecord::Schema.define(version: 20181003154610) do
     t.datetime "birthdate"
     t.integer "gender"
     t.string "t_shirt_size"
+    t.integer "subscription_type", default: 0
     t.string "provider"
     t.string "uid"
     t.date "subscription_started_at"
@@ -618,7 +629,6 @@ ActiveRecord::Schema.define(version: 20181003154610) do
     t.boolean "code_of_conduct", default: false
     t.string "profile_url"
     t.boolean "open_for_follow", default: false
-    t.integer "subscription_type", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -643,4 +653,5 @@ ActiveRecord::Schema.define(version: 20181003154610) do
 
   add_foreign_key "billing_order_histories", "users"
   add_foreign_key "notifications", "users"
+  add_foreign_key "promo_areas", "topic_categories"
 end

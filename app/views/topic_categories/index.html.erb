@@ -57,7 +57,10 @@
                       <% group.categories.each do |category| %>
                         <li>
                           <%= link_to chirp_path( category ) do %>
-                          <%= "#{category.title}" %>
+                            <%= "#{category.title}" %>
+                            <% if category.new_category_option %>
+                              <%= image_tag "new-category.png", class: "new-category-icon" %>
+                            <% end %>
                           <% end %>
                         </li>
                       <% end %>
