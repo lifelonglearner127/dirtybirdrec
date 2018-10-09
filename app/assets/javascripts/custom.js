@@ -8,12 +8,12 @@ var ready = function() {
   clearTimeout(loginByTime);
   if($("#notify-menu").length === 0 && $('.signup-header').length === 0) {
     loginByTime = setTimeout(function(){
-      // $('#signInModal').modal('show');
+      $('#signInModal').modal('show');
     }, 15000);
 
     $(window).on('scroll.popupLogin', function(e) {
       if ($(this).scrollTop() > 300) {
-        // $('#signInModal').modal('show');
+        $('#signInModal').modal('show');
         clearTimeout(loginByTime);
         $(this).off('scroll.popupLogin');
       }
@@ -244,11 +244,11 @@ var ready = function() {
     return false;
   });
 
-  // if (window.location.hash !== "") {
-  //   $('html, body').animate({
-  //     scrollTop: $(window.location.hash).offset().top - 120
-  //   }, 600, function(){});
-  // }
+  if (window.location.hash !== "") {
+    $('html, body').animate({
+      scrollTop: $(window.location.hash).offset().top - 120
+    }, 600, function(){});
+  }
 
   $(".emoji-area").emojioneArea({
                     search: false,
