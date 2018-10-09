@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users, path: 'usr', controllers: {
         registrations: 'users/registrations',
+        sessions: 'users/sessions',
         omniauth_callbacks: 'users/omniauth_callbacks'
       }   
 

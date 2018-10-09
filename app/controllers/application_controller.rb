@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
+  before_action :store_user_location!, if: :storable_location?
   before_action :set_notification
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_online, :detect_player_pages
@@ -147,6 +148,14 @@ class ApplicationController < ActionController::Base
           !devise_controller?
         redirect_to choose_profile_path(anchor: "step-3")
       end
+    end
+
+    def storable_location?
+      request.get? && is_navigational_format? && !devise_controller? && !request.xhr? 
+    end
+
+    def store_user_location!
+      store_location_for(:user, request.fullpath)
     end
 
 end

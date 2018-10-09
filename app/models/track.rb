@@ -33,19 +33,12 @@ class Track < ApplicationRecord
     return sample_mp3_uri if is_sample && browser == 'Safari'
     return sample_ogg_uri if is_sample && browser != 'Safari'
 
-    if browser == 'Safari'
-      return  track_files.where(
-                format: TrackFile.formats[:mp3], 
-                encode_status: TrackFile.encode_statuses[:complete])
-              .last
-              .url_string
-    else
-      return  track_files.where(
-                format: TrackFile.formats[:ogg], 
-                encode_status: TrackFile.encode_statuses[:complete])
-              .last
-              .url_string
-    end
+    format = browser == 'Safari' ? :mp3 : :ogg
+    return track_files.where(
+              format: TrackFile.formats[format], 
+              encode_status: TrackFile.encode_statuses[:complete])
+            .last
+            .url_string
   end
 
   def download_uris

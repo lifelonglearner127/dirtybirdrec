@@ -18,9 +18,9 @@ class TopicsController < ApplicationController
         @users.push post.user
       end
     end
-    if ( @topic.user && @topic.user.has_role?(:artist) ) || !@topic.see_to_all
-      authorize! :read, @topic
-    end
+    # if ( @topic.user && @topic.user.has_role?(:artist) ) || !@topic.see_to_all
+    #   authorize! :read, @topic
+    # end
 
     if params[:chirp_id].present?
       @category = TopicCategory.find(params[:chirp_id])
