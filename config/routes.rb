@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   get "usr/releases", to: 'user_profile_settings#releases'
   get "usr/chirp_feeds", to: 'user_profile_settings#chirp_feeds'
   get "usr/notifications", to: 'user_profile_settings#notifications'
-  
+  put "usr/update_notification_settings", to: 'user_profile_settings#update_notification_settings', :as => 'update_notification_settings'
   
   get "get_feed_token", to: "feeds#get_feed_token"
   get "add_feed_item", to: "feeds#add_feed_item"

@@ -36,13 +36,13 @@
             <% @billing_order_histories.each_with_index do |history, index| %>
               <tr class="<%= index.even? ? "grey" : "dark-grey" %>">
                 <td>
-                  <%= history.order_id %>
+                  <%= history.id %>
                 </td>
                 <td>
-                  <%= history.transaction_date.strftime("%m/%d/%Y")[0..-5] + history.transaction_date.strftime("%m/%d/%Y")[-2..-1] %>
+                  <%= history.created_at.strftime("%m/%d/%Y")[0..-5] + history.created_at.strftime("%m/%d/%Y")[-2..-1] %>
                 </td>
                 <td>
-                  <%= history.product %>
+                  <%= history.type %>
                 </td>
                 <td>
                   <%= history.amount %>
