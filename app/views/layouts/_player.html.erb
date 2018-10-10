@@ -38,25 +38,36 @@
               current_user.has_role?(:admin) ||
               current_user.has_role?(:artist) ) %>
 
-          <button id="jp-playlist-btn" class="<%= 'mr-4' unless @credits %>">
+          <button id="jp-playlist-btn">
             <%= show_svg 'icons/playlist1.svg' %>
           </button>
           
-          <% if @credits %>
-            <div class="credits-menu mr-4">
-              <button type="button" data-toggle="collapse" data-target="#credits-count" aria-expanded="false" aria-controls="collapseExample" class="credits-btn">
-                <%= show_svg 'icons/egg-basket.svg' %>
-                <%= pluralize(@credits, "egg") %>
-              </button>
+        <% end %>
+        <% if @credits %>
+          <div class="credits-menu mr-4">
+            <button type="button" data-toggle="collapse" data-target="#credits-count" aria-expanded="false" aria-controls="collapseExample" class="credits-btn">
+              <%= show_svg 'icons/egg-basket.svg' %>
+              <%= pluralize(@credits, "egg") %>
+            </button>
 
-              <div id="credits-count" class="collapse credits-dropdown">
-                <span class="text-nowrap mb-1 d-inline-block">
-                  You have <%= @credits %> download credits
-                </span>
-                <%=link_to "Buy More", get_more_credits_path, class: "btn c-btn-blue c-btn-sm" %>
-              </div>
+            <div id="credits-count" class="collapse credits-dropdown">
+              <span class="text-nowrap mb-1 d-inline-block">
+                You have <%= @credits %> download credits
+              </span>
+              <%=link_to "Buy More", get_more_credits_path, class: "btn c-btn-blue c-btn-sm" %>
             </div>
-          <% end %>
+          </div>
+        <% else %>
+          <button type="button" data-toggle="collapse" data-target="#credits-ability" aria-expanded="false" aria-controls="collapseExample" class="credits-btn mr-4">
+            <%= show_svg 'icons/egg-basket.svg' %>
+          </button>
+
+          <div id="credits-ability" class="collapse credits-dropdown">
+            <div class="text-nowrap mb-1">
+              This function is only for paid members
+            </div>
+            <%=link_to "Upgrade to participate", choose_profile_path, class: "btn c-btn-blue c-btn-sm" %>
+          </div>
         <% end %>
 
         <div class="jp-progress-container" style="width: 200px">
@@ -67,7 +78,7 @@
       <div class="jp-release-playlist" style="display: none;">
       </div>
 
-      <div class="jp-playlist <%= 'with-eggs' if @credits %>" style="display: none;">
+      <div class="jp-playlist" style="display: none;">
         
         <% if current_user %>
           <div class="jp-playlist-name"></div>
