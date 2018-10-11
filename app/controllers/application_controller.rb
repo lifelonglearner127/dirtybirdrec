@@ -63,7 +63,6 @@ class ApplicationController < ActionController::Base
         @notify_activities = @enricher.enrich_aggregated_activities(unseen)
       end
 
-      debugger
       if current_user.braintree_subscription_expires_at && 
           (current_user.subscription_length == 'monthly_vib' ||
            current_user.subscription_length == 'yearly_vib' ||

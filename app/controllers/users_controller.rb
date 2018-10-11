@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.where(id: params[:id]).any? ?  User.where(id: params[:id]).first : User.where(profile_url: params[:id]).any? ? User.where(profile_url: params[:id]).first : nil
     @data_feed = current_user.id == @user.id ? "timeline_aggregated" : "user"
 
     fan_vars
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
   end
 
   def artist
-    @user = User.find(params[:id])
+    @user = User.where(id: params[:id]).any? ?  User.where(id: params[:id]).first : User.where(profile_url: params[:id]).any? ? User.where(profile_url: params[:id]).first : nil
 
     if !@user.has_role?(:admin) && !@user.has_role?(:artist)
       redirect_to user_path(@user) and return
@@ -291,7 +291,7 @@ class UsersController < ApplicationController
     unless current_user.additional_info_set? || current_user.has_role?(:admin)
       redirect_to choose_profile_path and return
     end
-
+    
     redirect_to correct_user_path(current_user)
   end
 

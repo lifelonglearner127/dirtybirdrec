@@ -39,13 +39,13 @@
                   <%= download.created_at.strftime("%m/%d/%Y")[0..-5] + download.created_at.strftime("%m/%d/%Y")[-2..-1] %>
                 </td>
                 <td>
-                  <%= download.track.title%>
+                  <%= download.track ? download.track.title : '' %>
                 </td>
                 <td>
-                  <%= download.track.release.title %>
+                  <%= download.track ? download.track.release.title : '' %>
                 </td>
                 <td>
-                  <%= download.track.release.release_type %>
+                  <%= download.track ? download.track.release.release_type : '' %>
                 </td>
                 <td>
                   <div class="download-type">

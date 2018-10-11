@@ -9,6 +9,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update_profile
+    debugger
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
@@ -36,21 +37,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update_account
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
-    resource_updated = resource.update_with_password(account_update_params)
-    yield resource if block_given?
-    if resource_updated
-      if is_flashing_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :update_needs_confirmation : :updated
-        set_flash_message :notice, flash_key
+    existing_profile_url_user = User.where(profile_url: account_update_params[:profile_url])
+    debugger
+    if !existing_profile_url_user.any? or (existing_profile_url_user.any? and existing_profile_url_user.first.id == current_user.id)
+      resource_updated = resource.update_with_password(account_update_params)
+      yield resource if block_given?
+      if resource_updated
+        if is_flashing_format?
+          flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+            :update_needs_confirmation : :updated
+          set_flash_message :notice, flash_key
+        end
+        bypass_sign_in resource, scope: resource_name
+        respond_with resource, location: after_update_path_for(resource)
+      else
+        clean_up_passwords resource
+        set_minimum_password_length
+        redirect_to usr_edit_account_path(resource)
       end
-      bypass_sign_in resource, scope: resource_name
-      respond_with resource, location: after_update_path_for(resource)
     else
-      clean_up_passwords resource
-      set_minimum_password_length
-      respond_with resource
+        clean_up_passwords resource
+        set_minimum_password_length
+        redirect_to usr_edit_account_path(resource), :flash => { :alert => "Profile Url already exists" }
     end
   end
 
@@ -72,12 +80,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  # def account_update_params
-  #   params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :profile_url)
-  # end
-
   def account_update_params
-    devise_parameter_sanitizer.sanitize(:account_update)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :t_shirt_size, :birthdate, :gender, :shipping_address, :address_quarter, :address_country, :address_city, :address_state, :address_zip, :profile_url)
   end
 
 end

@@ -51,11 +51,19 @@ module ApplicationHelper
 
   def correct_user_path user
     if user.has_role?(:artist)
-      return artist_path user
+      if !user.profile_url
+        return artist_path user.id
+      else 
+        return artist_path user.profile_url
+      end
     elsif user.has_role?(:admin)
       return admin_path user
     else
-      return user_path user
+      if !user.profile_url
+        return user_path user.id
+      else
+        return user_path user.profile_url
+      end
     end
   end
 
