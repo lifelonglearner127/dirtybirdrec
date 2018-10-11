@@ -9,7 +9,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update_profile
-    debugger
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
@@ -81,7 +80,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def account_update_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :t_shirt_size, :birthdate, :gender, :shipping_address, :address_quarter, :address_country, :address_city, :address_state, :address_zip, :profile_url)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :t_shirt_size, :birthdate, :gender, :shipping_address, :address_quarter, :address_country, :address_city, :address_state, :address_zip, :profile_url, :header_id)
   end
 
 end

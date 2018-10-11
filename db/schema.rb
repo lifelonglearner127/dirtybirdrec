@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181009102332) do
+ActiveRecord::Schema.define(version: 20181011195617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -238,6 +238,13 @@ ActiveRecord::Schema.define(version: 20181009102332) do
     t.index ["followable_id"], name: "index_follows_on_followable_id"
     t.index ["user_id", "followable_id", "followable_type"], name: "index_follows_on_user_id_and_followable_id_and_followable_type", unique: true
     t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
+  create_table "headers", force: :cascade do |t|
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "description"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -631,7 +638,9 @@ ActiveRecord::Schema.define(version: 20181009102332) do
     t.boolean "code_of_conduct", default: false
     t.string "profile_url"
     t.boolean "open_for_follow", default: false
+    t.bigint "header_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["header_id"], name: "index_users_on_header_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -656,4 +665,5 @@ ActiveRecord::Schema.define(version: 20181009102332) do
   add_foreign_key "billing_order_histories", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "promo_areas", "topic_categories"
+  add_foreign_key "users", "headers"
 end

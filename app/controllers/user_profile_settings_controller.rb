@@ -12,6 +12,7 @@ class UserProfileSettingsController < ApplicationController
 	end
 
 	def headers
+    @headers = Header.all
 	end
 
 	def skins
@@ -79,6 +80,15 @@ class UserProfileSettingsController < ApplicationController
       redirect_to root_path
     else
       redirect_to 'notifications'
+    end
+  end
+
+  def update_user_header
+    @header = Header.find(params[:header][:id])
+    if current_user.update(header_id: params[:header][:id])
+      redirect_to root_path
+    else
+      redirect_to root_path
     end
   end
 
