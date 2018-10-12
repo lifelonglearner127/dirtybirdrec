@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   
   before_action :set_notifications#, only: [:edit]
-  prepend_before_action :authenticate_scope!, only: [:edit_profile, :edit_account]
+  prepend_before_action :authenticate_scope!, only: [:edit_profile, :edit_account, :update_account, :update_profile, :destroy]
   prepend_before_action :set_minimum_password_length, only: [:edit_profile, :edit_account]
 
   def edit_profile
@@ -37,7 +37,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     existing_profile_url_user = User.where(profile_url: account_update_params[:profile_url])
-    debugger
     if !existing_profile_url_user.any? or (existing_profile_url_user.any? and existing_profile_url_user.first.id == current_user.id)
       resource_updated = resource.update_with_password(account_update_params)
       yield resource if block_given?
@@ -60,6 +59,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
         redirect_to usr_edit_account_path(resource), :flash => { :alert => "Profile Url already exists" }
     end
   end
+
+  # DELETE /resource
+  def destroy
+    resource.soft_delete
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    set_flash_message :notice, :destroyed
+    yield resource if block_given?
+    redirect_to after_sign_out_path_for(resource_name)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+  end  
 
   protected
 

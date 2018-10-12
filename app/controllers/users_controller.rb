@@ -64,7 +64,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.where(id: params[:id]).any? ?  User.where(id: params[:id]).first : User.where(profile_url: params[:id]).any? ? User.where(profile_url: params[:id]).first : nil
+    @user = User.where(id: params[:id])
+    if @user.any?
+      @user = @user.first
+    else 
+      @user = User.where(profile_url: params[:id])
+      if @user.any?
+        @user = @user.first
+      else
+        @user = nil
+      end
+    end
     @data_feed = current_user.id == @user.id ? "timeline_aggregated" : "user"
 
     fan_vars
@@ -97,8 +107,17 @@ class UsersController < ApplicationController
   end
 
   def artist
-    @user = User.where(id: params[:id]).any? ?  User.where(id: params[:id]).first : User.where(profile_url: params[:id]).any? ? User.where(profile_url: params[:id]).first : nil
-
+    @user = User.where(id: params[:id])
+    if @user.any?
+      @user = @user.first
+    else 
+      @user = User.where(profile_url: params[:id])
+      if @user.any?
+        @user = @user.first
+      else
+        @user = nil
+      end
+    end
     if !@user.has_role?(:admin) && !@user.has_role?(:artist)
       redirect_to user_path(@user) and return
     elsif @user.has_role? :admin
@@ -310,6 +329,9 @@ class UsersController < ApplicationController
   end
 
   def choose_profile
+  end
+
+  def final_cancellation
   end
 
   def get_more_credits

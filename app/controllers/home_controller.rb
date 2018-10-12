@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   include StreamRails::Activity
 
   before_action :authenticate_user!, 
-      except: [:index, :about, :birdfeed, :share, :report, :pricing, :information]
+      except: [:index, :about, :birdfeed, :share, :report, :pricing, :information, :final_cancellation]
   before_action :set_notifications, only: [:about, :birdfeed, :pricing, :information]
 
   def index
@@ -42,6 +42,9 @@ class HomeController < ApplicationController
   end
 
   def information
+  end
+
+  def final_cancellation
   end
 
   def birdfeed

@@ -99,7 +99,7 @@
             <input type="text" />
           </div>
           <div class="col col-lg-4 cancel-account">
-            <%= button_to "CANCEL ACCOUNT", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-sm" %>
+            <%= link_to "CANCEL ACCOUNT", usr_cancel_account_path, class: "btn btn-sm" %>
           </div>
         </div>
       </div>

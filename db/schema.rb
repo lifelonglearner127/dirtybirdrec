@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181011195617) do
+ActiveRecord::Schema.define(version: 20181012123846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,15 @@ ActiveRecord::Schema.define(version: 20181011195617) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_billing_order_histories_on_user_id"
+  end
+
+  create_table "cancellations", force: :cascade do |t|
+    t.string "why_cancel_account"
+    t.string "your_thoughts"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_cancellations_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -639,6 +648,7 @@ ActiveRecord::Schema.define(version: 20181011195617) do
     t.string "profile_url"
     t.boolean "open_for_follow", default: false
     t.bigint "header_id"
+    t.datetime "deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["header_id"], name: "index_users_on_header_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -663,6 +673,7 @@ ActiveRecord::Schema.define(version: 20181011195617) do
   end
 
   add_foreign_key "billing_order_histories", "users"
+  add_foreign_key "cancellations", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "promo_areas", "topic_categories"
   add_foreign_key "users", "headers"
