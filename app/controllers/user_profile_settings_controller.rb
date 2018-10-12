@@ -3,7 +3,7 @@ class UserProfileSettingsController < ApplicationController
   include ReleasesHelper
   
   before_action :authenticate_user!
-  before_action :set_notifications, only: [:rewards, :egg_credits, :headers, :skins, :downloads, :billing_order_history, :friends, :artists, :releases, :chirp_feeds, :notifications]
+  before_action :set_notifications, only: [:rewards, :egg_credits, :headers, :skins, :downloads, :billing_order_history, :friends, :artists, :releases, :chirp_feeds, :notifications, :cancel_account, :cancel_account_perform]
   before_action :set_user
 	def rewards
 	end	
@@ -12,6 +12,7 @@ class UserProfileSettingsController < ApplicationController
 	end
 
 	def headers
+    @headers = Header.all
 	end
 
 	def skins
@@ -82,6 +83,42 @@ class UserProfileSettingsController < ApplicationController
     end
   end
 
+  def update_user_header
+    @header = Header.find(params[:header][:id])
+    if current_user.update(header_id: params[:header][:id])
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
+  end
+
+  def cancel_account
+
+  end
+
+  def cancel_account_perform
+    if params[:submit_source] == "CANCEL MY MEMBERSHIP LEVEL"
+      current_user.cancel_braintree_subscription
+
+      flash[:notice] = 'Subscription was canceled'
+      if create_cancellation
+        Devise.sign_out_all_scopes ? sign_out : sign_out(:user)
+        redirect_to final_cancellation_path
+      else
+        redirect_to usr_cancel_account_path
+      end
+    else
+      current_user.soft_delete
+      if create_cancellation
+        Devise.sign_out_all_scopes ? sign_out : sign_out(:user)
+        yield current_user if block_given?
+        redirect_to final_cancellation_path
+      else
+        redirect_to usr_cancel_account_path
+      end
+    end
+  end
+
 private
 	def set_user
 		@user = current_user
@@ -89,5 +126,13 @@ private
 
   def notification_params
     params.require(:notification).permit(:id, :sound_main, :desktop_main, :email_important, :email_newsletter, :email_gaming, :social_profile_new_friend_alert, :social_profile_new_friend_email, :social_profile_new_favorite_alert, :social_profile_new_favorite_email, :social_feeds_comment_alert, :social_feeds_comment_email, :social_feeds_reply_alert, :social_feeds_reply_email, :social_feeds_follow_alert, :social_feeds_follow_email, :social_friends_new_alert, :social_friends_new_email, :social_friends_comment_alert, :social_friends_comment_email, :social_friends_follow_alert, :social_friends_follow_email, :social_playlists_new_alert, :social_playlists_new_email)
+  end
+
+  def cancellation_params
+    params.permit(:why_cancel_account, :your_thoughts)
+  end
+
+  def create_cancellation
+      current_user.cancellations.create(cancellation_params)    
   end
 end

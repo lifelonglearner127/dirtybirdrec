@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
            current_user.subscription_length == 'monthly_old')
         @credits = current_user.download_credits
       else
-        @credits = nil
+        @credits = 0
       end
 
       if current_user.has_role?(:artist)

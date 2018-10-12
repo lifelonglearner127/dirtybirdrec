@@ -109,7 +109,10 @@
 	    .cancel-account {
 	    	text-align: right;
 
-	    	input {
+	    	a {
+          position: absolute;
+          right: 0px;
+          top: 30px;
 			    font-size: 12px;
 			    color: #afafaf;
 			    font-family: Phosphate-solid;
@@ -117,7 +120,6 @@
 			    border: 1px solid #faae03;
 			    height: 30px;
 			    width: 185px;
-			    margin-right: -30px;	    	
 	    	}
 	    }
 	}

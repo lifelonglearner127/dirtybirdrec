@@ -17,25 +17,29 @@
   </div>
   
   <div class="user-bgrd">
-    <% case avatar_style(@user) %>
-    <% when 'ninja-style' %>
-      <%= image_tag 'headers/ninja-bacon.jpg' %>
-    <% when 'admin-style' %>
-      <%= image_tag 'headers/admin-admin.jpg' %>
-    <% when 'boss-style' %>
-      <%= image_tag 'headers/bossbird.jpg' %>
-    <% when 'intern-style' %>
-      <%= image_tag 'headers/Intern.jpg' %>
-    <% when 'artist-style' %>
-      <%= image_tag 'headers/Homey-Bird.jpg' %>
-    <% when 'insider-style' %>
-      <%= image_tag 'headers/Insider_bird.jpg' %>
-    <% when 'vib-style' %>
-      <%= image_tag 'headers/VIB-bird.jpg' %>
-    <% when 'homey-style' %>
-      <%= image_tag 'headers/Homey-Bird.jpg' %>
+    <% if !current_user.header %>
+      <% case avatar_style(@user) %>
+      <% when 'ninja-style' %>
+        <%= image_tag 'headers/ninja-bacon.jpg' %>
+      <% when 'admin-style' %>
+        <%= image_tag 'headers/admin-admin.jpg' %>
+      <% when 'boss-style' %>
+        <%= image_tag 'headers/bossbird.jpg' %>
+      <% when 'intern-style' %>
+        <%= image_tag 'headers/Intern.jpg' %>
+      <% when 'artist-style' %>
+        <%= image_tag 'headers/Homey-Bird.jpg' %>
+      <% when 'insider-style' %>
+        <%= image_tag 'headers/Insider_bird.jpg' %>
+      <% when 'vib-style' %>
+        <%= image_tag 'headers/VIB-bird.jpg' %>
+      <% when 'homey-style' %>
+        <%= image_tag 'headers/Homey-Bird.jpg' %>
+      <% else %>
+        <%= image_tag 'headers/chirp_bird.jpg' %>
+      <% end %>
     <% else %>
-      <%= image_tag 'headers/chirp_bird.jpg' %>
+      <%= image_tag current_user.header.url %>
     <% end %>
   </div>
 

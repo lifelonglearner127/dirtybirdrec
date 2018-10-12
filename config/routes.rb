@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get "terms_and_conduct", to: "users#terms_and_conduct"
   delete "cancel_subscription", to: "users#cancel_subscription"
   get "home", to: "users#home"
+  get "final_cancellation", to: "home#final_cancellation"
 
   post "report", to: "home#report"
 
@@ -45,8 +46,11 @@ Rails.application.routes.draw do
   get "usr/releases", to: 'user_profile_settings#releases'
   get "usr/chirp_feeds", to: 'user_profile_settings#chirp_feeds'
   get "usr/notifications", to: 'user_profile_settings#notifications'
+  get "usr/cancel_account", to: 'user_profile_settings#cancel_account'
   put "usr/update_notification_settings", to: 'user_profile_settings#update_notification_settings', :as => 'update_notification_settings'
-  
+  put "usr/update_user_header", to: 'user_profile_settings#update_user_header', :as => 'update_user_header'
+  delete "usr/cancel_account", to: 'user_profile_settings#cancel_account_perform'
+
   get "get_feed_token", to: "feeds#get_feed_token"
   get "add_feed_item", to: "feeds#add_feed_item"
   get "add_notify_item", to: "feeds#add_notify_item"

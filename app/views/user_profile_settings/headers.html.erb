@@ -25,16 +25,25 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-6">
-              <label class="header-label">CVS Seasonal Opener 2018  </label>
-              <div class="header-content">
-                <%= image_tag 'user_profile_settings/header_1.png'%>
-                <button class="apply">
-                  APPLY HEADER
-                </button>
+            <% @headers.each do |header| %>
+              <div class="col-sm-6">
+                <%=form_for header, url: update_user_header_path, html: {method: 'put'} do |f| %>
+                  <%= f.hidden_field :id %>
+                  <label class="header-label"><%= header.description %>  </label>
+                  <div class="header-content">
+                    <%= image_tag header.url, class: 'header-img' %>
+                    <% if current_user.header_id == header.id %>
+                      <button class="current">
+                        CURRENT HEADER
+                      </button>
+                    <% else %>
+                      <%= f.submit "APPLY HEADER", class:"apply" %>
+                    <% end %>
+                  </div>
+                <% end %>
               </div>
-            </div>
-            <div class="col-sm-6">
+            <% end %>
+<!--             <div class="col-sm-6">
               <label class="header-label">VIB Header   </label>
               <div class="header-content">
                 <%= image_tag 'user_profile_settings/header_2.png'%>
@@ -78,7 +87,7 @@
                   APPLY HEADER
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

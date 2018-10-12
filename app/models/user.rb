@@ -62,6 +62,8 @@ class User < ApplicationRecord
   has_many :recently_items
   has_many :billing_order_histories
   has_one :notification, foreign_key: "user_id"
+  belongs_to :header, optional: true
+  has_many :cancellations
   
   include AlgoliaSearch
 
@@ -70,6 +72,17 @@ class User < ApplicationRecord
   end
 
 
+  def soft_delete  
+    update_attribute(:deleted_at, Time.current)  
+  end  
+  
+  def active_for_authentication?  
+    super && !deleted_at  
+  end  
+  
+  def inactive_message   
+    !deleted_at ? super : :deleted_account  
+  end  
 
   def badges_by_kind kind
     badge_kind = BadgeKind.find_by(ident: kind)
