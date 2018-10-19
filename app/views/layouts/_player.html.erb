@@ -438,14 +438,14 @@
     if ( (sameSource && btnData.trackIndex === undefined) ||
          (sameSource && btnData.trackIndex !== undefined && sameIndex) ) {
       cpAudio.isPlaying() ? cpAudio.pause() : cpAudio.play();
-      updatePlayerState(topData.sourceType, topData.sourceId, topData.trackIndex, !!btnData.virtual);
+      updatePlayerState(topData.sourceType, topData.sourceId, topData.trackIndex, false);
     } else if (sameSource && btnData.trackIndex !== undefined && !sameIndex) {
       currentTrackIndex = btnData.trackIndex;
-      playerLoad(0, !!btnData.virtual, btnData.sourceType, btnData.sourceId);
+      playerLoad(0, false, btnData.sourceType, btnData.sourceId);
 
       cpAudio.on('ready', function(){
         cpAudio.play();
-        updatePlayerState(btnData.sourceType, btnData.sourceId, btnData.trackIndex, !!btnData.virtual);
+        updatePlayerState(btnData.sourceType, btnData.sourceId, btnData.trackIndex, false);
       });
 
       $.ajax({
@@ -467,7 +467,7 @@
             play: true, 
             currentTrack: btnData.trackIndex || 0, 
             currentTime: 0, 
-            virtual: !!btnData.virtual, 
+            virtual: false, 
             newPlaylist: true, 
             sourceType: btnData.sourceType, 
             sourceId: btnData.sourceId
@@ -548,7 +548,9 @@
 
     if (!virtual) {
       $.post('/sync_playlist', 
-        { current_track: currentTrackIndex }); 
+        { add_tracks_ids: playlist.map(x => x['id']), 
+          current_track: currentTrackIndex,
+          default_playlist: true }); 
     }
   }
 

@@ -15,6 +15,7 @@ class PlaylistsController < ApplicationController
   end
 
   def load
+
     if current_user
       if current_user.current_playlist_id.present?
         if params[:playlist_id].present?
@@ -24,14 +25,12 @@ class PlaylistsController < ApplicationController
           playlist = current_user.current_playlist
         end
       else # initial load
-        playlist = Playlist.create(
-          user: current_user, 
-          tracks_ids: Track.last.id, 
-          current_track: "0:0" )
+        playlist = current_user.playlists.create(default: true, name: 'last listened')
         current_user.update_attributes(current_playlist_id: playlist.id)
       end
     else
       track = Release.published.first.tracks.first
+
       render json: { 
           tracks: [ track_as_json( TrackPresenter.new( track, nil, @browser ) ) ] 
         }
@@ -69,12 +68,24 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find params[:id]
 
     if @playlist.user_id == current_user.id
+      @playlist.default = false
+      current_user.playlists.create(default: true, name: 'last listened')
       @playlist.update_attributes(playlist_params)
     end
   end
 
   def sync_playlist
-    if current_user && current_user.current_playlist.present?
+    return render json {} unless current_user
+
+    if params[:default_playlist] == 'true'
+      if !current_user.playlists.pluck(:default).include?(true)
+        current_user.playlists.create(default: true, name: 'last listened')
+      end
+
+      default_playlist = current_user.playlists.where(default: true).first
+      default_playlist.update_attributes(tracks_ids: params[:add_tracks_ids].join(','))
+      current_user.update_attributes(current_playlist_id: default_playlist.id)
+    elsif current_user.current_playlist.present?
       playlist = current_user.current_playlist
 
       if params[:add_tracks_ids].present?

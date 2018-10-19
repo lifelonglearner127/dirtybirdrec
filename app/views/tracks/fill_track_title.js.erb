@@ -107,7 +107,7 @@ var list = `
               source_id: @release.id,
               track_index: @release.tracks.map(&:id).index(track.id),
               track_id: track.id,
-              virtual: true
+              virtual: false
             },
             remote: true %>
 

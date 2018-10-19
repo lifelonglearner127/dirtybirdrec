@@ -16,7 +16,7 @@
     border: 10px solid transparent;
     border-bottom: 5px solid white;
     top: -15px;
-    right: 30px;
+    right: 110px;
     z-index: 3;
   }
 }
@@ -108,6 +108,8 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    max-height: 400px;
+    overflow: scroll;
   }
 
   li {

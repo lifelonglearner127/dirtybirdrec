@@ -532,6 +532,10 @@ class User < ApplicationRecord
     playlist
   end
 
+  def default_playlist
+    playlists.where(default: true).last
+  end
+
 
   def self.batch_follow_to_general_actions id=nil
     if id
