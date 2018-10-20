@@ -75,7 +75,7 @@ class PlaylistsController < ApplicationController
   end
 
   def sync_playlist
-    return render json {} unless current_user
+    return unless current_user
 
     if params[:default_playlist] == 'true'
       if !current_user.playlists.pluck(:default).include?(true)

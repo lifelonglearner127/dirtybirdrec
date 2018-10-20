@@ -369,7 +369,7 @@
     </div>
   </div>
 
-  <% [@ninja, current_user].uniq.each do |report_for| %>
+  <% [@ninja, current_user].uniq.compact.each do |report_for| %>
     <div class="modal modal-blured" id="headerReportModal<%= report_for.id %>" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-wide" role="document">
         <div class="modal-content">
