@@ -6,7 +6,11 @@ var ready = function() {
   $(window).off('scroll.popupLogin');
   var loginByTime;
   clearTimeout(loginByTime);
-  if($("#notify-menu").length === 0 && $('.signup-header').length === 0) {
+
+  if ( $("#notify-menu").length === 0 && 
+       $('.signup-header').length === 0 &&
+       window.location.pathname !== '/'
+       ) {
     loginByTime = setTimeout(function(){
       $('#signInModal').modal('show');
     }, 15000);
