@@ -17,7 +17,7 @@
   </div>
   
   <div class="user-bgrd">
-    <% if !current_user.header %>
+    <% if !@user.header %>
       <% case avatar_style(@user) %>
       <% when 'ninja-style' %>
         <%= image_tag 'headers/ninja-bacon.jpg' %>
@@ -39,7 +39,7 @@
         <%= image_tag 'headers/chirp_bird.jpg' %>
       <% end %>
     <% else %>
-      <%= image_tag current_user.header.url %>
+      <%= image_tag @user.header.url %>
     <% end %>
   </div>
 
