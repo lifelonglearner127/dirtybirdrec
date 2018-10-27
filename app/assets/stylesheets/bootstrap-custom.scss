@@ -55,23 +55,57 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 435px;
   margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 992px) { 
+  .modal-body {
+    width: 435px;
+  }
 }
 
 .navbar {
-  top: 40px;
+  top: 0px;
   height: 60px;
   background-color: #3ed4e0;
   transition: top 0.3s;
-}
-
-.fixed-top {
-  // top: 20px;
+  align-items: flex-start;
 }
 
 .navbar-nav {
   font-size: 12px;
+  text-align: center;
+}
+
+.nav-divider {
+  display: none;
+}
+
+.navbar-controls {
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+
+  .dropdown.show {
+    position: static;
+
+    .dropdown-menu {
+      position: absolute;
+      top: 30px;
+      z-index: 2;
+    }
+  }
+}
+
+@media (min-width: 992px) { 
+  .navbar {
+    top: 40px;
+  }
+
+  .nav-divider {
+    display: block;
+  }
 }
 
 .active > .nav-link {

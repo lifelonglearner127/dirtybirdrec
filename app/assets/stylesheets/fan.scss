@@ -109,10 +109,17 @@
   padding: 7px 10px 0;
   text-align: center;
   height: 100%;
+  display: none;
 
   h4 {
     color: #e3e3e3;
     font-size: 11px;
+  }
+}
+
+@media (min-width: 992px) { 
+  .fan-points {
+    display: block;
   }
 }
 

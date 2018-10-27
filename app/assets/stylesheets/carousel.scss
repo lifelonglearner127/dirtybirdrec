@@ -100,12 +100,13 @@
   border-bottom: 9px solid #3ed4e0;
   margin-left: -15px;
   margin-right: -15px;
-  height: 244px;
+  height: auto;
   background-image: url('/images/birdfeed-header.jpg');
+  background-size: cover;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 
- .promo-link {
+  .promo-link {
     width: 134px;
     height: 48px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
@@ -124,16 +125,20 @@
     bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
+    white-space: nowrap;
   }
 
   .promo-blocks {
     display: flex;
     justify-content: center;
     margin-top: 50px;
+    margin-bottom: 30px;
+    align-items: center;
+    flex-direction: column;
   }
 
   .promo-block {
-    margin: 0 20px;
+    margin: 10px 0;
     width: 352px;
     height: 117px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
@@ -192,5 +197,21 @@
     left: 50%;
     top: -28px;
     transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 992px) { 
+  .home-promo {
+    height: 244px;
+    margin-bottom: 20px;
+
+    .promo-blocks {
+      margin-bottom: 0;
+      flex-direction: row;
+    }
+
+    .promo-block {
+      margin: 0 20px;
+    }
   }
 }

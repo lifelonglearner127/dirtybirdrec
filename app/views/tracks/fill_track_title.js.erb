@@ -3,7 +3,7 @@ var jp_title = `
     <%= '%02i' % @track.track_number %>
     <%= "#{@track.title} - #{@track.artists}" %>
   </div>`;
-var release_img = '<%= image_tag(@release.avatar.url(:thumb), style: "width: 28px; height: 28px; border-radius: 2px; margin: 0 5px 0 10px;") %>&nbsp;';
+var release_img = '<%= image_tag(@release.avatar.url(:thumb), style: "width: 28px; height: 28px; border-radius: 2px;") %>&nbsp;';
 var add_release = '<button class="playlist-add-source" data-source-type="release" data-source-id="<%= @release.id %>">+</button>';
 var like = '<%= escape_javascript( render "likes/like_button", object: @track )%>';
   var user_rate_track = '<div class="rate-track-btn">Rate</div>';
@@ -45,6 +45,8 @@ var release_menu;
                         ${release_img}
                         ${jp_title}
                       </button>`;
+<% else %>
+  release_menu = `${release_img} ${jp_title}`;
 <% end %>
 
 $('.jp-details').html('');
@@ -61,8 +63,8 @@ $('.pp-track').html('<%= @track.title %>');
 $('.pp-artist').html('<%= @track.artists %>');
 $('.pp-like').html(like);
 $('.pp-add .playlist-add-track').data('trackId', '<%= @track.id %>');
-$('.pp-rate').html(rate);
-$('.pp-rate').children('.star').each(ratyRate);
+// $('.pp-rate').html(rate);
+// $('.pp-rate').children('.star').each(ratyRate);
 $('.pp-download').html(download);
 $('.pp-share').html(share);
 

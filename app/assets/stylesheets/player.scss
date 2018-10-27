@@ -7,9 +7,8 @@
   transition: top 0.3s;
   z-index: 1061;
   font-family: "Roboto Mono";
-  display: inline-block;
   text-align: center;
-  // display: none;
+  display: none;
 
   .jp-controls {
     padding: 12px 0;
@@ -22,6 +21,22 @@
       vertical-align: middle;
       width: 20px;
     }
+  }
+}
+
+@media (max-width: 1260px) { 
+  .nav-rate-track-wrapper .nav-track-star {
+    display: none;
+  }
+
+  .credits-count-text {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) { 
+  .player-top {
+    display: inline-block;
   }
 }
 
@@ -236,6 +251,8 @@
 }
 
 .jp-title {
+  max-width: 200px;
+  overflow: scroll;
 
   a:hover {
     color: #3ed4e0;

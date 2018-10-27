@@ -41,7 +41,7 @@ gem 'groupdate'
 
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'aws-sdk'
 gem 'fog-aws'

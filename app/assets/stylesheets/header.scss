@@ -22,10 +22,10 @@ header {
   border: none;
   cursor: pointer;
   padding-top: 6px;
+  width: 100%;
+  
   &:hover, &:focus, &:active {
     outline: none;
-    zoom: 105%;
-    padding-left: 7px !important;
   }
 }
 
@@ -148,7 +148,13 @@ header {
 }
 
 .modal-dialog-wide {
-  min-width: 800px;
+  min-width: unset;
+}
+
+@media (min-width: 992px) { 
+  .modal-dialog-wide {
+    min-width: 800px;
+  }
 }
 
 .modal-text {
@@ -189,8 +195,8 @@ header {
 
 .modal-button {
   display: block;
-  width: 338px;
   height: 50px;
+  width: 100%;
   line-height: 50px;
   text-align: center;
   margin-bottom: 10px;
@@ -202,6 +208,12 @@ header {
   transition: background-color 0.2s;
   &:hover, &:focus, &:active {
     color: white;
+  }
+}
+
+@media (min-width: 576px) { 
+  .modal-button {
+    width: 338px;
   }
 }
 

@@ -85,9 +85,14 @@ main {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  padding-top: 100px;
-  // padding-top: 80px;
+  padding-top: 60px;
   background-color: #4b4b4b;
+}
+
+@media (min-width: 992px) { 
+  main {
+    padding-top: 100px;
+  }
 }
 
 main > div.container {
