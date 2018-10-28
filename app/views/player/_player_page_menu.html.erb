@@ -31,21 +31,23 @@
               id: "playlist-select-releases" %>
         </li>
         <li class="playlist-nav-subheader">Library&nbsp;</li>
-        <li class="<%= 'active' if current_page?(playlists_path(user_id: current_user.id)) %>">
-          <%= link_to "Playlists", playlists_path(user_id: current_user.id), 
-              id: "playlist-user" %>
-        </li>
-        <li class="<%= 'active' if current_page?(player_favorites_path(current_user)) %>">
-          <%= link_to 'favorites', player_favorites_path(current_user) %>
-        </li>
-        <li class="<%= 'active' if current_page?(player_recently_tracks_path(current_user)) %>">
-          <%= link_to "Recently Played", player_recently_tracks_path(current_user),
-              id: "playlist-favorited-tracks" %>
-        </li>
-        <li class="<%= 'active' if current_page?(player_downloaded_tracks_path(current_user)) %>">
-          <%= link_to "Downloads", player_downloaded_tracks_path(current_user),
-              id: "playlist-favorited-tracks" %>
-        </li>
+        <% if current_user %>
+          <li class="<%= 'active' if current_page?(playlists_path(user_id: current_user.id)) %>">
+            <%= link_to "Playlists", playlists_path(user_id: current_user.id), 
+                id: "playlist-user" %>
+          </li>
+          <li class="<%= 'active' if current_page?(player_favorites_path(current_user)) %>">
+            <%= link_to 'favorites', player_favorites_path(current_user) %>
+          </li>
+          <li class="<%= 'active' if current_page?(player_recently_tracks_path(current_user)) %>">
+            <%= link_to "Recently Played", player_recently_tracks_path(current_user),
+                id: "playlist-favorited-tracks" %>
+          </li>
+          <li class="<%= 'active' if current_page?(player_downloaded_tracks_path(current_user)) %>">
+            <%= link_to "Downloads", player_downloaded_tracks_path(current_user),
+                id: "playlist-favorited-tracks" %>
+          </li>
+        <% end %>
         <li class="playlist-nav-subheader">Playlists&nbsp;</li>
         <% for playlist in @playlists %>
           <li class="<%= 'active' if current_page?(playlist_path(playlist)) %>">
