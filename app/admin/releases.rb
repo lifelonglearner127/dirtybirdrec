@@ -2,7 +2,7 @@ ActiveAdmin.register Release do
   filter :title
   filter :artist
 
-  permit_params :title, :artist, :catalog, :text, :avatar, :facebook_img,
+  permit_params :title, :artist, :catalog, :text, :avatar, :showcase, :facebook_img,
     :published_at, :upc_code, :compilation, :release_type, :buy_uri,
     :release_date, :artist_as_string,
     user_ids: [], tracks_attributes: [:id, :title, :release, :track_number,
@@ -83,6 +83,8 @@ ActiveAdmin.register Release do
       image = f.object.avatar.present? ? image_tag(f.object.avatar.url) : ''
       f.input :avatar, hint: image_tag(f.object.avatar.url(:large))
       f.input :avatar_cache, as: :hidden
+      f.input :showcase, hint: (image_tag(f.object.showcase.url) if f.object.showcase.present?)
+      f.input :showcase_cache, as: :hidden
       f.input :facebook_img
       f.input :title
       f.input :catalog

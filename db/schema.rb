@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181016074352) do
+ActiveRecord::Schema.define(version: 20181028202848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -420,6 +420,7 @@ ActiveRecord::Schema.define(version: 20181016074352) do
     t.string "buy_uri"
     t.string "assembly_id"
     t.boolean "assembly_complete"
+    t.string "showcase"
   end
 
   create_table "releases_users", id: false, force: :cascade do |t|

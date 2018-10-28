@@ -22,6 +22,7 @@ class Release < ApplicationRecord
   validates :title, :release_date, :published_at, :catalog, presence: true
 
   mount_uploader :avatar, ReleaseUploader
+  mount_uploader :showcase, DefaultUploader
 
   ratyrate_rateable "main"
 

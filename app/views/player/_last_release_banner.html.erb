@@ -1,6 +1,10 @@
 <% release = ReleasePresenter.new(Release.published.first, current_user) %>
 <div class="listen-banner">
-  <%= image_tag release.avatar.url(:large), class: "banner-img" %>
+  <% if release.showcase.present? %>
+    <%= image_tag release.showcase.url, class: "banner-img" %>
+  <% else %>
+    <%= image_tag release.avatar.url(:large), class: "banner-img" %>
+  <% end %>
 
   <%= link_to '', "#",
               data: {

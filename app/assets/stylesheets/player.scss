@@ -175,6 +175,10 @@
   outline: none !important;
   margin-left: 12px;
   font-size: 11px !important;
+
+  svg {
+    vertical-align: top;
+  }
 }
 
 .jp-volume-controls {
