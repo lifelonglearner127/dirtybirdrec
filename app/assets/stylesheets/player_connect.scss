@@ -53,6 +53,8 @@
   }
 
   .star {
+    display: none;
+    
     &:after {
       content: 'release rating';
       display: block;
@@ -98,8 +100,15 @@
   }
 }
 
-.player-main-area {
+@media (min-width: 576px) { 
+  .listen-banner {
+    .star {
+      display: inline-block;;
+    }
+  }
+}
 
+.player-main-area {
 
   .main-area-nav {
     height: 187px;
@@ -111,10 +120,6 @@
     a {
       color: #ffffff;
     }
-  }
-
-  .connect-nav {
-    height: 230px;
   }
 
   .connect-nav-item {

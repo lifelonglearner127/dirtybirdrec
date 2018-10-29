@@ -346,10 +346,10 @@
   }
 
   .text-1 {
-    line-height: 60px;
+    line-height: 40px;
     color: #3ed4e0;
     font-family: 'Phosphate-Inline';
-    font-size: 70px;
+    font-size: 40px;
     text-transform: uppercase;
   }
 
@@ -357,5 +357,12 @@
     color: #ffffff;
     font-family: 'Phosphate-Solid';
     font-size: 36px;
+  }
+}
+
+@media (min-width: 576px) { 
+  .success-banner .text-1 {
+    font-size: 70px;
+    line-height: 60px;
   }
 }

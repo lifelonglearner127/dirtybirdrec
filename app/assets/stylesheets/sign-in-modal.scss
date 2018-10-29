@@ -1,6 +1,14 @@
 #signInModal {
   .modal-dialog-centered {
-    width: 75vw;
+    width: 100%;
+  }
+}
+
+@media (min-width: 576px) { 
+  #signInModal {
+    .modal-dialog-centered {
+      width: 75vw;
+    }
   }
 }
 

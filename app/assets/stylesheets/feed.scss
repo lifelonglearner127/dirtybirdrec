@@ -268,3 +268,12 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
+
+@media (max-width: 575px) { 
+  .whats-in-your-mind {
+    position: absolute !important;
+    right: 7px;
+  }
+}
+

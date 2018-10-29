@@ -48,13 +48,13 @@
                 id: "playlist-favorited-tracks" %>
           </li>
         <% end %>
-        <li class="playlist-nav-subheader">Playlists&nbsp;</li>
-        <% for playlist in @playlists %>
-          <li class="<%= 'active' if current_page?(playlist_path(playlist)) %>">
-            <%= link_to playlist.name, playlist,
+<!--         <li class="playlist-nav-subheader">Playlists&nbsp;</li>
+        <%# for playlist in @playlists %>
+          <li class="<%#= 'active' if current_page?(playlist_path(playlist)) %>">
+            <%#= link_to playlist.name, playlist,
                 id: "playlist-#{playlist.id}" %>
           </li>
-        <% end %>
+        <%# end %> -->
       </ul>
     </div>
   </div>

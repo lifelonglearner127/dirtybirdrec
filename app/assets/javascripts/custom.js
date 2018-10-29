@@ -9,7 +9,10 @@ var ready = function() {
 
   if ( $("#notify-menu").length === 0 && 
        $('.signup-header').length === 0 &&
-       window.location.pathname !== '/'
+       window.location.pathname !== '/' &&
+       window.location.pathname !== '/usr/sign_in' &&
+       window.location.pathname !== '/usr/password/new'
+       
        ) {
     loginByTime = setTimeout(function(){
       $('#signInModal').modal('show');

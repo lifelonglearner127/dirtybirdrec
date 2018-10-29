@@ -76,7 +76,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    max-width: calc(100% - 10px);
+    padding-right: 10px;
   }
 
   .pp-artist {
@@ -87,7 +87,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    max-width: calc(100% - 10px);
+    padding-right: 10px;
 
     &:before {
       content: 'By ';
