@@ -528,7 +528,13 @@ class User < ApplicationRecord
   def current_playlist
     playlist = Playlist.find_by_id current_playlist_id
     playlist = playlists.last unless playlist
-    playlist = playlists.create unless playlist
+    unless playlist
+      tr = Release.published.first.tracks.first
+      playlist = playlists.create(
+            tracks_ids: tr.id,
+            default: true, 
+            name: 'last listened') 
+    end
     playlist
   end
 

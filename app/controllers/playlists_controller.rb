@@ -15,6 +15,8 @@ class PlaylistsController < ApplicationController
   end
 
   def load
+    tr = Release.published.first.tracks.first
+    track = TrackPresenter.new( tr, nil, @browser )
 
     if current_user
       if current_user.current_playlist_id.present?
@@ -25,21 +27,23 @@ class PlaylistsController < ApplicationController
           playlist = current_user.current_playlist
         end
       else # initial load
-        playlist = current_user.playlists.create(default: true, name: 'last listened')
+        playlist = current_user.playlists.create(
+            tracks_ids: track.id,
+            default: true, 
+            name: 'last listened')
         current_user.update_attributes(current_playlist_id: playlist.id)
       end
     else
-      track = Release.published.first.tracks.first
 
       render json: { 
-          tracks: [ track_as_json( TrackPresenter.new( track, nil, @browser ) ) ] 
+          tracks: [ track_as_json( track ) ] 
         }
       return
     end
 
     tracks = playlist.tracks.map do |_track|
-      track = TrackPresenter.new(_track, current_user, @browser)
-      track_as_json( track )
+      track_presenter = TrackPresenter.new(_track, current_user, @browser)
+      track_as_json( track_presenter )
     end
 
     playlist_name_form = render_to_string( 

@@ -24,7 +24,7 @@
 
   <div class="user-info">
 
-    <div class="artist-name">
+    <div class="artist-name mb-2 mb-sm-0">
       <h1><%= @user.name.upcase %></h1>
       <span>
         <% if @user.artist_info %>
@@ -66,7 +66,7 @@
 
 <div class="user-controls">
   <div class="row h-100">
-    <div class="col-lg-3 px-0 c-btn-group two-btns">
+    <div class="col-sm-3 px-0 c-btn-group two-btns">
       <% artist = current_page?(artist_path(@user)) %>
       <% classes = ["btn c-btn-blue btn-square", "btn c-btn-black btn-square btn-disabled"] %>
       <%= link_to "Artist Feed", @user, 
@@ -75,7 +75,7 @@
           class: artist ? classes[0] : classes[1] %>
     </div>
 
-    <div class="col-lg-3 px-0 d-flex">
+    <div class="col-sm-3 px-0 d-flex">
       <% if @user.artist_info.present? %>
           <%= link_to image_tag('icons/social-insta-w.svg'), 
                 @user.artist_info.instagram,
@@ -89,8 +89,8 @@
       <% end %>
     </div> 
 
-    <div class="col-lg-6 px-0 text-right">
-      <div class="c-btn-group d-inline-block three-btns" style="width: calc(100% - 90px);">
+    <div class="col-sm-6 px-0 text-right">
+      <div class="c-btn-group d-inline-block three-btns">
         <% artist_releases_class = current_page?(artist_releases_path(@user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
         <% artist_tracks_class = current_page?(artist_tracks_path(@user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
         <% artist_plylists_class = current_page?(playlists_path(user_id: @user)) ? 'c-btn-gray btn-disabled' : 'c-btn-white-gray' %>
