@@ -155,6 +155,7 @@ ActiveAdmin.register Release do
     redirect_to resource_path, notice: "Encoding Release! This may take up to 10 minutes."
   end
 
+  begin
   batch_action :attach_artists_to, form: {
     user: User.with_role(:artist).map { |u| [u.name, u.id] }
   } do |ids, inputs|
@@ -163,6 +164,9 @@ ActiveAdmin.register Release do
       release.users << User.find(inputs["user"])
     end
     redirect_to admin_releases_path
+  end
+  rescue
+  p "msg"
   end
 
   batch_action :destroy, false
