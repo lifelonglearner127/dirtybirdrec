@@ -237,16 +237,14 @@
                   <div class="form-label-group">
                     <%= f.email_field :email, autocomplete: "email", 
                         class: 'form-control', id: "user_login_email", 
-                        placeholder: 'E-mail', required: true, 
-                        value: "admin@example.com" %>
+                        placeholder: 'E-mail', required: true %>
                     <%= f.label :login_email, "E-mail" %>
                   </div>
 
                   <div class="form-label-group">
                     <%= f.password_field :password, autocomplete: "off", 
                         required: true, class: 'form-control', 
-                        placeholder: "Password", id: "user_login_password", 
-                        value: "password" %>
+                        placeholder: "Password", id: "user_login_password" %>
                     <%= f.label :login_password, "Password" %>
                   </div>
 
