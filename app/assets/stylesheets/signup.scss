@@ -30,13 +30,17 @@
   margin: 0 auto 25px;
   z-index: 2;
   position: relative;
-  padding: 40px 40px 20px;
+  padding: 20px;
+
+  @media (min-width: 576px) { 
+    padding: 40px 40px 20px;
+  }
 
   h1 {
     color: #393939;
     font-family: 'Phosphate-Solid';
     font-size: 31px;
-    line-height: 20px;
+    line-height: 30px;
     display: inline-block;
     margin-bottom: 0;
   }
@@ -61,6 +65,11 @@
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    flex-direction: column;
+
+    @media (min-width: 576px) { 
+      flex-direction: row;
+    }
   }
 
   .plan-block {
@@ -73,6 +82,11 @@
     background-color: #ffffff;
     position: relative;
     cursor: pointer;
+    margin: 10px -15px;
+
+    @media (min-width: 576px) { 
+      margin: 0;
+    }
 
     &.active {
       background-color: #ff7979;
@@ -154,6 +168,7 @@
       letter-spacing: 0.81px;
       vertical-align: middle;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .switcher {

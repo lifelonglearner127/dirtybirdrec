@@ -8,102 +8,102 @@ class BirdOldMerge
 
     def users
 
-    #   #users
-    #   create_table "users", id: :serial, force: :cascade do |t|
-    #     t.string "email", default: "", null: false
-    #     t.string "encrypted_password", default: "", null: false
-    #     t.string "reset_password_token"
-    #     t.datetime "reset_password_sent_at"
-    #     t.datetime "remember_created_at"
-    #     t.integer "sign_in_count", default: 0, null: false
-    #     t.datetime "current_sign_in_at"
-    #     t.datetime "last_sign_in_at"
-    #     t.string "current_sign_in_ip"
-    #     t.string "last_sign_in_ip"
-    #     t.string "confirmation_token"
-    #     t.datetime "confirmed_at"
-    #     t.datetime "confirmation_sent_at"
-    #     t.string "unconfirmed_email"
-    #     t.datetime "created_at", null: false
-    #     t.datetime "updated_at", null: false
-    #     t.string "provider"
-    #     t.string "uid"
-    #     t.string "first_name"
-    #     t.string "last_name"
-    #     t.string "image_uri"
-    #     t.datetime "deleted_at"
-    #     t.integer "subscription_type", default: 0, null: false
-    #     t.string "invitation_token"
-    #     t.datetime "invitation_created_at"
-    #     t.datetime "invitation_sent_at"
-    #     t.datetime "invitation_accepted_at"
-    #     t.integer "invitation_limit"
-    #     t.integer "invited_by_id"
-    #     t.string "invited_by_type"
-    #     t.integer "invitations_count", default: 0
-    #     t.string "braintree_customer_id"
-    #     t.string "braintree_subscription_id"
-    #     t.date "braintree_subscription_expires_at"
-    #     t.string "address_line_1"
-    #     t.string "address_line_2"
-    #     t.string "address_city"
-    #     t.string "address_state"
-    #     t.string "address_zip"
-    #     t.string "address_country"
-    #     t.string "shirt_size"
-    #     t.integer "likees_count", default: 0
-    #     t.boolean "subscribed", default: false
-    #     t.boolean "subscribed_to_topic_comments", default: true
-    #     t.boolean "subscribed_to_comment_replies", default: true
-    #     t.boolean "subscribed_to_likes", default: false
-    #     t.date "subscription_started_at"
-    #     t.integer "subscription_length", default: 0, null: false
-    #     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    #     t.index ["deleted_at"], name: "index_users_on_deleted_at"
-    #     t.index ["email"], name: "index_users_on_email", unique: true
-    #     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-    #     t.index ["invitations_count"], name: "index_users_on_invitations_count"
-    #     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
-    #     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    #   end
+      #   #users
+      #   create_table "users", id: :serial, force: :cascade do |t|
+      #     t.string "email", default: "", null: false
+      #     t.string "encrypted_password", default: "", null: false
+      #     t.string "reset_password_token"
+      #     t.datetime "reset_password_sent_at"
+      #     t.datetime "remember_created_at"
+      #     t.integer "sign_in_count", default: 0, null: false
+      #     t.datetime "current_sign_in_at"
+      #     t.datetime "last_sign_in_at"
+      #     t.string "current_sign_in_ip"
+      #     t.string "last_sign_in_ip"
+      #     t.string "confirmation_token"
+      #     t.datetime "confirmed_at"
+      #     t.datetime "confirmation_sent_at"
+      #     t.string "unconfirmed_email"
+      #     t.datetime "created_at", null: false
+      #     t.datetime "updated_at", null: false
+      #     t.string "provider"
+      #     t.string "uid"
+      #     t.string "first_name"
+      #     t.string "last_name"
+      #     t.string "image_uri"
+      #     t.datetime "deleted_at"
+      #     t.integer "subscription_type", default: 0, null: false
+      #     t.string "invitation_token"
+      #     t.datetime "invitation_created_at"
+      #     t.datetime "invitation_sent_at"
+      #     t.datetime "invitation_accepted_at"
+      #     t.integer "invitation_limit"
+      #     t.integer "invited_by_id"
+      #     t.string "invited_by_type"
+      #     t.integer "invitations_count", default: 0
+      #     t.string "braintree_customer_id"
+      #     t.string "braintree_subscription_id"
+      #     t.date "braintree_subscription_expires_at"
+      #     t.string "address_line_1"
+      #     t.string "address_line_2"
+      #     t.string "address_city"
+      #     t.string "address_state"
+      #     t.string "address_zip"
+      #     t.string "address_country"
+      #     t.string "shirt_size"
+      #     t.integer "likees_count", default: 0
+      #     t.boolean "subscribed", default: false
+      #     t.boolean "subscribed_to_topic_comments", default: true
+      #     t.boolean "subscribed_to_comment_replies", default: true
+      #     t.boolean "subscribed_to_likes", default: false
+      #     t.date "subscription_started_at"
+      #     t.integer "subscription_length", default: 0, null: false
+      #     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+      #     t.index ["deleted_at"], name: "index_users_on_deleted_at"
+      #     t.index ["email"], name: "index_users_on_email", unique: true
+      #     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+      #     t.index ["invitations_count"], name: "index_users_on_invitations_count"
+      #     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+      #     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+      #   end
 
-    # create_table "users", force: :cascade do |t|
-    #   t.string "email", default: "", null: false
-    #   t.string "encrypted_password", default: "", null: false
-    #   t.string "reset_password_token"
-    #   t.datetime "reset_password_sent_at"
-    #   t.datetime "remember_created_at"
-    #   t.integer "sign_in_count", default: 0, null: false
-    #   t.datetime "current_sign_in_at"
-    #   t.datetime "last_sign_in_at"
-    #   t.inet "current_sign_in_ip"
-    #   t.inet "last_sign_in_ip"
-    #   t.datetime "created_at", null: false
-    #   t.datetime "updated_at", null: false
-    #   t.string "first_name"
-    #   t.string "avatar"
-    #   t.string "braintree_customer_id"
-    #   t.string "shipping_address"
-    #   t.datetime "birthdate"
-    #   t.integer "gender"
-    #   t.string "t_shirt_size"
-    #   t.integer "subscription_type"
-    #   t.string "provider"
-    #   t.string "uid"
-    #   t.datetime "subscription_started_at"
+      # create_table "users", force: :cascade do |t|
+      #   t.string "email", default: "", null: false
+      #   t.string "encrypted_password", default: "", null: false
+      #   t.string "reset_password_token"
+      #   t.datetime "reset_password_sent_at"
+      #   t.datetime "remember_created_at"
+      #   t.integer "sign_in_count", default: 0, null: false
+      #   t.datetime "current_sign_in_at"
+      #   t.datetime "last_sign_in_at"
+      #   t.inet "current_sign_in_ip"
+      #   t.inet "last_sign_in_ip"
+      #   t.datetime "created_at", null: false
+      #   t.datetime "updated_at", null: false
+      #   t.string "first_name"
+      #   t.string "avatar"
+      #   t.string "braintree_customer_id"
+      #   t.string "shipping_address"
+      #   t.datetime "birthdate"
+      #   t.integer "gender"
+      #   t.string "t_shirt_size"
+      #   t.integer "subscription_type"
+      #   t.string "provider"
+      #   t.string "uid"
+      #   t.datetime "subscription_started_at"
 
-    #   t.string "braintree_subscription_id"
-    #   t.date "braintree_subscription_expires_at"
-    #   t.date "subscription_started_at"
-    #   t.integer "subscription_length", default: 0, null: false
-    
-    #   t.string "address_city"
-    #   t.string "last_name"
-    #   t.integer "old_id"
-    #   t.boolean "drip_source"
-    #   t.index ["email"], name: "index_users_on_email", unique: true
-    #   t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    # end
+      #   t.string "braintree_subscription_id"
+      #   t.date "braintree_subscription_expires_at"
+      #   t.date "subscription_started_at"
+      #   t.integer "subscription_length", default: 0, null: false
+      
+      #   t.string "address_city"
+      #   t.string "last_name"
+      #   t.integer "old_id"
+      #   t.boolean "drip_source"
+      #   t.index ["email"], name: "index_users_on_email", unique: true
+      #   t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+      # end
 
 
       sql = "
@@ -173,39 +173,39 @@ class BirdOldMerge
 
     def tracks
 
-#   #to tracks
-#   create_table "tracks", id: :serial, force: :cascade do |t|
-#     t.string "title"
-#     t.string "uri"
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#     t.integer "release_id"
-#     t.string "artist"
-#     t.integer "track_number"
-#     t.string "genre"
-#     t.datetime "deleted_at"
-#     t.string "isrc_code"
-#     t.string "sample_uri"
-#     t.string "waveform_image_uri"
-#     t.index ["deleted_at"], name: "index_tracks_on_deleted_at"
-#     t.index ["release_id"], name: "index_tracks_on_release_id"
-#   end
+      #   #to tracks
+      #   create_table "tracks", id: :serial, force: :cascade do |t|
+      #     t.string "title"
+      #     t.string "uri"
+      #     t.datetime "created_at", null: false
+      #     t.datetime "updated_at", null: false
+      #     t.integer "release_id"
+      #     t.string "artist"
+      #     t.integer "track_number"
+      #     t.string "genre"
+      #     t.datetime "deleted_at"
+      #     t.string "isrc_code"
+      #     t.string "sample_uri"
+      #     t.string "waveform_image_uri"
+      #     t.index ["deleted_at"], name: "index_tracks_on_deleted_at"
+      #     t.index ["release_id"], name: "index_tracks_on_release_id"
+      #   end
 
-  # create_table "tracks", force: :cascade do |t|
-  #   t.string "title"
-  #   t.string "uri"
-  #   t.integer "release_id"
-  #   t.integer "track_number"
-  #   t.string "genre"
-  #   t.string "isrc_code"
-  #   t.string "sample_uri"
-  #   t.string "waveform_image_uri"
-  #   t.datetime "created_at", null: false
-  #   t.datetime "updated_at", null: false
-  #   t.string "avatar"
-  #   t.integer "old_id"
-  #   t.boolean "drip_source"
-  # end
+      # create_table "tracks", force: :cascade do |t|
+      #   t.string "title"
+      #   t.string "uri"
+      #   t.integer "release_id"
+      #   t.integer "track_number"
+      #   t.string "genre"
+      #   t.string "isrc_code"
+      #   t.string "sample_uri"
+      #   t.string "waveform_image_uri"
+      #   t.datetime "created_at", null: false
+      #   t.datetime "updated_at", null: false
+      #   t.string "avatar"
+      #   t.integer "old_id"
+      #   t.boolean "drip_source"
+      # end
 
 
       sql = '
@@ -273,31 +273,31 @@ class BirdOldMerge
 
       def topics
 
-          # create_table "topics", id: :serial, force: :cascade do |t|
-          #   t.string "title"
-          #   t.text "text"
-          #   t.integer "likers_count", default: 0
-          #   t.datetime "created_at", null: false
-          #   t.datetime "updated_at", null: false
-          #   t.datetime "deleted_at"
-          #   t.integer "user_id"
-          #   t.boolean "pinned", default: false
-          #   t.boolean "locked", default: false
-          #   t.index ["deleted_at"], name: "index_topics_on_deleted_at"
-          #   t.index ["user_id"], name: "index_topics_on_user_id"
-          # end
+        # create_table "topics", id: :serial, force: :cascade do |t|
+        #   t.string "title"
+        #   t.text "text"
+        #   t.integer "likers_count", default: 0
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        #   t.datetime "deleted_at"
+        #   t.integer "user_id"
+        #   t.boolean "pinned", default: false
+        #   t.boolean "locked", default: false
+        #   t.index ["deleted_at"], name: "index_topics_on_deleted_at"
+        #   t.index ["user_id"], name: "index_topics_on_user_id"
+        # end
 
-          # create_table "topics", force: :cascade do |t|
-          #   t.string "title"
-          #   t.text "text"
-          #   t.integer "user_id"
-          #   t.boolean "pinned"
-          #   t.boolean "locked"
-          #   t.datetime "created_at", null: false
-          #   t.datetime "updated_at", null: false
-          #   t.integer "category_id"
-          #   t.integer "old_id"
-          # end
+        # create_table "topics", force: :cascade do |t|
+        #   t.string "title"
+        #   t.text "text"
+        #   t.integer "user_id"
+        #   t.boolean "pinned"
+        #   t.boolean "locked"
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        #   t.integer "category_id"
+        #   t.integer "old_id"
+        # end
 
         sql = '
           SELECT
@@ -410,22 +410,22 @@ class BirdOldMerge
         #   t.index ["email_id"], name: "index_releases_on_email_id"
         # end
 
-          # create_table "releases", force: :cascade do |t|
-          #   t.string "title"
-          #   t.string "catalog"
-          #   t.text "text"
-          #   t.string "avatar"
-          #   t.string "facebook_img"
-          #   t.datetime "published_at"
-          #   t.string "upc_code"
-          #   t.boolean "compilation"
-          #   t.datetime "release_date"
-          #   t.datetime "created_at", null: false
-          #   t.datetime "updated_at", null: false
-          #   t.boolean "available_to_all"
-          #   t.integer "old_id"
-          #   t.boolean "drip_source"
-          # end
+        # create_table "releases", force: :cascade do |t|
+        #   t.string "title"
+        #   t.string "catalog"
+        #   t.text "text"
+        #   t.string "avatar"
+        #   t.string "facebook_img"
+        #   t.datetime "published_at"
+        #   t.string "upc_code"
+        #   t.boolean "compilation"
+        #   t.datetime "release_date"
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        #   t.boolean "available_to_all"
+        #   t.integer "old_id"
+        #   t.boolean "drip_source"
+        # end
 
 
         sql = '
@@ -496,31 +496,31 @@ class BirdOldMerge
 
         # TODO: not found user id and release id
 
-          #to announcements
-          # create_table "posts", id: :serial, force: :cascade do |t|
-          #   t.string "title"
-          #   t.text "text"
-          #   t.string "image_uri"
-          #   t.datetime "published_at"
-          #   t.datetime "created_at", null: false
-          #   t.datetime "updated_at", null: false
-          #   t.datetime "deleted_at"
-          #   t.integer "likers_count", default: 0
-          #   t.integer "email_id"
-          #   t.string "facebook_img"
-          #   t.index ["deleted_at"], name: "index_posts_on_deleted_at"
-          #   t.index ["email_id"], name: "index_posts_on_email_id"
-          # end
+        #to announcements
+        # create_table "posts", id: :serial, force: :cascade do |t|
+        #   t.string "title"
+        #   t.text "text"
+        #   t.string "image_uri"
+        #   t.datetime "published_at"
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        #   t.datetime "deleted_at"
+        #   t.integer "likers_count", default: 0
+        #   t.integer "email_id"
+        #   t.string "facebook_img"
+        #   t.index ["deleted_at"], name: "index_posts_on_deleted_at"
+        #   t.index ["email_id"], name: "index_posts_on_email_id"
+        # end
 
-          # create_table "announcements", force: :cascade do |t|
-          #   t.integer "user_id"
-          #   t.integer "release_id"
-          #   t.string "title"
-          #   t.text "text"
-          #   t.string "avatar"
-          #   t.datetime "created_at", null: false
-          #   t.datetime "updated_at", null: false
-          # end
+        # create_table "announcements", force: :cascade do |t|
+        #   t.integer "user_id"
+        #   t.integer "release_id"
+        #   t.string "title"
+        #   t.text "text"
+        #   t.string "avatar"
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        # end
 
         sql = '
           SELECT
@@ -652,52 +652,52 @@ class BirdOldMerge
       end
 
       def drip_users
-          # create_table "drip_users", id: :serial, force: :cascade do |t|
-          #   t.datetime "join_date"
-          #   t.boolean "active"
-          #   t.integer "months_active"
-          #   t.integer "credits"
-          #   t.string "full_name"
-          #   t.string "username"
-          #   t.string "email"
-          #   t.string "street_address"
-          #   t.string "city"
-          #   t.string "state"
-          #   t.string "postal_code"
-          #   t.string "country"
-          # end
+        # create_table "drip_users", id: :serial, force: :cascade do |t|
+        #   t.datetime "join_date"
+        #   t.boolean "active"
+        #   t.integer "months_active"
+        #   t.integer "credits"
+        #   t.string "full_name"
+        #   t.string "username"
+        #   t.string "email"
+        #   t.string "street_address"
+        #   t.string "city"
+        #   t.string "state"
+        #   t.string "postal_code"
+        #   t.string "country"
+        # end
 
-          # create_table "users", force: :cascade do |t|
-          #   t.string "email", default: "", null: false
-          #   t.string "encrypted_password", default: "", null: false
-          #   t.string "reset_password_token"
-          #   t.datetime "reset_password_sent_at"
-          #   t.datetime "remember_created_at"
-          #   t.integer "sign_in_count", default: 0, null: false
-          #   t.datetime "current_sign_in_at"
-          #   t.datetime "last_sign_in_at"
-          #   t.inet "current_sign_in_ip"
-          #   t.inet "last_sign_in_ip"
-          #   t.datetime "created_at", null: false
-          #   t.datetime "updated_at", null: false
-          #   t.string "first_name"
-          #   t.string "avatar"
-          #   t.string "braintree_customer_id"
-          #   t.string "shipping_address"
-          #   t.datetime "birthdate"
-          #   t.integer "gender"
-          #   t.string "t_shirt_size"
-          #   t.integer "subscription_type"
-          #   t.string "provider"
-          #   t.string "uid"
-          #   t.datetime "subscription_started_at"
-          #   t.string "city"
-          #   t.string "last_name"
-          #   t.integer "old_id"
-          #   t.boolean "drip_source"
-          #   t.index ["email"], name: "index_users_on_email", unique: true
-          #   t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-          # end
+        # create_table "users", force: :cascade do |t|
+        #   t.string "email", default: "", null: false
+        #   t.string "encrypted_password", default: "", null: false
+        #   t.string "reset_password_token"
+        #   t.datetime "reset_password_sent_at"
+        #   t.datetime "remember_created_at"
+        #   t.integer "sign_in_count", default: 0, null: false
+        #   t.datetime "current_sign_in_at"
+        #   t.datetime "last_sign_in_at"
+        #   t.inet "current_sign_in_ip"
+        #   t.inet "last_sign_in_ip"
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        #   t.string "first_name"
+        #   t.string "avatar"
+        #   t.string "braintree_customer_id"
+        #   t.string "shipping_address"
+        #   t.datetime "birthdate"
+        #   t.integer "gender"
+        #   t.string "t_shirt_size"
+        #   t.integer "subscription_type"
+        #   t.string "provider"
+        #   t.string "uid"
+        #   t.datetime "subscription_started_at"
+        #   t.string "city"
+        #   t.string "last_name"
+        #   t.integer "old_id"
+        #   t.boolean "drip_source"
+        #   t.index ["email"], name: "index_users_on_email", unique: true
+        #   t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+        # end
         
         sql = "
           SELECT
@@ -724,35 +724,35 @@ class BirdOldMerge
       end
 
       def drip_tracks
-          # create_table "drip_tracks", id: :serial, force: :cascade do |t|
-          #   t.integer "drip_release_id"
-          #   t.string "artist"
-          #   t.string "title"
-          #   t.string "isrc_code"
-          #   t.integer "duration"
-          #   t.integer "track_number"
-          #   t.string "state"
-          #   t.datetime "created_at", null: false
-          #   t.datetime "updated_at", null: false
-          #   t.index ["drip_release_id"], name: "index_drip_tracks_on_drip_release_id"
-          # end
+        # create_table "drip_tracks", id: :serial, force: :cascade do |t|
+        #   t.integer "drip_release_id"
+        #   t.string "artist"
+        #   t.string "title"
+        #   t.string "isrc_code"
+        #   t.integer "duration"
+        #   t.integer "track_number"
+        #   t.string "state"
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        #   t.index ["drip_release_id"], name: "index_drip_tracks_on_drip_release_id"
+        # end
 
-          # create_table "tracks", force: :cascade do |t|
-          #   t.string "title"
-          #   t.string "url"
-          #   t.integer "release_id"
-          #   t.integer "track_number"
-          #   t.string "genre"
-          #   t.string "isrc_code"
-          #   t.string "sample_uri"
-          #   t.string "waveform_image_uri"
-          #   t.datetime "created_at", null: false
-          #   t.datetime "updated_at", null: false
-          #   t.string "avatar"
-          #   t.integer "old_id"
-          #   t.boolean "drip_source"
-          # end
-        
+        # create_table "tracks", force: :cascade do |t|
+        #   t.string "title"
+        #   t.string "url"
+        #   t.integer "release_id"
+        #   t.integer "track_number"
+        #   t.string "genre"
+        #   t.string "isrc_code"
+        #   t.string "sample_uri"
+        #   t.string "waveform_image_uri"
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        #   t.string "avatar"
+        #   t.integer "old_id"
+        #   t.boolean "drip_source"
+        # end
+      
         sql = '
           SELECT
             title,
@@ -887,6 +887,111 @@ class BirdOldMerge
 
         puts 'drip_releases complete'
 
+      end
+
+      def comments
+        # create_table "comments", force: :cascade do |t|
+        #   t.integer  "commentable_id"
+        #   t.string   "commentable_type"
+        #   t.string   "title"
+        #   t.text     "body"
+        #   t.string   "subject"
+        #   t.integer  "user_id",                      null: false
+        #   t.integer  "parent_id"
+        #   t.integer  "lft"
+        #   t.integer  "rgt"
+        #   t.datetime "created_at"
+        #   t.datetime "updated_at"
+        #   t.datetime "deleted_at"
+        #   t.integer  "likers_count",     default: 0
+        # end
+
+        # create_table "comments", force: :cascade do |t|
+        #   t.integer "commentable_id"
+        #   t.string "commentable_type"
+        #   t.string "title"
+        #   t.text "body"
+        #   t.integer "user_id"
+        #   t.integer "parent_id"
+        #   t.datetime "created_at", null: false
+        #   t.datetime "updated_at", null: false
+        #   t.integer "likes_count", default: 0
+        #   t.integer "replies_count", default: 0
+        #   t.integer "shares_count", default: 0
+        #   t.datetime "edited_at"
+        # end
+
+        sql = '
+          SELECT
+            id as old_id,
+            commentable_id,
+            commentable_type,
+            title,
+            body,
+            user_id,
+            parent_id,
+            lft,
+            rgt,
+            created_at,
+            updated_at,
+            likers_count as likes_count
+          FROM
+            comments
+          WHERE
+            deleted_at is NULL
+        '
+
+        sql1 = '
+          SELECT
+            *
+          FROM
+            releases
+        '
+
+        comments = BirdOldDb.connection.select_all(sql)
+        releases = BirdOldDb.connection.select_all(sql1)
+
+        #хэш вида old_id=>id
+        new_user_id = User.where(drip_source: nil).all.map{|e|[e.old_id,e.id]}.to_h
+        new_commentable_id = {}
+        commentable_types = comments.map do |c|
+          if c["commentable_type"] == 'Post'
+            'Announcement'
+          else
+            c["commentable_type"]
+          end
+        end.uniq
+
+        commentable_types.each do |type|
+          type_id = type.classify.safe_constantize.all.map{|e|[e.old_id,e.id]}.to_h
+          new_commentable_id[type] = type_id
+        end
+
+        new_release_id = Release.all.map do |r|
+          old_id = releases.select{|o_r| o_r["catalog"] == r.catalog }
+          old_id = old_id[0]["id"] if old_id.present?
+          [old_id,r.id]
+        end.to_h
+
+        comments = comments.map do |e|
+          e["commentable_type"] = 'Announcement' if e["commentable_type"] == 'Post'
+          e["user_id"] = new_user_id[e["user_id"]]
+
+          if e["commentable_type"] == 'Release'
+            e["commentable_id"] = new_release_id[e["commentable_id"]] || e["commentable_id"]
+          else
+            e["commentable_id"] = new_commentable_id[e["commentable_type"]][e["commentable_id"]]
+          end
+
+          e
+        end
+        
+        BirdNewDb.table_name = "comments"
+        BirdNewDb.bulk_insert values: comments
+
+        restore_schema_cache
+
+        puts 'comments complete'
       end
 
 

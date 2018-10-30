@@ -13,7 +13,7 @@ class Release < ApplicationRecord
   has_and_belongs_to_many :users
   belongs_to :admin, optional: true, foreign_key: "admin_id", class_name: "User"
 
-  # after_create :add_to_general_feed
+  after_create :add_to_general_feed
   after_update :change_published_date
   after_destroy :remove_from_general_feed
 
@@ -39,7 +39,7 @@ class Release < ApplicationRecord
   scope :published, -> { where("published_at < ?", DateTime.now).order(release_date: :desc) }
 
   def previous
-    Release.where("id < ?", id).order("id DESC").first || Release.first
+    Release.where("id > ?", id).order("id ASC").first || Release.first
   end
 
   def user_allowed?(user)
@@ -108,6 +108,26 @@ class Release < ApplicationRecord
       artist
     else
       'Various Artists'
+    end
+  end
+
+  def self.batch_fill_feeds
+    release_create_feed = StreamRails.feed_manager.get_feed( 'release_create', 1 )
+    masterfeed = StreamRails.feed_manager.get_feed( 'masterfeed', 1 )
+
+    find_in_batches(start: 0, batch_size: 100) do |group|
+      activities = group.map do |release|
+        {
+          actor: "User:#{User.with_role(:admin).first.id}",
+          verb: "Release",
+          object: "Release:#{release.id}",
+          foreign_id: "Release:#{release.id}",
+          time: release.published_at.iso8601
+        }
+      end
+
+      release_create_feed.add_activities(activities)
+      masterfeed.add_activities(activities)
     end
   end
 
