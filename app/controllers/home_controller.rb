@@ -3,8 +3,10 @@ class HomeController < ApplicationController
   include StreamRails::Activity
 
   before_action :authenticate_user!, 
-      except: [:index, :about, :birdfeed, :share, :report, :pricing, :information, :final_cancellation]
-  before_action :set_notifications, only: [:about, :birdfeed, :pricing, :information]
+      except: [:index, :about, :birdfeed, :share, :report, :pricing, 
+          :information, :final_cancellation]
+  before_action :set_notifications,
+      only: [:about, :birdfeed, :pricing, :information, :how_eggs_work]
 
   def index
     @slider = SliderImage.all.ordered
@@ -146,7 +148,9 @@ class HomeController < ApplicationController
   end
 
   def pricing
-    
+  end
+
+  def how_eggs_work
   end
 
 end

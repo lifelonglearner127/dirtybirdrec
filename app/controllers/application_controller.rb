@@ -64,14 +64,7 @@ class ApplicationController < ActionController::Base
         @notify_activities = @enricher.enrich_aggregated_activities(unseen)
       end
 
-      if current_user.braintree_subscription_expires_at && 
-          (current_user.subscription_length == 'monthly_vib' ||
-           current_user.subscription_length == 'yearly_vib' ||
-           current_user.subscription_length == 'monthly_old')
-        @credits = current_user.download_credits
-      else
-        @credits = 0
-      end
+      @credits = current_user.download_credits
 
       if current_user.has_role?(:artist)
         @friend_requests = current_user.followers.where("follows.show_notify = true")

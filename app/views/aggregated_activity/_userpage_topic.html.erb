@@ -1,73 +1,76 @@
 <% for _activity in activity['activities'] %>
-  <div class="feed-item">
-    <p class="feed-posted"> 
-      <%= time_ago_in_words(_activity['time'].in_time_zone) %> ago
-    </p>
+  <% if _activity['object'].class.to_s != 'String' %>
+    <div class="feed-item">
+      <p class="feed-posted"> 
+        <%= time_ago_in_words(_activity['time'].in_time_zone) %> ago
+      </p>
 
-    <div class="t-wide">
-      <%= link_to _activity['actor'], 
-          class: "sm-style #{avatar_style(_activity['actor'])}" do %>
-        <%= image_tag _activity['actor'].avatar.thumb.url, class: "feed-avatar" %>
-        <strong><%= _activity['actor'].name %>:</strong>
-      <% end %>
-
-      <% if _activity['foreign_id'].class.to_s == "Topic" %>
-
-        Posted a Chirp new topic in 
-
-        <strong>
-          <%= link_to _activity['object'].category.title, _activity['object'] %>
-        </strong>
-        &nbsp;
-
-        <p style="margin-top: 10px">
-          <strong>
-            <%= _activity['object'].title %>
-          </strong>
-
-          <br>
-
-          <%= _activity['object'].body %>
-          
-        </p>
-
-      <% elsif _activity['foreign_id'].class.to_s == "Post" %>
-
-        Has commented the topic
-
-        <strong>
-          <%= link_to _activity['object'].title, _activity['object'] %>
-        </strong>
-        
-        on 
-
-        <strong>
-          <%= link_to _activity['object'].category.title, _activity['object'] %>
-        </strong>
-
-        <p style="margin-top: 10px">
-          <strong>
-            <%= _activity['foreign_id'].body.truncate(40) %>
-          </strong>
-
-        </p>
-
-      <% else %>
-
-        <span class="t-wide">is now following</span>
-
-        <% for _activity in activity['activities'] %>
-          <strong>
-            <%= link_to _activity['object'].title.truncate(30)+"'s", _activity['object'] %>
-          </strong>
-          &nbsp;
+      <div class="t-wide">
+        <%= link_to _activity['actor'], 
+            class: "sm-style #{avatar_style(_activity['actor'])}" do %>
+          <%= image_tag _activity['actor'].avatar.thumb.url, class: "feed-avatar" %>
+          <strong><%= _activity['actor'].name %>:</strong>
         <% end %>
 
-        feed
+        <% if _activity['foreign_id'].class.to_s == "Topic" %>
 
-      <% end %>
+          Posted a Chirp new topic in 
+
+          <strong>
+            <%= link_to _activity['object'].category.title, _activity['object'] %>
+          </strong>
+          &nbsp;
+
+          <p style="margin-top: 10px">
+            <strong>
+              <%= _activity['object'].title %>
+            </strong>
+
+            <br>
+
+            <%= _activity['object'].body %>
+            
+          </p>
+
+        <% elsif _activity['foreign_id'].class.to_s == "Post" %>
+
+          Has commented the topic
+
+          <strong>
+            <%= link_to _activity['object'].title, _activity['object'] %>
+          </strong>
+          
+          on 
+
+          <strong>
+            <%= link_to _activity['object'].category.title, _activity['object'] %>
+          </strong>
+
+          <p style="margin-top: 10px">
+            <strong>
+              <%= _activity['foreign_id'].body.truncate(40) %>
+            </strong>
+          </p>
+
+        <% else %>
+
+          <span class="t-wide">is now following</span>
+
+          <% for _activity in activity['activities'] %>
+            <% if _activity['object'].class.to_s != 'String' %>
+              <strong>
+                <%= link_to _activity['object'].title.truncate(30)+"'s", _activity['object'] %>
+              </strong>
+              &nbsp;
+            <% end %>
+          <% end %>
+
+          feed
+
+        <% end %>
+      </div>
+        
+      <hr class="feed-divider">
     </div>
-      
-    <hr class="feed-divider">
-  </div>
+  <% end %>
 <% end %>
