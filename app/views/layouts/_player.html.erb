@@ -41,9 +41,12 @@
           <button id="jp-playlist-btn">
             <%= show_svg 'icons/playlist1.svg' %>
           </button>
-          
         <% end %>
-        <% if @credits %>
+
+        <% if current_user && current_user.braintree_subscription_expires_at && 
+          (current_user.subscription_length == 'monthly_vib' ||
+           current_user.subscription_length == 'yearly_vib' ||
+           current_user.subscription_length == 'monthly_old') %>
           <div class="credits-menu mr-4">
             <button type="button" data-toggle="collapse" data-target="#credits-count" aria-expanded="false" aria-controls="collapseExample" class="credits-btn">
               <%= show_svg 'icons/egg-basket.svg' %>
@@ -58,15 +61,17 @@
             </div>
           </div>
         <% else %>
-          <button type="button" data-toggle="collapse" data-target="#credits-ability" aria-expanded="false" aria-controls="collapseExample" class="credits-btn mr-4">
-            <%= show_svg 'icons/egg-basket.svg' %>
-          </button>
+          <div class="credits-menu mr-4">
+            <button type="button" data-toggle="collapse" data-target="#credits-ability" aria-expanded="false" aria-controls="collapseExample" class="credits-btn mr-4">
+              <%= show_svg 'icons/egg-basket.svg' %>
+            </button>
 
-          <div id="credits-ability" class="collapse credits-dropdown">
-            <div class="text-nowrap mb-1">
-              This function is only for paid members
+            <div id="credits-ability" class="collapse credits-dropdown">
+              <div class="text-nowrap mb-1">
+                This function is only for VIB members
+              </div>
+              <%=link_to "Upgrade to participate", choose_profile_path, class: "btn c-btn-blue c-btn-sm" %>
             </div>
-            <%=link_to "Upgrade to participate", choose_profile_path, class: "btn c-btn-blue c-btn-sm" %>
           </div>
         <% end %>
 
