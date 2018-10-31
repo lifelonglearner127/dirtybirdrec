@@ -22,3 +22,7 @@
 //= require bootstrap-datepicker.min
 //= require_tree .
 //= stub footer
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
