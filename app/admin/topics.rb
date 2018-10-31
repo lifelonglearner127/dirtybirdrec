@@ -1,7 +1,7 @@
 ActiveAdmin.register Topic do
 
   permit_params :title, :body, :category_id, :pinned, :locked, :noteworthy, :see_to_all
-  
+
 	index do
 		column :id
 		column :title
@@ -9,8 +9,10 @@ ActiveAdmin.register Topic do
 		column :user
 		column :pinned
 		column :locked
-		column :created_at 
+		column :created_at
 		column :category
 		column :noteworthy
-	end  
+		actions do |release|
+    end
+	end
 end
