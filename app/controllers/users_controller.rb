@@ -336,7 +336,7 @@ class UsersController < ApplicationController
 
   def get_more_credits
     #TODO add notify if 1 day left
-    redirect_to home_path and return unless current_user.active_subscription? 
+    redirect_to home_path and return unless current_user.cahced_active_subscription? 
     render 'users/success_credits_buy' if params[:success]
   end
 

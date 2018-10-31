@@ -114,13 +114,17 @@
               <input type="checkbox" name="terms-and-conditions" id="terms-and-conditions" required="required">
               <label for="terms-and-conditions" class="mb-4 ml-2">
                 I agree with the
-                <%= link_to "Terms and Conditions", "#", class: "font-weight-bold" %>
+                <%= link_to "Terms and Conditions", information_path, 
+                    class: "font-weight-bold",
+                    target: "_blank" %>
               </label>
               <br>
               <input type="checkbox" name="code-of-conduct" id="code-of-conduct" required="required">
               <label for="code-of-conduct" class="mb-4 ml-2">
                 I agree with the
-                <%= link_to "Code of Conduct", information_path, class: "font-weight-bold" %>
+                <%= link_to "Code of Conduct", information_path(anchor: 'code-of-conduct'), 
+                    class: "font-weight-bold",
+                    target: "_blank" %>
               </label>
 
               <a href="#step-1" class="btn c-btn-blue btn-wide">back</a>
@@ -156,13 +160,17 @@
             <input type="checkbox" name="free-terms-and-conditions" id="free-terms-and-conditions">
             <label for="free-terms-and-conditions" class="my-4 ml-2">
               I agree with the
-              <%= link_to "Terms and Conditions", "#", class: "font-weight-bold" %>
+              <%= link_to "Terms and Conditions", information_path, 
+                  class: "font-weight-bold",
+                  target: "_blank" %>
             </label>
             <br>
             <input type="checkbox" name="free-code-of-conduct" id="free-code-of-conduct">
             <label for="free-code-of-conduct" class="mb-4 ml-2">
               I agree with the
-              <%= link_to "Code of Conduct", information_path, class: "font-weight-bold" %>
+              <%= link_to "Code of Conduct", information_path(anchor: 'code-of-conduct'), 
+                  class: "font-weight-bold",
+                  target: "_blank" %>
             </label>
             <br>
             <a href="#step-2" class="btn c-btn-blue btn-wide mt-4">back</a>

@@ -106,14 +106,16 @@
 
 @media (min-width: 576px) { 
   .pricing-table {
-    .text-1 {
-      font-size: 35px;
-    }
+    th {
+      .text-1 {
+        font-size: 35px;
+      }
 
-    .text-2 {
-      span {
-        font-size: 64px;
-        line-height: 64px;
+      .text-2 {
+        span {
+          font-size: 64px;
+          line-height: 64px;
+        }
       }
     }
   }

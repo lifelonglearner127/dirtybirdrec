@@ -55,7 +55,7 @@
     cursor: pointer;
   }
   .collapse-formats {
-    bottom: 0;
+    top: 100%;
   }
 
   .collapse.show {
@@ -329,7 +329,7 @@
 .credits-dropdown {
   position: absolute;
   top: 40px;
-  left: 50%;
+  left: 40px;
   background-color: white;
   padding: 10px 15px;
   color: #222;
@@ -338,8 +338,6 @@
   font-weight: 700;
   transform: translateX(-50%);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  right: 118px !important;
-  left: unset !important;
 
   &:before {
     content: '';

@@ -144,7 +144,7 @@ class ApplicationController < ActionController::Base
           !controller?('callbacks/braintree') &&
           !current_page?(choose_profile_path) && 
           !current_page?(pricing_path) &&
-          !current_page?(terms_and_conduct_path) &&
+          !current_page?(information_path) &&
           !devise_controller?
         redirect_to choose_profile_path(anchor: "step-3")
       end

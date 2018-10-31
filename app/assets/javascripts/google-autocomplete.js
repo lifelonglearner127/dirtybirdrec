@@ -29,11 +29,14 @@ function initAutocomplete() {
 function fillInAddress() {
   // Get the place details from the autocomplete object.
   var place = autocomplete.getPlace();
-  console.log(place.address_components);
 
   for (var component in componentForm) {
-    document.getElementsByClassName(component)[0].value = '';
-    document.getElementsByClassName(component)[0].disabled = false;
+    let compElement = document.getElementsByClassName(component)[0];
+
+    if (compElement) {
+      compElement.value = '';
+      compElement.disabled = false;
+    }
   }
 
   // Get each component of the address from the place details
@@ -42,7 +45,11 @@ function fillInAddress() {
     var addressType = place.address_components[i].types[0];
     if (componentForm[addressType]) {
       var val = place.address_components[i][componentForm[addressType]];
-      document.getElementsByClassName(addressType)[0].value = val;
+      var addressType = document.getElementsByClassName(addressType)[0];
+
+      if (addressType) {
+        addressType.value = val;
+      }
     }
   }
 }
