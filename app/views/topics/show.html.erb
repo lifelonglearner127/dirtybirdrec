@@ -14,11 +14,11 @@
       <div class="col-sm-2">
         <%= link_to chirp_path(@topic.category), class: 'track-back row' do %>
           <div class="col-sm-3">
-            <span class="track-back-arrow-helper"></span>            
+            <span class="track-back-arrow-helper"></span>
             <%= image_tag "icons/icon-chevron-left.svg", class: 'track-back-arrow-icon' %>
           </div>
           <div class="col-sm-9 track-back-arrow-title" >
-            TRACKS
+            BIRD HOUSE
           </div>
         <% end %>
       </div>
@@ -67,7 +67,7 @@
             <button class="btn btn-topic-header btn-comment">
               <%= image_tag 'icons/icon-lock-white.svg' %>
               LOCKED
-            </button>          
+            </button>
           <% else %>
             <button class="btn btn-topic-header btn-comment" data-toggle="modal" data-target="#addcommentModal">
               COMMENT
@@ -83,7 +83,7 @@
         </div>
       <% end %>
     </div>
-  </div>  
+  </div>
   <div class="topics-panel-content">
     <div class="row">
       <div class="col-sm-8">
@@ -99,7 +99,7 @@
           <% end %>
           <div class="col-sm-5 text-right topic-post-user-detail time-ago">
               Posted <b><%= "#{time_ago_in_words(@topic.created_at)}" %> ago </b>
-          </div>          
+          </div>
         </div>
         <div class="row">
           <div class="col-sm-12 topic-post-title p-3">
@@ -119,14 +119,14 @@
               </div>
             </div>
           </div>
-        </div>        
+        </div>
         <div class="row">
           <div class="col-sm-12">
             <div class="feed-block" data-feed="topic" data-feed-id="<%= @topic.id %>">
               <%= render @topic.posts.order(created_at: :desc) %>
             </div>
           </div>
-        </div>    
+        </div>
       </div>
       <div class="col-sm-4">
         <div class="topic-section commentators-section">
@@ -142,7 +142,7 @@
           <div class="row">
             <% @users.compact.each do |user| %>
               <div class="col-sm-3">
-                <%= link_to image_tag(user.avatar.thumb.url, class: "post-user-avatar"), 
+                <%= link_to image_tag(user.avatar.thumb.url, class: "post-user-avatar"),
                   user, class: "#{avatar_style(user)} sm-style" %>
               </div>
             <% end %>
@@ -163,7 +163,7 @@
               <button class="btn btn-topic-header btn-comment">
                 <%= image_tag 'icons/icon-lock-white.svg' %>
                 LOCKED
-              </button>             
+              </button>
             <% else %>
               <button class="btn btn-topic-header btn-comment" data-toggle="modal" data-target="#addcommentModal">
                 POST A COMMENT
@@ -173,7 +173,7 @@
         </div>
       </div>
     </div>
-  </div> 
+  </div>
 </div>
 
 <% if current_user %>
@@ -194,7 +194,7 @@
 
                 <%= f.label :body, "Text", class: "sr-only" %>
                 <%= f.text_area :body, class: "form-control mb-1 emoji-area",
-                      id: "comment_body", 
+                      id: "comment_body",
                       placeholder: "Leave a comment",
                       rows: 1 %>
 
@@ -204,7 +204,7 @@
                 <button type="submit" class="btn c-btn-white cancel-comment mr-2">Cancel</button>
                 <span id="chars">140</span> characters left
               <% end %>
-            </div>   
+            </div>
           </div>
         </div>
       </div>
