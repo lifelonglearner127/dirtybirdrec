@@ -130,20 +130,24 @@
 
   .promo-blocks {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 50px;
     margin-bottom: 30px;
     align-items: center;
     flex-direction: column;
+
+    & > a {
+      width: 100%;
+    }
   }
 
   .promo-block {
     margin: 10px 0;
-    width: 352px;
     height: 117px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
     background-color: #434343;
     position: relative;
+    line-height: 19px;
 
     &:after {
       width: 24px;
