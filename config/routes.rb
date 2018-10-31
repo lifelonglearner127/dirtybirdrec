@@ -90,6 +90,7 @@ Rails.application.routes.draw do
   get 'badge-notify', to: 'home#badge_notify'
   get 'pricing', to: 'home#pricing'
   get 'information', to: 'home#information'
+  get 'how_eggs_work', to: 'home#how_eggs_work'
 
   resources :contacts, only: [:index, :create]
   resources :slider_images
