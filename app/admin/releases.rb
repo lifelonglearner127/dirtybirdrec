@@ -5,9 +5,9 @@ ActiveAdmin.register Release do
   permit_params :title, :artist, :catalog, :text, :avatar, :showcase, :facebook_img,
     :published_at, :upc_code, :compilation, :release_type, :buy_uri,
     :release_date, :artist_as_string,
-    user_ids: [], tracks_attributes: [:id, :title, :release, :track_number,
-    :genre, :isrc_code, :uri_string, :sample_ogg_uri, :sample_mp3_uri, 
-    :artist, :_destroy, :artist_as_string, user_ids: [],
+    user_ids: [], tracks_attributes: [:_destroy, :id, :title, :release, :track_number,
+    :genre, :isrc_code, :uri_string, :sample_ogg_uri, :sample_mp3_uri,
+    :artist, :artist_as_string, user_ids: [],
     track_info_attributes: [:id, :label_name,  :catalog,
                             :release_artist, :track_title,
                             :track_artist, :release_name,
@@ -102,7 +102,7 @@ ActiveAdmin.register Release do
     end
 
     f.inputs do
-      f.has_many :tracks, class: "directUpload" do |t|
+      f.has_many :tracks, allow_destroy: true, class: "directUpload" do |t|
         t.input :track_number
         t.input :title
         t.input :genre
@@ -114,7 +114,7 @@ ActiveAdmin.register Release do
         t.input :artist_as_string
         t.input :artist
 
-        t.has_many :track_info, allow_destroy: true, new_record: false, class: "directUpload" do |x|
+        t.has_many :track_info, new_record: false, class: "directUpload" do |x|
           x.input :label_name
           x.input :catalog
           x.input :release_artist

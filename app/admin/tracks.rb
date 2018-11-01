@@ -1,6 +1,6 @@
 ActiveAdmin.register Track do
   # permit_params :title, :uri, :category_id, :pinned, :locked, :noteworthy, :see_to_all
-
+  filter :title
   index do
     column :track_number
     column :title
