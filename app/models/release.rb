@@ -1,7 +1,7 @@
 class Release < ApplicationRecord
   has_many :likes, as: :likeable
   has_many :comments, as: :commentable
-  has_many :tracks
+  has_many :tracks, dependent: :destroy
   has_many :announcements
   has_many :track_files, through: :tracks
   has_many :release_files
@@ -94,7 +94,7 @@ class Release < ApplicationRecord
     elsif users.any?
       artists = users.map(&:name)
       artists_count = artists.count
-      
+
       if limit == 0 && artists_count > 1
         'Various Artists'
       elsif limit && artists_count > limit

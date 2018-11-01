@@ -7,7 +7,7 @@ class Track < ApplicationRecord
   has_many :track_files
   has_many :downloads
   has_many :recently_items
-  belongs_to :track_info, optional: true
+  belongs_to :track_info, optional: true, dependent: :destroy
   accepts_nested_attributes_for :track_info, allow_destroy: true
 
   mount_uploader :uri, TrackUploader
@@ -35,7 +35,7 @@ class Track < ApplicationRecord
 
     format = browser == 'Safari' ? :mp3 : :ogg
     return track_files.where(
-              format: TrackFile.formats[format], 
+              format: TrackFile.formats[format],
               encode_status: TrackFile.encode_statuses[:complete])
             .last
             .url_string
