@@ -27,21 +27,21 @@
       <div class="main-area-nav mb-3">
         <div class="row h-100">
           <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <%= link_to player_artists_path(current_user) do %>
+            <%= link_to player_artists_path(current_user || @user) do %>
               <%= image_tag 'dirtybird-bbq-stage.png', class: 'main-area-nav-bgrd' %>
               <span class="main-area-nav-caption">Artists</span>
             <% end %>
           </div>
 
           <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <%= link_to player_fans_path(current_user) do %>
+            <%= link_to player_fans_path(current_user || @user) do %>
               <%= image_tag 'dirtybird_bbq.png', class: 'main-area-nav-bgrd' %>
               <span class="main-area-nav-caption">Community</span>
             <% end %>
           </div>
 
           <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <%= link_to friends_path(current_user) do %>
+            <%= link_to friends_path(current_user || @user) do %>
               <%= image_tag 'JLB.png', class: 'main-area-nav-bgrd' %>
               <span class="main-area-nav-caption">Friends</span>
             <% end %>
