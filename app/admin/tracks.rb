@@ -12,7 +12,7 @@ ActiveAdmin.register Track do
   end
 
   form do |t|
-    t.has_many :track_info, allow_destroy: true, new_record: false, class: "directUpload" do |x|
+    t.has_many :track_info, new_record: false, class: "directUpload" do |x|
       x.input :label_name
       x.input :catalog
       x.input :release_artist
