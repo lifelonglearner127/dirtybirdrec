@@ -14,4 +14,24 @@ $(document).on('turbolinks:load', function(){
       }
     });
   }
+
+  $('.update-cc').click(function(e){
+    e.preventDefault();
+    var clientToken = "<%= Braintree::ClientToken.generate %>";
+
+    $(this).after('<div class="form-group" id="payment-form"></div>');
+
+    braintree.setup(clientToken, "dropin", {
+      container: "payment-form",
+      paypal: {
+        button: {
+          type: "checkout"
+        }
+      },
+      onError: function(payload) {
+      }
+    });
+
+    $(this).hide();
+  });
 });

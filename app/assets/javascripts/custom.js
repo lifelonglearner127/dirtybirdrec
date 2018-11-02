@@ -29,6 +29,10 @@ var ready = function() {
 
   $('.select').select2();
 
+  $('.scroll-back-btn').click(function(){
+    $($(this).attr('href')).show();
+  });
+
   $('.plan-block').click(function(){
     $('.plan-block').removeClass('active');
     $(this).addClass('active');
@@ -50,7 +54,7 @@ var ready = function() {
       radio_btn.prop('checked',true);
       $('.selected-period').text(period);
       $('.signup-billing-cost').text('$' + radio_btn.data('cost'));
-      $('.signup-billing-time').text(thirtyDaysFromNow());
+      $('.signup-billing-time').text('now');
       $('.signup-payed').show();
       $('.signup-free').hide();
     }
@@ -65,7 +69,10 @@ var ready = function() {
     var terms = $('#free-terms-and-conditions');
     var conduct = $('#free-code-of-conduct');
 
-    if (terms.prop("checked") && conduct.prop("checked")) {
+    if ((!terms.is(':visible') && 
+        !conduct.is(':visible')) ||  
+        (terms.prop("checked") && 
+        conduct.prop("checked"))) {
       $.ajax('/terms_and_conduct');
       window.location.replace('/success_signup');
     } else {
@@ -74,9 +81,8 @@ var ready = function() {
     }
   });
 
-  function thirtyDaysFromNow() {
-    var now = Date.now();
-    return new Date(now + 30*24*60*60*1000).toLocaleDateString();
+  if (window.location.pathname === '/choose_profile') {
+    switchPlanPeriod();
   }
 
   $('.switcher').click(function(){
@@ -91,16 +97,19 @@ var ready = function() {
     switchPlanPeriod('monthly',this);
   });
 
-  function switchPlanPeriod(to=false, self) {
+  function switchPlanPeriod(to=false, self=null) {
     if (to && to == 'monthly') {
       $(self).siblings('.switcher').addClass('monthly');
       changePeriod('monthly');
     } else if (to && to == 'annualy') {
       $(self).siblings('.switcher').removeClass('monthly');
       changePeriod('yearly');
-    } else {
+    } else if (!to && self) {
       $(self).toggleClass('monthly');
       changePeriod();
+    } else {
+      period = $('.switcher').prop('classList').contains('monthly') ? 'monthly' : 'yearly';
+      changePeriod(period);
     }
 
     function changePeriod(to=null) {
@@ -312,7 +321,11 @@ var ready = function() {
   });
 
   $('.credits-link').click(function(){
-    $('.credits-purchasing .credits-count').text($(this).data('credits'));
+    $('.credits-purchasing .chosen-credits-title').text($(this).data('title'));
+    $('.credits-purchasing .chosen-credits-count').text($(this).data('credits'));
+    $('.signup-billing-cost').text('$' + $(this).data('price'));
+    $('.sum-'+$(this).data('credits')+'-eggs').show().siblings().hide();
+
     $('#credits_count').val($(this).data('credits'));
     $('.credits-purchasing').fadeIn();
     $("html, body").animate({ scrollTop: $(".credits-purchasing").offset().top - 120 }, 500);
@@ -322,21 +335,6 @@ var ready = function() {
   $('.change-credits').click(function(){
     $("html, body").animate({ scrollTop: 0 }, 500);
     return false;
-  });
-
-  $('.update-cc').click(function(){
-    $('#payment-user-info').removeClass('d-none')
-        .append('<div class="form-group" id="payment-form"></div>');
-    braintree.setup(clientToken, "dropin", {
-      container: "payment-form",
-      paypal: {
-        button: {
-          type: "checkout"
-        }
-      },
-      onError: function(payload) {
-      }
-    });
   });
 
   $('.btn-disabled').click(function(e){
