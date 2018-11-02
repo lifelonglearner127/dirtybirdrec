@@ -83,7 +83,7 @@
       User Profile Edit Form
       -->
       <div class="subscription-panel">
-        <div class="row row-eq-height vertical-align">
+        <div class="row row-eq-height vertical-align w-100">
           <div class="col-lg-12">
             <label class="subscription-title" >SUBSCRIPTION</label>
           </div>
@@ -91,7 +91,7 @@
             <label class="insider-label">INSIDER</label>
             <div class="insider-right">
               <span class="insider-monthly">Monthly</span>
-              <span class="insider-change">Change</span>
+              <%= link_to 'Change', choose_profile_path, class: 'insider-change' %>
             </div>
           </div>
           <div class="col col-lg-4">
