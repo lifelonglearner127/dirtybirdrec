@@ -39,7 +39,6 @@
     <% unless current_user && current_user.has_role?(:artist) %>
       <div class="individual-track-star-wrapper" data-track-id="<%=track.id%>">
         <div class="individual-track-star">
-          <%= track.average('main').try(:avg).try(:round,1) %>
           <%= rating_for track, 'main',
               star: 4,
               cancel: false,
