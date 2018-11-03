@@ -43,16 +43,14 @@
       </div>
 
       <% if @release.download_uris.any? %>
-        <button class="release-icon release-download mr-3" type="button" data-toggle="collapse" data-target=".release-<%= @release.id %>-download" aria-expanded="false" aria-controls="collapseExample">
+        <button class="release-icon release-download mr-3 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= image_tag('icons/download-white.svg', title: "Download full release") %>
           <br>
           <span class="release-nav-caption mt-1">Download</span>
         </button>
-
-        <div class="collapse collapse-formats release-<%= @release.id %>-download"
-              style="text-align: left; left: 50%">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <% @release.download_uris.each do |format, uri| %>
-            <a href="<%= uri %>" class="btn btn-danger"><%= format %></a>
+            <a href="<%= uri %>" class="dropdown-item btn btn-danger"><%= format %></a>
           <% end %>
         </div>
       <% end %>
