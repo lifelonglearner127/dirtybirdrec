@@ -12,10 +12,10 @@ var rate_track = user_rate_track;
 <% if get_user_rate_for_track(@track) != 0 %>
   rate_track = user_rate_mark;
 <% end %>
-var rate = 
+var rate =
   '<div class="nav-rate-track-wrapper" data-track-id="<%=@track.id%>">'  +
     '<div class="nav-track-star">' +
-      '<%= @track.average("main").try(:avg).try(:round,1) %><%= escape_javascript( rating_for( @track, "main", star: 4, cancel: false, disable_after_rate: true, star_on: image_path("rate/egg/star-on.png"), star_half: image_path("rate/egg/star-on.png"), star_off: image_path("rate/egg/star-off.png"))) %>' +
+      '<%= escape_javascript( rating_for( @track, "main", star: 4, cancel: false, disable_after_rate: true, star_on: image_path("rate/egg/star-on.png"), star_half: image_path("rate/egg/star-on.png"), star_off: image_path("rate/egg/star-off.png"))) %>' +
     '</div>' +
     '<div class="user-rate-wrapper"  data-track-id="<%=@track.id%>">' + rate_track + '</div>' +
   '</div>';

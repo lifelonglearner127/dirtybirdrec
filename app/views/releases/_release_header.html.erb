@@ -27,7 +27,6 @@
       </div>
 
       <div class="release-rate mr-3" data-release-id="<%= @release.id %>">
-        <%= @release.average('main').try(:avg).try(:round,1) %>
         <%= rating_for @release, 'main',
             star: 4,
             readonly: true,
@@ -86,7 +85,7 @@
       </div>
 
       <div class="release-previous">
-        <%= link_to @release.previous, 
+        <%= link_to @release.previous,
             class: 'd-flex align-items-center justify-content-end' do %>
           <%= image_tag @release.previous.avatar.thumb, class: 'release-previous-img' %>
           <div style="overflow: hidden;">
@@ -203,11 +202,11 @@
   </div>
 
   <div style="margin-top: 13px;">
-    <%= image_tag 'icons/icon-chevron-black.svg', 
-        style: 'cursor: pointer; margin-right: 30px;', 
+    <%= image_tag 'icons/icon-chevron-black.svg',
+        style: 'cursor: pointer; margin-right: 30px;',
         onclick: "window.history.back();" %>
-    <%= image_tag 'icons/icon-chevron-black.svg', 
-        style: 'cursor: pointer; transform: rotate(180deg);', 
+    <%= image_tag 'icons/icon-chevron-black.svg',
+        style: 'cursor: pointer; transform: rotate(180deg);',
         onclick: "window.history.forward();" %>
   </div>
 </div>
