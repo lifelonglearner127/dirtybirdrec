@@ -255,8 +255,10 @@
 }
 
 .jp-title {
-  max-width: 200px;
-  overflow: scroll;
+  max-width: 300px;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 
   a:hover {
     color: #3ed4e0;

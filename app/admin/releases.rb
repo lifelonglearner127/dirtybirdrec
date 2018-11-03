@@ -24,7 +24,7 @@ ActiveAdmin.register Release do
                             :inspiring_uplifting, :chill_mellow,
                             :lyrics]]
 
-  config.sort_order = 'created_at_desc'
+  config.sort_order = 'release_date_desc'
   jcropable
 
   index do

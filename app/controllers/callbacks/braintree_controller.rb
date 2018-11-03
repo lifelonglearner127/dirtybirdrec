@@ -15,15 +15,20 @@ class Callbacks::BraintreeController < ApplicationController
           payment_method_nonce: params[:payment_method_nonce]
         )
 
-        if payment_method.success?
-        else
+        unless payment_method.success?
           flash[:error] = 'Failed to update payment method. You cannot currently change from Credit Card to PayPal billing. If you are still having issues, contact support.'
           redirect_to choose_profile_path and return
         end
       end
       
+      if params[:credits_count] == '13'
+        amount = 12
+      else
+        amount = params[:credits_count]
+      end
+
       result = Braintree::Transaction.sale(
-        :amount => params[:credits_count].to_f,
+        :amount => amount.to_f,
         :payment_method_token => current_user.braintree_customer.payment_methods[0].token,
         :options => {
           :submit_for_settlement => true
@@ -51,13 +56,75 @@ class Callbacks::BraintreeController < ApplicationController
 
       redirect_to get_more_credits_path( success: true ) and return
     end
+
+    download_credits = 0
+    if params[:subscription] == 'yearly_vib'
+      plan_id = ENV['BRAINTREE_YEARLY_PLAN_VIB_ID']
+      download_credits = 30
+    elsif params[:subscription] == 'yearly_insider'
+      plan_id = ENV['BRAINTREE_YEARLY_PLAN_INSIDER_ID']
+    elsif params[:subscription] == 'monthly_insider'
+      plan_id = ENV['BRAINTREE_MONTHLY_PLAN_INSIDER_ID']
+    elsif params[:subscription] == 'monthly_vib'
+      plan_id = ENV['BRAINTREE_MONTHLY_PLAN_VIB_ID']  
+      download_credits = 30
+    else
+      plan_id = nil
+    end
+
+    if current_user.braintree_subscription
+      if params[:payment_method_nonce].present?
+        payment_method = Braintree::PaymentMethod.update(
+          current_user.braintree_subscription.payment_method_token,
+          payment_method_nonce: params[:payment_method_nonce]
+        )
+
+        if payment_method.success?
+          flash[:notice] = 'Payment method updated.'
+        else
+          flash[:error] = 'Failed to update payment method. You cannot currently change from Credit Card to PayPal billing. If you are still having issues, contact support.'
+          redirect_to choose_profile_path and return
+        end
+      end
+
+      if params[:subscription].present?
+        unless plan_id
+          throw "Couldn't find plan for subscription #{params[:subscription]}"
+        end
+
+        Braintree::Subscription.cancel(current_user.braintree_subscription_id)
+
+        result = Braintree::Subscription.create(
+          plan_id: plan_id,
+          payment_method_token: current_user.braintree_customer.payment_methods[0].token
+        )
+
+        if result.success?
+          current_user.update_attributes(
+            braintree_subscription_id: result.subscription.id,
+            subscription_started_at: Date.today,
+            subscription_length: params[:subscription],
+            download_credits: download_credits
+          )
+
+          if result.subscription.trial_period
+            current_user.update_attributes(braintree_subscription_expires_at: result.subscription.next_billing_date.to_date - 1)
+          else
+            current_user.update_attributes(braintree_subscription_expires_at: result.subscription.paid_through_date)
+          end
+
+          flash[:notice] = 'Subscription type updated.'
+          redirect_to root_path and return
+          #TODO redirect to success page (payment method and/or subscription type)
+        else
+          flash[:error] = 'Failed to change Subscription. If unexpected, contact support.'
+          redirect_to choose_profile_path and return
+        end
+      end
+    end
  
     if params[:payment_method_nonce].blank?
-      # Honeybadger.notify(
-      #   error_class: 'MissingNonce',
-      #   error_message: 'Missing Nonce on Callback',
-      #   parameters: params
-      # )
+      SLACK.ping "Missing Nonce on Callback userId #{current_user.id}"
 
       flash[:error] = 'Failed to process payment. Please double check your information and try again. You have not yet been charged.'
       redirect_to choose_profile_path and return
@@ -98,18 +165,7 @@ class Callbacks::BraintreeController < ApplicationController
         redirect_to choose_profile_path and return
       end
     else
-      download_credits = 0
-      if params[:subscription] == 'yearly_vib'
-        plan_id = ENV['BRAINTREE_YEARLY_PLAN_VIB_ID']
-        download_credits = 30
-      elsif params[:subscription] == 'yearly_insider'
-        plan_id = ENV['BRAINTREE_YEARLY_PLAN_INSIDER_ID']
-      elsif params[:subscription] == 'monthly_insider'
-        plan_id = ENV['BRAINTREE_MONTHLY_PLAN_INSIDER_ID']
-      elsif params[:subscription] == 'monthly_vib'
-        plan_id = ENV['BRAINTREE_MONTHLY_PLAN_VIB_ID']  
-        download_credits = 30
-      else
+      unless plan_id
         throw "Couldn't find plan for subscription #{params[:subscription]}"
       end
 
