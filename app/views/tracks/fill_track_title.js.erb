@@ -22,15 +22,57 @@ var rate =
 var rate_track_modal = '<%= escape_javascript( render "tracks/rate_track_modal", track: @track, release: @release, image: @release.avatar.url, current_user: current_user)%>';
 var download_release = `
   <% if @release.download_uris.any? %>
-    <button class="download-release" type="button" data-toggle="collapse" data-target=".release-<%= @release.id %>-download-header" aria-expanded="false" aria-controls="collapseExample">
+    <button class="download-release" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <%= image_tag('icons/download-white.svg', title: "Download full release") %>
     </button>
-
-    <div class="collapse collapse-formats release-<%= @release.id %>-download-header"
-          style="text-align: left; left: 50%">
-      <% @release.download_uris.each do |format, uri| %>
-        <a href="<%= uri %>" class="btn btn-danger"><%= format %></a>
-      <% end %>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 25%;padding-bottom: 0px;">
+      <div class='display-inline col-md-12'>
+        <%= image_tag @release.avatar.large, class: 'release-previous-img', style: 'width: 65px;height: 70px;' %>
+        <div class="download-btn-heading">
+          Download
+          <br>
+          <div style="font-size: 0.6rem;font-family: initial;">
+            <div class="display-inline">
+              Catalog ID:
+              <div style="font-weight: normal;padding-left: 3px;"><%= @release.catalog %></div>
+            </div>
+            <br>
+            <div class="display-inline">
+              Tracks:
+              <div style="font-weight: normal;padding-left: 3px;"><%= @release.tracks.count %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="display-inline col-md-12 margin-top-10" style="padding-left: 0px;padding-right: 0px;">
+        <div class='eggs-description-dialog'>
+          <span style="padding-right: 5px;">
+            <%= @release.tracks.count %>
+            TRACKS FOR
+          </span>
+          <%= image_tag 'egg-big.svg', style: 'width: 20px;height' %>
+          <span style="padding-left: 5px;">
+            <%= @release.tracks.count %>
+            EGGS
+          </span>
+        </div>
+        <a class='eggs-doit-dialog' href="#">
+          DO IT
+        </a>
+      </div>
+      <div class="display-inline col-md-12 description-download-dialog margin-top-10">
+        I'D LIKE DO DOWNLOAD SPECIFIC TRACKS
+      </div>
+      <br>
+      <div class="display-inline col-md-12 margin-top-10" style="padding: 0px;margin-top: 5px;">
+        <div class="col-md-6 padding-0">
+          <a class="width-100 font-05 btn c-btn-black btn-square light-background-btn" href="/how_eggs_work">HOW DOES THIS WORK?</a>
+        </div>
+        <div class="col-md-6 padding-0">
+          <a class="width-100 font-05 btn c-btn-black btn-square" href="/get_more_credits">I NEED MORE EGGS</a>
+        </div>
+      </div>
     </div>
   <% end %>`;
 var download = "<%= escape_javascript( render partial: 'tracks/download', locals: { track: @track, icon: 'white' } )%>";
