@@ -19,13 +19,13 @@ module TrackInfoSheets
       puts sheet.simple_rows.count
       sheet.simple_rows.drop(1).each do |row|
         if row != {}
-          # begin
-          extract_value row
-          # rescue
-          #   puts '------ERROR--------'
-          #   puts row.inspect
-          #   @errors << row
-          # end
+          begin
+            extract_value row
+          rescue
+            puts '------ERROR--------'
+            puts row.inspect
+            @errors << row
+          end
           # puts row['A'].inspect
           # puts row['G'].to_s.inspect
         end
