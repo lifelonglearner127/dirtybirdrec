@@ -19,12 +19,13 @@ module TrackInfoSheets
       puts sheet.simple_rows.count
       sheet.simple_rows.drop(1).each do |row|
         if row != {}
-          begin
-            extract_value row
-          rescue
-            puts '------ERROR--------'
-            @errors << row
-          end
+          # begin
+          extract_value row
+          # rescue
+          #   puts '------ERROR--------'
+          #   puts row.inspect
+          #   @errors << row
+          # end
           # puts row['A'].inspect
           # puts row['G'].to_s.inspect
         end
@@ -37,12 +38,15 @@ module TrackInfoSheets
       # end
       puts '--'*200
       puts 'Import End'
+      puts @errors.inspect
+      puts '--'*50
+      puts @errors.count
       puts @errors
     end
 
     def extract_value(row)
       release = Release.includes(:tracks).find_by(catalog: row['B'])
-      if release.nil?
+      if release.blank?
         release = Release.new(catalog: row['B'],
                               title: row['F'],
                               release_date: row['G'].to_datetime,
@@ -50,9 +54,14 @@ module TrackInfoSheets
                               upc_code: '',
                               text: '',
                               artist: row['C'])
-
-        release.remote_avatar_url = format_dropbox_url(row['AE'])
-        if  !release.save
+        unless row['AE'].blank?
+          release.remote_avatar_url = format_dropbox_url(row['AE'])
+        else
+          release.avatar = File.open(File.join(Rails.root, '/app/assets/images/default_release_avatar.png'))
+        end
+        begin
+          release.save!
+        rescue
           release = Release.new(catalog: row['B'],
                               title: row['F'],
                               release_date: row['G'].to_datetime,
@@ -61,30 +70,29 @@ module TrackInfoSheets
                               text: '',
                               artist: row['C'])
           release.avatar = File.open(File.join(Rails.root, '/app/assets/images/default_release_avatar.png'))
-          release.save!
         end
       end
       save_track(release, row) if row['AD']!=''
     end
 
     def save_track(release, row)
-      begin
+      unless row['AD'].blank?
         track_url = format_dropbox_url(row['AD'])
-      rescue
+      else
         track_url = ''
       end
-      if Track.find_by(uri_string: track_url).nil?
-        track = Track.new
-        track.title = row['D']
-        track.track_number = release.tracks.count+1
-        track.release = release
-        track.isrc_code = row['L']
-        track.artist = row['E']
-        track.uri_string = track_url
-        track.genre = row['M']
-        track.save!
-        save_track_info(track, row)
-      end
+      # if Track.find_by(isrc_code: row['L']).nil? || row['L'].blank?
+      track = Track.new
+      track.title = row['D']
+      track.track_number = release.tracks.count+1
+      track.release = release
+      track.isrc_code = row['L'] unless row['L'].blank?
+      track.artist = row['E']
+      track.uri_string = track_url unless track_url.blank?
+      track.genre = row['M']
+      track.save!
+      save_track_info(track, row)
+      # end
     end
 
     def save_track_info(track, row)
@@ -121,7 +129,14 @@ module TrackInfoSheets
     end
 
     def boolean_value(value)
-     if value == '0' || value == '' || value == nil
+      is_false = false
+      is_true = false
+      unless value.nil?
+        is_false = value.to_s.chars.any? { |char| ('0').include? char.downcase }
+        is_true = value.to_s.chars.any? { |char| ('1').include? char.downcase }
+      end
+      return true if is_true
+      if is_false || value.blank?
         false
       else
         true

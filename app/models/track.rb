@@ -7,7 +7,7 @@ class Track < ApplicationRecord
   has_many :track_files
   has_many :downloads
   has_many :recently_items
-  belongs_to :track_info, dependent: :destroy
+  belongs_to :track_info, dependent: :destroy, optional: true
   accepts_nested_attributes_for :track_info
 
   mount_uploader :uri, TrackUploader
