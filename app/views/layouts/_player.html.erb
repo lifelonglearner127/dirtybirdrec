@@ -7,7 +7,7 @@
             PLAYER
           <% end %>
         <% end %>
-        
+
         <div class="jp-controls">
           <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
           <button class="jp-previous" role="button" tabindex="0"></button>
@@ -34,7 +34,7 @@
         <div class="jp-details"></div>
         <div class="jp-additions"></div>
 
-        <% if current_user && (current_user.cahced_active_subscription? || 
+        <% if current_user && (current_user.cahced_active_subscription? ||
               current_user.has_role?(:admin) ||
               current_user.has_role?(:artist) ) %>
 
@@ -43,7 +43,7 @@
           </button>
         <% end %>
 
-        <% if current_user && current_user.braintree_subscription_expires_at && 
+        <% if current_user && current_user.braintree_subscription_expires_at &&
           (current_user.subscription_length == 'monthly_vib' ||
            current_user.subscription_length == 'yearly_vib' ||
            current_user.subscription_length == 'monthly_old') %>
@@ -53,11 +53,37 @@
               <span class="credits-count-text"><%= pluralize(@credits, "egg") %></span>
             </button>
 
-            <div id="credits-count" class="collapse credits-dropdown">
-              <span class="text-nowrap mb-1 d-inline-block">
-                You have <%= @credits %> download credits
-              </span>
-              <%=link_to "Buy More", get_more_credits_path, class: "btn c-btn-blue c-btn-sm" %>
+            <div id="credits-count" class="collapse credits-dropdown" style="width: 24rem;">
+              <div class="display-inline col-md-12 margin-top-10" style="padding-left: 0px;padding-right: 0px;font-size: 0.9rem;">
+                <div class="col-md-6 padding-0 download-btn-heading" style="font-size: 1rem; border: solid 1px #c4c2c2;padding-left: 0px;">
+                YOU HAVE
+                <span style="color: #FF6470;"><%= @credits %></span>
+                EGGS AVAILABLE
+                <br>
+                <span style="font-size: 0.7rem;font-family: initial;text-transform: none;">Your next 10 egg drop is on: <span style="font-weight: normal;"><%= current_user.braintree_subscription_expires_at.strftime("%m/%d/%Y") %></span></span>
+                </div>
+                <div class="col-md-6 padding-0 download-btn-heading" style="font-size: 0.8rem;padding-left: 0px;">
+                  <% if @credits <= 18 %>
+                    <%= image_tag "egg_racks/#{@credits}.png", style: 'width: 80%;' %>
+                  <% else %>
+                    <%= image_tag "egg_racks/18.png", style: 'width: 80%;' %>
+                  <% end %>
+                </div>
+                <br>
+              </div>
+
+              <div class="display-inline col-md-12 margin-top-10">
+                <div class="col-md-6" style="padding-left: 0px">
+                  <div data-toggle="tooltip" data-placement="top" title="We will be opening the egg shop shortly to use eggs for more than just music, Stay tuned!">
+                    <%= image_tag 'birdfeed_shop.png', style: 'width: 100%' %>
+                  </div>
+                </div>
+                <div class="col-md-6" style="padding-right: 0px">
+                  <a href="/get_more_credits">
+                    <%= image_tag 'moreeggs.png', style: 'width: 100%;height:100%;' %>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         <% else %>
@@ -84,18 +110,18 @@
       </div>
 
       <div class="jp-playlist" style="display: none;">
-        
+
         <% if current_user %>
           <div class="jp-playlist-name"></div>
           <ul></ul>
           <div class="jp-playlist-footer">
             <%= link_to "NEW", new_playlist_path, remote: true,
                 class: 'btn c-btn-gray btn-square' %>
-            <a href="#" 
-                data-toggle="collapse" 
-                data-target="#jp-playlist-popover" 
-                aria-expanded="false" 
-                aria-controls="collapseExample" 
+            <a href="#"
+                data-toggle="collapse"
+                data-target="#jp-playlist-popover"
+                aria-expanded="false"
+                aria-controls="collapseExample"
                 class="btn c-btn-blue btn-square">
               Load
             </a>
@@ -137,8 +163,8 @@
 </div>
 
 <script type="text/javascript" data-turbolinks-eval="false">
-  //playlist can be virual (play and display on player title, 
-  //don't display on playlist menu, don't sync with the server, 
+  //playlist can be virual (play and display on player title,
+  //don't display on playlist menu, don't sync with the server,
   //just for observe listening the music)
   var playlist = [];
   var currentTrackIndex;
@@ -162,7 +188,7 @@
   $('.jp-current-time').text(secondsToHms(0));
   $('.jp-duration').text(secondsToHms(0));
 
-  
+
   $.ajax( "/playlist_load" )
     .done(function(data) {
       var time;
@@ -179,12 +205,12 @@
 
       $('.jp-playlist-name').html(data.playlist_name_form);
       setPlaylist(data.tracks, {
-        play: false, 
-        currentTrack: currentTrackIndex, 
-        currentTime: time, 
-        virtual: false, 
-        newPlaylist: true, 
-        sourceType: 'playlist', 
+        play: false,
+        currentTrack: currentTrackIndex,
+        currentTime: time,
+        virtual: false,
+        newPlaylist: true,
+        sourceType: 'playlist',
         sourceId: data.playlist_id
       });
     });
@@ -246,7 +272,7 @@
     } else if (newPlaylist) {
       playlist = tracks; //setting common playlist variable;
       addItemsToPlaylist({newPlaylist: true, sourceType: sourceType, sourceId: sourceId});
-      playerLoad(currentTime, virtual, sourceType, sourceId); 
+      playerLoad(currentTime, virtual, sourceType, sourceId);
     } else {
       if ($('.jp-audio .jp-play').data('virtual')) {
         playlist = tracks; //setting common playlist variable;
@@ -256,12 +282,12 @@
 
       addItemsToPlaylist({tracks: tracks, sourceType: sourceType, sourceId: sourceId});
 
-      $.post('/sync_playlist', 
-        { add_tracks_ids: tracks.map(x => x['id']) });    
+      $.post('/sync_playlist',
+        { add_tracks_ids: tracks.map(x => x['id']) });
       return false;
     }
 
-    if (play) { 
+    if (play) {
       cpAudio.on('ready', function(){
         cpAudio.play();
         updatePlayerState(sourceType, sourceId, currentTrackIndex, virtual);
@@ -288,7 +314,7 @@
       .parent('li')
       .addClass('active');
 
-    $.ajax({ 
+    $.ajax({
         url: "/playlist_load",
         dataType: 'JSON',
         data: { playlist_id: playlistId }
@@ -306,12 +332,12 @@
 
         $('.jp-playlist-name').html(data.playlist_name_form);
         setPlaylist(data.tracks, {
-          play: true, 
-          currentTrack: currentTrackIndex, 
-          currentTime: time, 
-          virtual: false, 
-          newPlaylist: true, 
-          sourceType: 'playlist', 
+          play: true,
+          currentTrack: currentTrackIndex,
+          currentTime: time,
+          virtual: false,
+          newPlaylist: true,
+          sourceType: 'playlist',
           sourceId: playlistId
         });
         $('#jp-playlist-popover').removeClass('show');
@@ -321,13 +347,13 @@
   $(document).on('click', '.playlist-add-track', function(e){
     e.preventDefault();
     var trackId = $(this).data('trackId');
-    $.ajax({ 
+    $.ajax({
         url: `/tracks/${trackId}`,
         dataType: 'JSON'
       })
       .done(function(track) {
         setPlaylist([track], {
-          virtual: false, 
+          virtual: false,
           newPlaylist: false,
           sourceType: 'playlist',
           sourceId: $('.jp-playlist').data('currentPlaylistId')
@@ -339,14 +365,14 @@
     e.preventDefault();
     var sourceType = $(this).data('sourceType');
     var sourceId = $(this).data('sourceId');
-    $.ajax({ 
+    $.ajax({
         url: `/tracks_play`,
         dataType: 'JSON',
         data: { source_type: sourceType, source_id: sourceId }
       })
       .done(function(data) {
         setPlaylist(data.tracks, {
-          virtual: false, 
+          virtual: false,
           newPlaylist: false,
           sourceType: 'playlist',
           sourceId: $('.jp-playlist').data('currentPlaylistId')
@@ -403,14 +429,14 @@
       });
     }
 
-    $.post('/sync_playlist', 
-      { delete_by_indices: [index], current_track_index: currentTrackIndex });    
+    $.post('/sync_playlist',
+      { delete_by_indices: [index], current_track_index: currentTrackIndex });
   }
 
   function playButton(button) {
     var topData = $('.jp-audio .jp-play').data();
     var btnData = $(button).data();
-    var sameSource = topData.sourceType == btnData.sourceType && 
+    var sameSource = topData.sourceType == btnData.sourceType &&
                      topData.sourceId == btnData.sourceId;
     var sameIndex = topData.trackIndex == btnData.trackIndex;
 
@@ -436,19 +462,19 @@
       $.ajax({
           url: '/tracks_play',
           dataType: 'JSON',
-          data: { 
-            source_type: btnData.sourceType, 
+          data: {
+            source_type: btnData.sourceType,
             source_id: btnData.sourceId
           }
         })
         .done(function(data){
           setPlaylist(data.tracks, {
-            play: true, 
-            currentTrack: btnData.trackIndex || 0, 
-            currentTime: 0, 
-            virtual: false, 
-            newPlaylist: true, 
-            sourceType: btnData.sourceType, 
+            play: true,
+            currentTrack: btnData.trackIndex || 0,
+            currentTime: 0,
+            virtual: false,
+            newPlaylist: true,
+            sourceType: btnData.sourceType,
             sourceId: btnData.sourceId
           });
           $.ajax({
@@ -509,7 +535,7 @@
 
     cpAudio.on('ready', function(){
       trackLoading(false);
-      
+
       cpAudio.skip(currentTime);
       $('.jp-current-time').text(secondsToHms(currentTime));
       $('.pp-current-time').text(secondsToHms(currentTime));
@@ -526,10 +552,10 @@
     });
 
     if (!virtual) {
-      $.post('/sync_playlist', 
-        { add_tracks_ids: playlist.map(x => x['id']), 
+      $.post('/sync_playlist',
+        { add_tracks_ids: playlist.map(x => x['id']),
           current_track: currentTrackIndex,
-          default_playlist: true }); 
+          default_playlist: true });
     }
   }
 
@@ -565,7 +591,7 @@
 
     if (playlist[currentTrackIndex - 1] == undefined) {
       return false;
-    }  
+    }
 
     currentTrackIndex--;
     playerLoad(0, virtual, sourceType, sourceId);
@@ -638,7 +664,7 @@
               while(elem) {
                 top = top + parseFloat(elem.offsetTop)
                 left = left + parseFloat(elem.offsetLeft)
-                elem = elem.offsetParent       
+                elem = elem.offsetParent
               }
               return {top: Math.round(top), left: Math.round(left)}
             }
@@ -690,10 +716,10 @@
 
   //should be called after play action if play
   function updatePlayerState(
-    sourceType = $('.jp-audio .jp-play').data('sourceType'), 
-    sourceId = $('.jp-audio .jp-play').data('sourceId'), 
+    sourceType = $('.jp-audio .jp-play').data('sourceType'),
+    sourceId = $('.jp-audio .jp-play').data('sourceId'),
     trackIndex,
-    virtual = $('.jp-audio .jp-play').data('virtual') 
+    virtual = $('.jp-audio .jp-play').data('virtual')
     ) {
 
     if (!sourceType) return false;
@@ -707,9 +733,9 @@
       trackIndex = $('.jp-audio .jp-play').data('trackIndex');
     }
 
-    $('.jp-audio .jp-play').data({ 
-          sourceType: sourceType, 
-          sourceId: sourceId, 
+    $('.jp-audio .jp-play').data({
+          sourceType: sourceType,
+          sourceId: sourceId,
           trackId: trackId,
           trackIndex: trackIndex,
           virtual: virtual
@@ -731,7 +757,7 @@
     }
 
     $('.jp-playlist li').removeClass('jp-playlist-current');
-    
+
     if (!virtual) {
       $($('.jp-playlist li').get(currentTrackIndex)).addClass('jp-playlist-current');
     }
@@ -765,7 +791,7 @@
           $(this).css('display','inline-block');
     });
   });
-  
+
   $(document).on('click', '#jp-release-playlist-btn', function(){
     $('.jp-release-playlist')
           .css({ 'left': $(this).offset().left - 75 })
