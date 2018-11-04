@@ -74,7 +74,7 @@ module ApplicationHelper
   end
 
   def comment_with_meta_data text
-    if match = text.match(URI.regexp)
+    if match = text.match(/\w+:(\/?\/?)[^\s]+/)
       meta_data = get_metadata(match[0])
       meta_data_html = '<strong>'+meta_data[:title].to_s+'</strong>'
       # meta_data_html += '<br>'+meta_data[:desc].try(:truncate,140).to_s if meta_data[:desc]

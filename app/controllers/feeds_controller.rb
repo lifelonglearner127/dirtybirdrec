@@ -62,7 +62,6 @@ class FeedsController < ApplicationController
           "activity_count" => 1}
       ]).first
 
-
       @feed_item = render_to_string(partial: "aggregated_activity/userpage_#{ @new_item }", 
           locals: { activity: @activity } )
     else
