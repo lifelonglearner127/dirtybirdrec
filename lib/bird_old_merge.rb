@@ -160,14 +160,19 @@ class BirdOldMerge
 
       users = BirdOldDb.connection.select_all(sql)
 
-      
+      new_user_ids = User.pluck(:email)
+
+      users = users.select do |c|
+        !new_user_ids.include?(c["email"])
+      end
+
       BirdNewDb.table_name = "users"
       BirdNewDb.bulk_insert values: users
 
       restore_schema_cache
 
-      puts 'users complete'
-
+      puts "#{users.count} users added"
+      SLACK_UPDATES.ping "#{users.count} users added"
     end
     
 
@@ -320,19 +325,26 @@ class BirdOldMerge
         
         # #хэш вида old_id=>id
         new_user_id = User.where(drip_source: nil).all.map{|e|[e.old_id,e.id]}.to_h
-        
+
+        new_topic_ids = Topic.pluck(:old_id)
+
+        topics = topics.select do |c|
+          !new_topic_ids.include?(c["old_id"])
+        end
+
         topics = topics.map do |e|
+            e["category_id"] = TopicCategory.find_by_title('Other').try(:id)
             e["user_id"] = new_user_id[e["user_id"]]
             e
         end
-
 
         BirdNewDb.table_name = "topics"
         BirdNewDb.bulk_insert values: topics
 
         restore_schema_cache
 
-        puts 'topics complete'
+        puts "#{topics.count} topics added"
+        SLACK_UPDATES.ping "#{topics.count} topics added"
       end
 
 
@@ -547,12 +559,19 @@ class BirdOldMerge
         #     e
         # end
 
+        new_announcement_ids = Announcement.pluck(:old_id)
+
+        announcements = posts.select do |c|
+          !new_announcement_ids.include?(c["old_id"])
+        end
+
         BirdNewDb.table_name = "announcements"
-        BirdNewDb.bulk_insert values: posts
+        BirdNewDb.bulk_insert values: announcements
 
         restore_schema_cache
 
-        puts 'posts complete'
+        puts "#{announcements.count} announcements added"
+        SLACK_UPDATES.ping "#{announcements.count} announcements added"
 
       end
 
@@ -948,50 +967,123 @@ class BirdOldMerge
             releases
         '
 
-        comments = BirdOldDb.connection.select_all(sql)
-        releases = BirdOldDb.connection.select_all(sql1)
+        sql2 = '
+          SELECT
+            *
+          FROM
+            topics
+        '
+
+        sql3 = '
+          SELECT
+            *
+          FROM
+            posts
+        '
+
+        old_comments = BirdOldDb.connection.select_all(sql)
+        old_releases = BirdOldDb.connection.select_all(sql1)
+        old_topics = BirdOldDb.connection.select_all(sql2)
+        old_posts = BirdOldDb.connection.select_all(sql3)
 
         #хэш вида old_id=>id
         new_user_id = User.where(drip_source: nil).all.map{|e|[e.old_id,e.id]}.to_h
-        new_commentable_id = {}
-        commentable_types = comments.map do |c|
-          if c["commentable_type"] == 'Post'
-            'Announcement'
-          else
-            c["commentable_type"]
-          end
-        end.uniq
-
-        commentable_types.each do |type|
-          type_id = type.classify.safe_constantize.all.map{|e|[e.old_id,e.id]}.to_h
-          new_commentable_id[type] = type_id
-        end
 
         new_release_id = Release.all.map do |r|
-          old_id = releases.select{|o_r| o_r["catalog"] == r.catalog }
+          old_id = old_releases.select{ |o_r| o_r["catalog"] == r.catalog }
           old_id = old_id[0]["id"] if old_id.present?
           [old_id,r.id]
         end.to_h
 
+        new_topic_id = Topic.all.map do |r|
+          [r.old_id,r.id]
+        end.to_h
+
+        new_announcement_id = Announcement.all.map do |r|
+          [r.old_id,r.id]
+        end.to_h
+
+        new_post_ids = Post.pluck(:old_id)
+
+        posts = old_comments.select do |c| 
+          c["commentable_type"] == 'Topic' && !new_post_ids.include?(c["old_id"])
+        end
+
+        posts = posts.map do |e|
+          e["user_id"] = new_user_id[e["user_id"]]
+          e["topic_id"] = new_topic_id[e["commentable_id"]]
+          e
+        end
+
+        new_comment_ids = Comment.pluck(:old_id)
+
+        comments = old_comments.select do |c|
+          c["commentable_type"] != 'Topic' && !new_comment_ids.include?(c["old_id"])
+        end
+
         comments = comments.map do |e|
-          e["commentable_type"] = 'Announcement' if e["commentable_type"] == 'Post'
           e["user_id"] = new_user_id[e["user_id"]]
 
           if e["commentable_type"] == 'Release'
             e["commentable_id"] = new_release_id[e["commentable_id"]] || e["commentable_id"]
-          else
-            e["commentable_id"] = new_commentable_id[e["commentable_type"]][e["commentable_id"]]
+          elsif e["commentable_type"] == 'Post'
+            e["commentable_type"] = 'Announcement'
+            e["commentable_id"] = new_announcement_id[e["commentable_id"]] || e["commentable_id"]
           end
 
           e
         end
-        
+
         BirdNewDb.table_name = "comments"
         BirdNewDb.bulk_insert values: comments
+        Post.bulk_insert values: posts
+
+        Comment.where.not(parent_id: nil).each do |comment|
+          new_id = Comment.find_by_old_id(comment.parent_id).try(:id)
+
+          if comment.parent_id != new_id
+            comment.update_attributes(parent_id: new_id)
+          end
+        end
+
+        Post.where.not(parent_id: nil).each do |post|
+          new_id = Post.find_by_old_id(post.parent_id).try(:id)
+
+          if post.parent_id != new_id
+            post.update_attributes(parent_id: new_id)
+          end
+        end
+
+        new_comments = Comment.where("old_id IN (?)", comments.map{|c| c["old_id"]})
+
+        comments_by_feeds = new_comments.group_by do |c| 
+          { commentable_id:   c["commentable_id"], 
+            commentable_type: c["commentable_type"] }
+        end
+
+        comments_by_feeds.each do |obj, _activities|
+          activities = _activities.map do |_activity|
+            {
+              actor: "User:#{_activity["user_id"]}",
+              verb: "Comment",
+              object: "#{obj[:commentable_type]}:#{obj[:commentable_id]}",
+              foreign_id: "Comment:#{_activity["id"]}",
+              time: _activity.created_at.iso8601
+            }
+          end
+
+          feed = StreamRails.feed_manager
+              .get_feed(obj[:commentable_type].downcase, obj[:commentable_id])
+
+          feed.add_activities(activities)
+        end
 
         restore_schema_cache
 
-        puts 'comments complete'
+        puts "#{comments.count} comments added"
+        puts "#{posts.count} posts added"
+        SLACK_UPDATES.ping "#{comments.count} comments added"
+        SLACK_UPDATES.ping "#{posts.count} posts added"
       end
 
 
@@ -1002,7 +1094,6 @@ class BirdOldMerge
         
         BirdNewDb.connection.schema_cache.clear!
         BirdNewDb.reset_column_information
-        
       end
   end
 end

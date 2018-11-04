@@ -1,3 +1,3 @@
 class BirdOldDb < ActiveRecord::Base
-  establish_connection(:bird_old)
+  establish_connection(ENV['bird_old'])
 end
