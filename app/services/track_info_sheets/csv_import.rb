@@ -8,7 +8,7 @@ module TrackInfoSheets
     def initialize(bulk_track_info_sheet)
       sheet = bulk_track_info_sheet
       @errors = []
-      @file = File.open(File.join(Rails.root, '/bulk_import_files/000-Music Supervisor Reference (1).xlsx'))
+      @file = sheet.open
     end
 
     def call
