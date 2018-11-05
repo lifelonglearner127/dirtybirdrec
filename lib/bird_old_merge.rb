@@ -1061,6 +1061,14 @@ class BirdOldMerge
         BirdNewDb.bulk_insert values: comments
         Post.bulk_insert values: posts
 
+        Comment.where(commentable_type: 'Post').each do |comment|
+          new_post_id = Post.find_by_old_id(comment.commentable_id).try(:id)
+
+          if new_post_id
+            comment.update_attributes(commentable_id: new_post_id, parent_id: nil)
+          end
+        end
+
         Comment.where.not(parent_id: nil).each do |comment|
           new_id = Comment.find_by_old_id(comment.parent_id).try(:id)
 
