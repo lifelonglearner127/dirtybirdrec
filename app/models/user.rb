@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
 
-  enum subscription_length: [:unknown, :monthly_old, :yearly_old, 
+  enum subscription_length: [:free, :monthly_old, :yearly_old, 
       :monthly_insider, :monthly_vib, :yearly_insider, :yearly_vib]
 
   has_many :badge_levels, inverse_of: :user
