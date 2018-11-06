@@ -30,7 +30,7 @@
     width: 15px;
     height: 20px;
   }
-} 
+}
 
 .playlist-name-btn {
   color: #434343;
@@ -294,5 +294,81 @@
     &:hover {
       background-color: rgba(255,255,255,0.17);
     }
+  }
+}
+
+.modal-open .container-fluid, .modal-open  .container {
+  -webkit-filter: blur(1px);
+}
+
+#eggsMembershipModal {
+  .modal-dialog {
+    background-color: white;
+    margin-top: 10%;
+  }
+  .modal-main-heading {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    margin-bottom: 0;
+    font-family: 'Phosphate-Inline';
+    color: #222;
+    padding-top: 0.4rem;
+  }
+  .second-heading {
+    font-family: 'Phosphate-Inline';
+    letter-spacing: 2px;
+    strong {
+      padding-left: 50px;
+    }
+  }
+  .grey-box {
+    height: fit-content;
+    background-color: #454545;
+    border: solid 2px #FFB234;
+    // margin-top: 20px;
+    width: 100%;
+    margin-left: 15px;
+  }
+  .c-btn-blue {
+    margin-top: 40px;
+    width: 60%;
+  }
+  .modal-dialog {
+    border-radius: 30px;
+  }
+  .modal-content {
+    border-radius: 30px;
+  }
+  .btn-pink {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    background-color: #FF5B68;
+  }
+  .sub-heading-grey-box {
+    z-index: 5;
+    margin-bottom: -17px;
+    width: 77%;
+    position: relative;
+    margin-top: 15px;
+    color: white;
+    height: fit-content;
+    background-color: #454545;
+    border: solid 2px #FFB234;
+    // margin-top: 20px;
+    // width: 100%;
+    margin-left: 1rem;
+    strong {
+      font-size: 0.8rem;
+      padding: 0;
+    }
+  }
+  .footer-text {
+    color: #515151;
+    font-size: 0.8rem;
+    margin-left: 15px;
+    font-weight: bold;
   }
 }
