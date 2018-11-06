@@ -1003,10 +1003,12 @@ class BirdOldMerge
           [r.old_id,r.id]
         end.to_h
 
-        new_post_ids = Post.pluck(:old_id)
+        exist_post_ids = Post.pluck(:old_id)
 
-        posts = old_comments.select do |c| 
-          c["commentable_type"] == 'Topic' && !new_post_ids.include?(c["old_id"])
+        posts = old_comments.dup.select do |c| 
+          c["commentable_type"] == 'Topic' && 
+          c["parent_id"] == nil &&
+          !exist_post_ids.include?(c["old_id"])
         end
 
         posts = posts.map do |e|
@@ -1015,10 +1017,14 @@ class BirdOldMerge
           e
         end
 
-        new_comment_ids = Comment.pluck(:old_id)
+        exist_comment_ids = Comment.pluck(:old_id)
 
-        comments = old_comments.select do |c|
-          c["commentable_type"] != 'Topic' && !new_comment_ids.include?(c["old_id"])
+        comments = old_comments.dup.select do |c|
+          topics_with_parent = c["commentable_type"] == 'Topic' && c["parent_id"] != nil
+          not_topics = c["commentable_type"] != 'Topic'
+
+          ( ( topics_with_parent || not_topics ) && 
+            !exist_comment_ids.include?(c["old_id"]) )
         end
 
         comments = comments.map do |e|
@@ -1026,9 +1032,47 @@ class BirdOldMerge
 
           if e["commentable_type"] == 'Release'
             e["commentable_id"] = new_release_id[e["commentable_id"]] || e["commentable_id"]
+            parent = old_comments.dup.to_ary.reverse.select{ |c| c["old_id"] == e["parent_id"] }.first
+
+            if parent.present? && parent["parent_id"].blank?
+              e["commentable_type"] = 'Comment'
+              e["commentable_id"] = e["parent_id"]
+              e["parent_id"] = nil
+            elsif parent.present? && parent["parent_id"].present?
+              e["commentable_type"] = 'Comment'
+              e["commentable_id"] = parent["commentable_id"]
+            end
           elsif e["commentable_type"] == 'Post'
             e["commentable_type"] = 'Announcement'
             e["commentable_id"] = new_announcement_id[e["commentable_id"]] || e["commentable_id"]
+            parent = old_comments.dup.to_ary.reverse.select{ |c| c["old_id"] == e["parent_id"] }.first
+
+            if parent.present? && parent["parent_id"].blank?
+              e["commentable_type"] = 'Comment'
+              e["commentable_id"] = e["parent_id"]
+              e["parent_id"] = nil
+            elsif parent.present? && parent["parent_id"].present?
+              e["commentable_type"] = 'Comment'
+              e["commentable_id"] = parent["commentable_id"]
+            end
+          elsif e["commentable_type"] == 'Topic'
+            e["commentable_type"] = 'Post'
+
+            parent = old_comments.dup.to_ary.select{ |c| c["old_id"] == e["parent_id"] }.first
+
+            if parent && parent["parent_id"] != nil
+              e["parent_id"] = parent["parent_id"]
+            end
+
+            if parent
+              self_parent = parent
+              
+              while self_parent.present? && self_parent["parent_id"].present?
+                self_parent = old_comments.dup.to_ary.select{ |c| c["old_id"] == self_parent["parent_id"] }.first
+              end
+
+              e["commentable_id"] = self_parent["old_id"]
+            end
           end
 
           e
@@ -1038,19 +1082,27 @@ class BirdOldMerge
         BirdNewDb.bulk_insert values: comments
         Post.bulk_insert values: posts
 
+        Comment.where(commentable_type: 'Post').each do |comment|
+          new_post_id = Post.find_by_old_id(comment.commentable_id).try(:id)
+
+          if new_post_id
+            comment.update_attributes(commentable_id: new_post_id, parent_id: nil)
+          end
+        end
+
+        Comment.where(commentable_type: 'Comment').each do |comment|
+          new_comment_id = Comment.find_by_old_id(comment.commentable_id).try(:id)
+
+          if new_comment_id
+            comment.update_attributes(commentable_id: new_comment_id)
+          end
+        end
+
         Comment.where.not(parent_id: nil).each do |comment|
           new_id = Comment.find_by_old_id(comment.parent_id).try(:id)
 
           if comment.parent_id != new_id
             comment.update_attributes(parent_id: new_id)
-          end
-        end
-
-        Post.where.not(parent_id: nil).each do |post|
-          new_id = Post.find_by_old_id(post.parent_id).try(:id)
-
-          if post.parent_id != new_id
-            post.update_attributes(parent_id: new_id)
           end
         end
 
@@ -1062,6 +1114,7 @@ class BirdOldMerge
         end
 
         comments_by_feeds.each do |obj, _activities|
+          next unless %w(Release Announcement).include? obj[:commentable_type]
           activities = _activities.map do |_activity|
             {
               actor: "User:#{_activity["user_id"]}",

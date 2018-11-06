@@ -101,7 +101,7 @@
           <%= subscription[1] || 'Chirp' %>
         </span> / 
         <span class="selected-period">
-          <% if subscription[0].blank? || subscription[0] == 'unknown' %>
+          <% if subscription[0].blank? || subscription[0] == 'free' %>
             Free
           <% else %>
           <%= subscription[0] %>
