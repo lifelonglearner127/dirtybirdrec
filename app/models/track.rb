@@ -13,7 +13,6 @@ class Track < ApplicationRecord
   mount_uploader :uri, TrackUploader
 
   validates :track_number, :isrc_code, :title, presence: true
-  validates_presence_of :uri, message: "for one of your tracks is not present. Please Upload it again"
 
   ratyrate_rateable "main"
 
