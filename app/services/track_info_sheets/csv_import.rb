@@ -72,7 +72,7 @@ module TrackInfoSheets
           release.avatar = File.open(File.join(Rails.root, '/app/assets/images/default_release_avatar.png'))
         end
       end
-      save_track(release, row) if row['AD']!=''
+      save_track(release, row) unless row['AD'].blank? && row['L'].blank?
     end
 
     def save_track(release, row)
@@ -81,18 +81,18 @@ module TrackInfoSheets
       else
         track_url = ''
       end
-      # if Track.find_by(isrc_code: row['L']).nil? || row['L'].blank?
-      track = Track.new
-      track.title = row['D']
-      track.track_number = release.tracks.count+1
-      track.release = release
-      track.isrc_code = row['L'] unless row['L'].blank?
-      track.artist = row['E']
-      track.uri_string = track_url unless track_url.blank?
-      track.genre = row['M']
-      track.save!
-      save_track_info(track, row)
-      # end
+      if release.tracks.find_by(isrc_code: row['L']).nil?
+        track = Track.new
+        track.title = row['D']
+        track.track_number = release.tracks.count+1
+        track.release = release
+        track.isrc_code = row['L'] unless row['L'].blank?
+        track.artist = row['E']
+        track.uri_string = track_url unless track_url.blank?
+        track.genre = row['M']
+        track.save!
+        save_track_info(track, row)
+      end
     end
 
     def save_track_info(track, row)
