@@ -237,7 +237,17 @@
 
   $('.jp-current-time').text(secondsToHms(0));
   $('.jp-duration').text(secondsToHms(0));
+  $('.modal').on('show.bs.modal', function () {
+    $('.container-fluid').css({'filter': 'blur(8px)'});
+    $('.container').css({'filter': 'blur(8px)'});
+    $('.navbar').css({'filter': 'blur(8px)'});
+  });
 
+  $(document).on('hide.bs.modal', '.modal', function (e) {
+    $('.container-fluid').css({'filter': 'unset'});
+    $('.container').css({'filter': 'unset'});
+    $('.navbar').css({'filter': 'unset'});
+  });
 
   $.ajax( "/playlist_load" )
     .done(function(data) {
