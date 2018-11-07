@@ -13,12 +13,12 @@
     <div class="row">
       <div class="col-sm-2">
         <%= link_to chirp_path(@topic.category), class: 'track-back row' do %>
-          <div class="col-sm-3">
+          <div class="col-sm-3 back-icon-margin">
             <span class="track-back-arrow-helper"></span>
             <%= image_tag "icons/icon-chevron-left.svg", class: 'track-back-arrow-icon' %>
           </div>
-          <div class="col-sm-9 track-back-arrow-title" >
-            BIRD HOUSE
+          <div class="col-sm-9 padding-left-0 track-back-arrow-title" data-toggle="tooltip" data-placement="top" title="<%= @topic.category.title if @topic.category.title.length>10 %>">
+            <%= truncate(@topic.category.title, :length => 10) %>
           </div>
         <% end %>
       </div>
