@@ -10,6 +10,9 @@
   overflow: scroll;
   position: relative;
   z-index: 5;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
 }
 
 .playlist-nav-header {
