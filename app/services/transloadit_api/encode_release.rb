@@ -6,21 +6,12 @@ module TransloaditApi
     def initialize(release)
       @transloadit_client = TRANSLOADIT
       @release = release
-      if release.assembly_complete?
-        check = []
-        release.tracks.each do |t|
-          unless t.track_files.count >= 9
-            check << t
-          end
-        end
-        return if check.count < 1
-      end
       @tracks = release.tracks
       @steps = []
     end
 
     def call
-      return if !release.tracks.exists? || release.catalog.blank? || release.encode_status == 'pending'
+      return if release.assembly_complete? || !release.tracks.exists? || release.catalog.blank? || release.encode_status == 'pending'
       release.pending!
       tracks.each do |t|
         steps << transloadit_client.step("import_track_#{t.id}", '/http/import', {
@@ -167,10 +158,6 @@ module TransloaditApi
 
     def process_response(response)
       if !response.error? && response.completed?
-        if release.assembly_complete?
-          release.track_files.destroy_all
-          release.release_files.destroy_all
-        end
         ['aiff', 'flac', 'mp3', 'wav'].each do |target|
           ReleaseFile.create(release: release,
                              format: "#{target}",
