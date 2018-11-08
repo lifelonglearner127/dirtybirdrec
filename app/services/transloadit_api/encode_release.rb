@@ -20,7 +20,7 @@ module TransloaditApi
     end
 
     def call
-      return if release.assembly_complete? || !release.tracks.exists? || release.catalog.blank? || release.encode_status == 'pending'
+      return if !release.tracks.exists? || release.catalog.blank? || release.encode_status == 'pending'
       release.pending!
       tracks.each do |t|
         steps << transloadit_client.step("import_track_#{t.id}", '/http/import', {
