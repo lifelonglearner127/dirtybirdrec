@@ -17,12 +17,9 @@
         <% if @release.exclusive? %>
           <%= image_tag 'icons/bird-blue.svg', style: 'width: 35px;' %>
           <span class="text-big ml-2">exclusive</span>
-        <% elsif @release.d_select? %>
+        <% elsif @release.dirtybird? %>
           <%= image_tag 'icons/bird-blue.svg', style: 'width: 35px;' %>
           <span class="text-big ml-2">select</span>
-        <% elsif @release.birdhouse? %>
-          <%= image_tag 'icons/bird-blue.svg', style: 'width: 35px;' %>
-          <span class="text-big ml-2">birdhouse</span>
         <% end %>
       </div>
 

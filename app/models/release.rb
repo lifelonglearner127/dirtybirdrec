@@ -111,6 +111,14 @@ class Release < ApplicationRecord
     end
   end
 
+  def exclusive?
+    self.release_type == 'Birdfeed Exclusive'
+  end
+
+  def dirtybird?
+    self.release_type == 'Dirtybird'
+  end
+
   def self.batch_fill_feeds
     release_create_feed = StreamRails.feed_manager.get_feed( 'release_create', 1 )
     masterfeed = StreamRails.feed_manager.get_feed( 'masterfeed', 1 )
