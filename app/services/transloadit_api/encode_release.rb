@@ -6,6 +6,15 @@ module TransloaditApi
     def initialize(release)
       @transloadit_client = TRANSLOADIT
       @release = release
+      if release.assembly_complete?
+        check = []
+        release.tracks.each do |t|
+          unless t.track_files.count >= 9
+            check << t
+          end
+        end
+        return if check.count < 1
+      end
       @tracks = release.tracks
       @steps = []
     end
@@ -158,6 +167,10 @@ module TransloaditApi
 
     def process_response(response)
       if !response.error? && response.completed?
+        if release.assembly_complete?
+          release.track_files.destroy_all
+          release.release_files.destroy_all
+        end
         ['aiff', 'flac', 'mp3', 'wav'].each do |target|
           ReleaseFile.create(release: release,
                              format: "#{target}",
