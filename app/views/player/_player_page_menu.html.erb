@@ -2,7 +2,7 @@
   <div class="playlist-nav">
     <div class="playlist-nav-body">
       <ul>
-        <li class="mt-2 mb-4">
+        <li class="mt-2 mb-4 nav-bar">
           <%= image_tag 'icons/icon-chevron-black.svg', 
               style: 'cursor: pointer; margin-right: 30px;', 
               onclick: "window.history.back();" %>
@@ -12,7 +12,15 @@
         </li>
         <li class="playlist-nav-subheader">Music&nbsp;</li>
         <li class="<%= 'active' if current_page?("/releases?player=true&user_id=#{@user.id}") %>">
-          <%= link_to "All", releases_path(player: true, user_id: @user.id), id: "playlist-all-releases" %>
+          <%= link_to "All Releases", releases_path(player: true, user_id: @user.id), id: "playlist-all-releases" %>
+        </li>        
+        <li class="<%= 'active' if current_page?("/releases?filters[release_type]=2&player=true&user_id=#{@user.id}") %>">
+          <%= link_to "Dirtybird", 
+              releases_path(
+                filters: { release_type: 2 }, 
+                player: true,
+                user_id: @user.id), 
+              id: "playlist-select-releases" %>
         </li>
         <li class="<%= 'active' if current_page?("/releases?filters[release_type]=1&player=true&user_id=#{@user.id}") %>">
           <%= link_to "Birdfeed Exclusive", 
@@ -21,14 +29,6 @@
                 player: true,
                 user_id: @user.id), 
               id: "playlist-exclusive-releases" %>
-        </li>
-        <li class="<%= 'active' if current_page?("/releases?filters[release_type]=2&player=true&user_id=#{@user.id}") %>">
-          <%= link_to "Dirtybird Select", 
-              releases_path(
-                filters: { release_type: 2 }, 
-                player: true,
-                user_id: @user.id), 
-              id: "playlist-select-releases" %>
         </li>
         <li class="playlist-nav-subheader">Library&nbsp;</li>
         <% if current_user %>
