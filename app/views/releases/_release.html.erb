@@ -46,10 +46,10 @@
     <%= image_tag release.avatar.url(:large), class: "item-original-image item-image" %>
 
     <% case release.release_type %>
-    <% when "exclusive" %>
-      <%= image_tag 'exclusive1.png', class: "item-release-type item-release-type-exclusive item-original-image" %>
-    <% when "d_select" %>
-      <%= image_tag 'd_select.png', class: "item-release-type item-original-image" %>
+    <% when "Birdfeed Exclusive" %>
+      <%= image_tag 'birdfeed_exclusive.png', class: "item-release-type item-release-type-exclusive item-original-image" %>
+    <% when "Dirtybird" %>
+      <%= image_tag 'birdfeed.png', class: "item-release-type item-original-image" %>
     <% when "birdhouse" %>
       <%= image_tag 'birdhouse.png', class: "item-release-type item-release-type-birdhouse item-original-image" %>
     <% end %>
