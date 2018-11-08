@@ -266,13 +266,6 @@ li.playlist-nav-subheader {
 .music-wrapper {
   display: flex;
   flex-direction: column;
-}
-
-.music-block {
-  margin-top: 30px;
-  padding-bottom: 60px;
-  overflow: scroll;
-  flex-grow: 1;
 
   h2 {
     color: #1f1c1c;
@@ -281,7 +274,42 @@ li.playlist-nav-subheader {
     letter-spacing: 0.85px;
     line-height: 19px;
     display: inline-block;
+
+    &.h2-big {
+      font-size: 30px;
+      line-height: 30px;
+      letter-spacing: 1.2px;
+    }
   }
+}
+
+.text-c-listen {
+  color: #ff7272 !important;
+}
+
+.text-c-connect {
+  color: #3ed4e0 !important;
+}
+
+.text-c-play {
+  color: #eda502 !important;
+}
+
+.badges-points {
+  width: 33.3%;
+  border-right: 1px solid #707070;
+  text-align: center;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.music-block {
+  margin-top: 30px;
+  padding-bottom: 60px;
+  overflow: scroll;
+  flex-grow: 1;
 
   .see-all {
     color: #3ed4e0;

@@ -45,9 +45,9 @@
                 <div class="rating-bars">
                   <% @badge_kinds.each do |kind| %>
                     <% color = case kind.name 
-                      when "music" then "blue"
-                      when "forum" then "yellow"
-                      when "community" then "red"
+                      when "music" then "red"
+                      when "forum" then "blue"
+                      when "community" then "yellow"
                       end %>
                     <div class="progress-wrapper">
                       <div class="progress-<%= color %>">

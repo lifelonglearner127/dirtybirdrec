@@ -122,16 +122,18 @@
     <div class="col-lg-8">
       <div class="signup-payed mt-4">
         <% braintree_subscription = current_user.braintree_subscription %>
+        <% braintree_customer = current_user.braintree_customer %>
 
-        <p> Card:
-          <% braintree_customer = current_user.braintree_customer %>
-          <img src="<%= braintree_customer.payment_methods.first.image_url %>" width=37 height=25>
-          <% if braintree_customer.payment_methods.first.respond_to?(:last_4) %>
-            ending in <%= braintree_customer.payment_methods.first.last_4 %> <br>
-            <%= link_to 'Update Payment Method', choose_profile_path,
-                class: 'btn c-btn-red btn-square mt-2' %>
-          <% end %>
-        </p>
+        <% if braintree_customer %>
+          <p> Card:
+            <img src="<%= braintree_customer.payment_methods.first.image_url %>" width=37 height=25>
+            <% if braintree_customer.payment_methods.first.respond_to?(:last_4) %>
+              ending in <%= braintree_customer.payment_methods.first.last_4 %> <br>
+              <%= link_to 'Update Payment Method', choose_profile_path,
+                  class: 'btn c-btn-red btn-square mt-2' %>
+            <% end %>
+          </p>
+        <% end %>
         <p class="mb-4">
           If you're having issues with your account, please <%= link_to 'Contact Support', contacts_path %>!</p>
         </p>

@@ -120,6 +120,7 @@ Rails.application.routes.draw do
     get 'artists'
     get 'fans'
     get 'playlists'
+    get 'badges'
   end
   get 'player_load_more_leaders', to: 'player#load_more_fans'
   get 'player_load_more_artists', to: 'player#load_more_artists'

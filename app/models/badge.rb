@@ -19,5 +19,5 @@ class Badge < ApplicationRecord
   belongs_to :badge_kind
   validates :name, presence: true
 
-  mount_uploader :image, AvatarUploader
+  mount_uploader :image, DefaultUploader
 end

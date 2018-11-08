@@ -32,6 +32,9 @@
         </li>
         <li class="playlist-nav-subheader">Library&nbsp;</li>
         <% if current_user %>
+          <li class="<%= 'active' if current_page?(player_badges_path(current_user)) %>">
+            <%= link_to "Badges", player_badges_path(current_user) %>
+          </li>
           <li class="<%= 'active' if current_page?(playlists_path(user_id: current_user.id)) %>">
             <%= link_to "Playlists", playlists_path(user_id: current_user.id), 
                 id: "playlist-user" %>

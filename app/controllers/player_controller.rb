@@ -5,7 +5,7 @@ class PlayerController < ApplicationController
   before_action :set_vars
   before_action :set_notifications, 
       only: [:liked_tracks, :recently_tracks, :downloaded_tracks, :favorites,
-        :liked_playlists, :connect, :listen, :artists, :playlists, :fans]
+        :liked_playlists, :connect, :listen, :artists, :playlists, :fans, :badges]
   
   def liked_tracks
     @tracks = @user.liked_by_type('Track').map do |_track|
@@ -92,11 +92,33 @@ class PlayerController < ApplicationController
     @playlists = Playlist.order(created_at: :desc).limit(20)
   end
 
+  def badges
+    @membership = @user.badges
+                       .joins(:badge_kind)
+                       .where( badge_kinds: {ident:'membership_level'} )
+    @general_badges = {}
+    %w(music forum community).each do |ident|
+      @general_badges[ident] = @user.badges
+                         .joins(:badge_kind)
+                         .where( badge_kinds: {ident: ident} )
+    end
+    @points = {
+      listen: @user.points(BadgeKind.find_by_ident('music').try(:id)),
+      connect: @user.points(BadgeKind.find_by_ident('forum').try(:id)),
+      play: @user.points(BadgeKind.find_by_ident('community').try(:id))
+    }
+
+    @progress = {
+      listen: @user.next_badges[BadgeKind.find_by_ident('music').try(:id)],
+      connect: @user.next_badges[BadgeKind.find_by_ident('forum').try(:id)],
+      play: @user.next_badges[BadgeKind.find_by_ident('community').try(:id)]
+    }
+  end
+
   private
 
     def set_vars
       @user = User.find params[:player_id]
-      @playlists = @user.playlists
     end
 
 end

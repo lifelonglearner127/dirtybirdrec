@@ -139,9 +139,13 @@
 }
 
 .fan-badge {
-  display: inline-block;
-  margin-right: 10px;
   cursor: pointer;
+
+  img {
+    width: 119px;
+    height: 131px;
+    object-fit: fill;
+  }
 }
 
 .user-nav {
