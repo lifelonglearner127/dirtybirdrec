@@ -80,7 +80,7 @@
           <%= pluralize(user.badges.count, "Badge") + " Achieved" %>
           <div class="leaderboard-badges">
             <% user.badges.limit(8).each do |badge| %>
-              <%= image_tag(badge.image.thumb.url) if badge.image.present? %>
+              <%= image_tag(badge.image.url) if badge.image.present? %>
             <% end %>
           </div>
         </div>

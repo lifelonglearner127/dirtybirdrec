@@ -40,7 +40,7 @@ ActiveAdmin.register User do
       images = ""
 
       user.badges.each do |badge|
-        images << "<img src='#{badge.image.thumb.url}' class='small-avatar' title='#{badge.name}'>"  
+        images << "<img src='#{badge.image.url}' class='small-avatar' title='#{badge.name}'>"  
       end
 
       images.html_safe

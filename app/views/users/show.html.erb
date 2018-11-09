@@ -67,7 +67,7 @@
             <% @user.badges.each do |badge| %>
               <div class="fan-badge">
                 <a data-toggle="modal" data-target="#badge<%= badge.id %>Modal">
-                  <%= image_tag badge.image.thumb.url if badge.image.present? %>
+                  <%= image_tag badge.image.url if badge.image.present? %>
                   <p><%= badge.name %></p>
                 </a>
               </div>

@@ -33,7 +33,7 @@
         </div>
         <% user.badges.order(points: :desc).limit(3).each do |badge| %>
           <div class="mx-3">
-            <%= image_tag badge.image.thumb.url if badge.image.present? %>
+            <%= image_tag badge.image.url if badge.image.present? %>
           </div>
         <% end %>
       </div>
