@@ -326,6 +326,25 @@ li.playlist-nav-subheader {
     text-transform: uppercase;
     margin-left: 20px;
   }
+
+  .releases-list {
+    
+    & > div {
+      padding: 0 7px;
+
+      .item-with-tongue {
+        width: 100%;
+
+        & > div {
+          width: 100%;
+        }
+      }
+
+      .item-image {
+        width: 100%;
+      }
+    }
+  }
 }
 
 .playlists-caption {
