@@ -46,7 +46,9 @@ class ReleasesController < ApplicationController
         @playlists = @user.playlists
       end
 
-      render 'player/releases' and return
+      unless request.xhr?
+        render 'player/releases' and return
+      end
     end
 
     if current_user && params[:player].blank?

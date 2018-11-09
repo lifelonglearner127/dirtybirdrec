@@ -1,0 +1,37 @@
+$('.playlist-nav-body li.active').removeClass('active')
+
+<% if not @filters %>
+  $('#playlist-all-releases').parent().addClass('active');
+<% elsif @filters[:release_type] == '1' %>
+  $('#playlist-exclusive-releases').parent().addClass('active');
+<% elsif @filters[:release_type] == '2' %>
+  $('#playlist-select-releases').parent().addClass('active');
+<% end %>
+
+$('.music-wrapper').empty();
+$('.music-wrapper').append('<div class="music-block"></div>')
+$('.music-block').append('<div class="row mt-3 releases-list"></div>')
+
+
+var releases = [];
+
+<% @releases.each do |release| %>
+  releases.push('<div class="col-lg-4 col-md-6 mb-5"><%= escape_javascript(render release) %></div>');
+<% end %>
+
+$('.music-block .row').append(releases);
+
+$('.music-block').append('<div class="text-center"></div>')
+
+<% if (@limit <= @releases.count) %>  
+  <% _params = { player: true, user_id: @user.id } %>
+  <% if params[:filters].present? %>
+    <%  _params.merge!({ filters: params[:filters].permit! }) %>
+  <% end %>
+
+  <%  _params.merge!({
+        page: (params[:page] ? params[:page].to_i + 1 : 2)
+      }) %>
+
+  $('.music-block .text-center').append('<%= link_to "Show more", load_more_releases_path(_params), remote: true, class: "btn c-btn-blue show-more" %>');
+<% end %>
