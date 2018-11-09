@@ -84,7 +84,7 @@
 </div>
 
 <div class="user-controls sticky-top">
-  <div class="row h-100">
+  <div class="row">
     <div class="col-lg-3 px-0 c-btn-group two-btns">
       <% artist = current_page?(user_path(@user)) || current_page?(admin_path(@user)) %>
       <% classes = ["btn btn-wide c-btn-blue btn-square", "btn btn-wide c-btn-black btn-square btn-disabled"] %>
@@ -98,7 +98,7 @@
     </div>
   </div>
   
-  <div class="d-none d-lg-block" style="margin-top: 13px;">
+  <div class="d-none">
     <%= image_tag 'icons/icon-chevron-black.svg', 
         style: 'cursor: pointer; margin-right: 30px;', 
         onclick: "window.history.back();" %>

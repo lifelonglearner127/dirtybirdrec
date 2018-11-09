@@ -55,10 +55,23 @@
 }
 
 .user-controls {
-  height: 38px;
-  position: relative;
-  z-index: 2;
-  top: 0px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 100px;
+  margin: 0 -15px;
+  background-color: #fff;  
+  z-index: 1300;
+  top: 100px;
+
+
+  & > .row {
+    height: 38px;
+    margin: 0;
+
+    & + div {
+      padding: 15px;
+    }
+  }
 
   .c-btn-group {
     height: 100%;

@@ -65,7 +65,7 @@
 </div>
 
 <div class="user-controls">
-  <div class="row h-100">
+  <div class="row">
     <div class="col-sm-3 px-0 c-btn-group two-btns">
       <% artist = current_page?(artist_path(@user)) %>
       <% classes = ["btn c-btn-blue btn-square", "btn c-btn-black btn-square btn-disabled"] %>
@@ -113,7 +113,7 @@
     </div>
   <% end %>
 
-  <div class="d-none d-lg-block" style="margin-top: 13px;">
+  <div class="d-none d-lg-block">
     <%= image_tag 'icons/icon-chevron-black.svg', 
         style: 'cursor: pointer; margin-right: 30px;', 
         onclick: "window.history.back();" %>
