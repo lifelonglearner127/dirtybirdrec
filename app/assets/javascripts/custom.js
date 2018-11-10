@@ -1,3 +1,10 @@
+$(document).keypress(function(e) {
+  if (e.keyCode == 32) {
+    e.preventDefault();
+    $('.jp-play').click();
+  }
+});
+
 var ready = function() {
   $('[data-toggle="popover"]').popover({
     trigger: 'focus'
@@ -7,12 +14,12 @@ var ready = function() {
   var loginByTime;
   clearTimeout(loginByTime);
 
-  if ( $("#notify-menu").length === 0 && 
+  if ( $("#notify-menu").length === 0 &&
        $('.signup-header').length === 0 &&
        window.location.pathname !== '/' &&
        window.location.pathname !== '/usr/sign_in' &&
        window.location.pathname !== '/usr/password/new'
-       
+
        ) {
     loginByTime = setTimeout(function(){
       $('#signInModal').modal('show');
@@ -69,9 +76,9 @@ var ready = function() {
     var terms = $('#free-terms-and-conditions');
     var conduct = $('#free-code-of-conduct');
 
-    if ((!terms.is(':visible') && 
-        !conduct.is(':visible')) ||  
-        (terms.prop("checked") && 
+    if ((!terms.is(':visible') &&
+        !conduct.is(':visible')) ||
+        (terms.prop("checked") &&
         conduct.prop("checked"))) {
       $.ajax('/terms_and_conduct');
       window.location.replace('/success_signup');
@@ -356,7 +363,7 @@ var ready = function() {
 
   $('form.new-content-form').on('submit', function() {
     $('#addcommentModal').modal('hide');
-  });    
+  });
 };
 
 var loadMoreFeed = function(){
@@ -367,11 +374,11 @@ var loadMoreFeed = function(){
 
   win.off('scroll.pagination');
 
-  if($('.feed-block').length > 0 && 
-      ( 
-        masterfeed || 
-        (feedId > 0 && data_feed != "topic") 
-      ) 
+  if($('.feed-block').length > 0 &&
+      (
+        masterfeed ||
+        (feedId > 0 && data_feed != "topic")
+      )
     ) {
 
 
@@ -421,12 +428,12 @@ var loadMoreFeed = function(){
       }
     });
   }
-} 
+}
 
 function dragDropAttach() {
   setTimeout( function() {
     var $dropContainer = $('.emojionearea');
-    
+
     if ($dropContainer.length > 0){
       dropContainer = $dropContainer[0];
 
@@ -455,12 +462,12 @@ function dragDropAttach() {
   */
     $('.row.topic-category-section').masonry({
       itemSelector : '.col-lg-6'
-    });    
+    });
 
     if ($('#topic-category-ctg-btn').length == 1 && window.location.href.indexOf('chirp#categories') > -1) {
       $('html, body').animate({
         scrollTop: $('#chirp-category-btn').offset().top - 120
-      }, 600, function(){});      
+      }, 600, function(){});
     }
     $('#topic-category-ctg-btn').on('click', function() {
       $('html, body').animate({
@@ -469,7 +476,7 @@ function dragDropAttach() {
     })
   /*
   * Javascript For Chirp Page
-  */  
+  */
 }
 
 function countChar(editor, id) {
