@@ -2,7 +2,7 @@
 
 <div class="form-group">
   <%= f.label :email, 'Email Address', class: 'required' %>
-  <%= f.email_field :email, autofocus: true, autocomplete: "email", 
+  <%= f.email_field :email, autofocus: true, autocomplete: "email",
     class: 'form-control w-50', required: true %>
 </div>
 
@@ -16,61 +16,60 @@
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :first_name, class: "required" %>
-      <%= f.text_field :first_name, autocomplete: "first name", 
+      <%= f.text_field :first_name, autocomplete: "first name",
         class: 'form-control', required: true %>
     </div>
   </div>
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :last_name %>
-      <%= f.text_field :last_name, autocomplete: "last name", 
+      <%= f.text_field :last_name, autocomplete: "last name",
         class: 'form-control' %>
     </div>
   </div>
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :shipping_address, class: 'required' %>
-      <%= f.text_field :shipping_address, 
-          class: 'form-control autocomplete', 
+      <%= f.text_field :shipping_address,
+          class: 'form-control autocomplete',
           required: true %>
     </div>
   </div>
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :address_city, class: 'required' %>
-      <%= f.text_field :address_city, 
+      <%= f.text_field :address_city,
           class: 'form-control locality', required: true %>
     </div>
   </div>
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :address_state %>
-      <%= f.text_field :address_state, 
+      <%= f.text_field :address_state,
           class: 'form-control administrative_area_level_1' %>
     </div>
   </div>
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :address_zip %>
-      <%= f.text_field :address_zip, 
+      <%= f.text_field :address_zip,
           class: 'form-control postal_code' %>
     </div>
   </div>
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :gender, 'Gender' %>
-      <%= f.select :gender, 
-          User.genders.keys.reverse, 
-          {}, 
+      <%= f.select :gender,
+          User.genders.keys.reverse,
+          {},
           class: "select", 'data-minimum-results-for-search' => -1, "data-width" => "100%" %>
     </div>
   </div>
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :birthdate, class: 'required' %>
-      <%= f.text_field :birthdate, 
-          data: { provide: "datepicker", "date-start-view" => 2, 
-            "date-format" => "yyyy-mm-dd",'date-default-view-date' => '1998-01-01' },
+      <%= f.text_field :birthdate,
+          data: { provide: "datepicker", "date-format" => "yyyy-mm-dd",'date-default-view-date' => '1998-01-01' },
           class: 'form-control', required: true %>
     </div>
   </div>
@@ -83,7 +82,7 @@
           We like to send you cool merchandise from time
         </div>
       </div>
-      <%= f.select :t_shirt_size, options_for_select(['S - Mens', 'M - Mens', 'L - Mens', 'XL - Mens', '2X - Mens', '3X - Mens', 'XS - Womens', 'S - Womens', 'M - Womens', 'L - Womens', 'XL - Womens'], (current_user.t_shirt_size if current_user)),{ include_blank: 'Shirt Size' }, 
+      <%= f.select :t_shirt_size, options_for_select(['S - Mens', 'M - Mens', 'L - Mens', 'XL - Mens', '2X - Mens', '3X - Mens', 'XS - Womens', 'S - Womens', 'M - Womens', 'L - Womens', 'XL - Womens'], (current_user.t_shirt_size if current_user)),{ include_blank: 'Shirt Size' },
           required: true,
           class: "select", 'data-minimum-results-for-search' => -1, "data-width" => "100%" %>
     </div>
@@ -102,14 +101,14 @@
     <div class="col-lg-4">
       <div class="form-group">
         <%= f.label :password, class: 'required' %>
-        <%= f.password_field :password, autocomplete: "off", 
+        <%= f.password_field :password, autocomplete: "off",
             class: 'form-control', required: true %>
       </div>
     </div>
     <div class="col-lg-4">
       <div class="form-group">
         <%= f.label :password_confirmation, class: 'required' %>
-        <%= f.password_field :password_confirmation, autocomplete: "off", 
+        <%= f.password_field :password_confirmation, autocomplete: "off",
             class: 'form-control', required: true %>
       </div>
     </div>
@@ -117,7 +116,7 @@
       <div class="offset-lg-4 col-lg-4">
         <div class="form-group">
           <%= f.label :current_password %>
-          <%= f.password_field :current_password, autocomplete: "off", required: true, 
+          <%= f.password_field :current_password, autocomplete: "off", required: true,
               class: 'form-control', placeholder: "Current password" %>
         </div>
       </div>
@@ -128,19 +127,19 @@
 
 
 <%#= f.label :address_country %>
-<%#= f.text_field :address_country, 
+<%#= f.text_field :address_country,
     class: 'form-control country', required: true %>
 
 <%#= f.label :address_street %>
-<%#= f.text_field :address_street, 
+<%#= f.text_field :address_street,
     class: 'form-control route' %>
 
 <%#= f.label :address_street_number %>
-<%#= f.text_field :address_street_number, 
+<%#= f.text_field :address_street_number,
     class: 'form-control street_number' %>
 
 <%#= f.label :address_quarter %>
-<%#= f.text_field :address_quarter, 
+<%#= f.text_field :address_quarter,
 class: 'form-control' %>
 
 
