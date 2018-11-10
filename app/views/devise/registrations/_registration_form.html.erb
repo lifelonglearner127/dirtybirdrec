@@ -68,9 +68,9 @@
   <div class="col-lg-4">
     <div class="form-group">
       <%= f.label :birthdate, class: 'required' %>
-      <%= f.text_field :birthdate,
-          data: { provide: "datepicker", "date-format" => "yyyy-mm-dd",'date-default-view-date' => '1998-01-01' },
-          class: 'form-control', required: true %>
+      <div class="display-inline birthdate_select">
+        <%=date_select :birthdate, "dob", { start_year: 100.years.ago.year, end_year: Date.today.year, default: Date.today, order: [:month, :day, :year]}, class: 'form-control select-birthdate' %>
+      </div>
     </div>
   </div>
   <div class="col-lg-4">

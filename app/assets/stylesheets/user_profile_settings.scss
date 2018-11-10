@@ -1,3 +1,20 @@
+.birthdate_select {
+	#birthdate_dob_1i {
+    width: 6.5rem;
+	}
+
+	#birthdate_dob_2i {
+    width: 10rem;
+	}
+
+	#birthdate_dob_3i {
+    width: 4.5rem;
+	}
+
+	.select-birthdate {
+    margin-right: 2px;
+	}
+}
 .user-profile-settings {
 	background-color: #ffffff;
 	margin:0 15px;
@@ -5,14 +22,14 @@
 
 	.main-content {
 		.page-header {
-			margin-top: 40px;	
-		    
+			margin-top: 40px;
+
 			.title {
 			    padding: 0;
 			    font-size: 36px;
-			    letter-spacing: 1.62px;			
+			    letter-spacing: 1.62px;
 				color: #434343;
-				font-family: 'Phosphate-Solid';			
+				font-family: 'Phosphate-Solid';
 			}
 
 			.profile-question {
@@ -30,7 +47,7 @@
 				letter-spacing: 0.58px;
 				padding: 15px 40px;
 			    min-width: 150px;
-			    display: inline-block;				
+			    display: inline-block;
 			    text-align: center;
 
 				&.egg-credits-link-btn {
@@ -50,7 +67,7 @@
 				}
 
 				&.friends-link-btn {
-					background-color: #000000;					
+					background-color: #000000;
 				}
 
 				&.artists-link-btn {
@@ -62,18 +79,18 @@
 				}
 
 				&.chirp-feeds-link-btn {
-					background-color: #000000;					
+					background-color: #000000;
 				}
 			}
 
-		}	
+		}
 
 		.page-note {
 		    color: #ff7979;
 		    font-family: "Titillium Web";
 		    font-size: 15px;
 		    line-height: 15px;
-		    font-style: italic;			
+		    font-style: italic;
 		    margin-bottom: 15px;
 
 		    b {
@@ -86,41 +103,41 @@
 				color: #434343;
 				font-family: Phosphate-solid;
 				font-size: 20px;
-				letter-spacing: 0.9px;			
+				letter-spacing: 0.9px;
 				margin-bottom: 0px;
 			}
 			&.rewards-content {
  				color: #5f5f5f;
 				font-family: Phosphate-solid;
 				font-size: 20px;
-				letter-spacing: 0.9px;			
+				letter-spacing: 0.9px;
 			}
 
 			&.egg-credits-content {
 				.eggs-status {
 					border: 1px solid rgba(112, 112, 112, 0.26);
 				    background-color: #ffffff;
-				    padding: 15px;				
+				    padding: 15px;
 					.current-eggs-status {
 						color: #000000;
 					    font-family: Phosphate-solid;
 					    font-size: 20px;
 					    letter-spacing: 0.9px;
-					    line-height: 18px;						
+					    line-height: 18px;
 
 					    .number-of-eggs {
-    						color: #ff7979;					    
+    						color: #ff7979;
 					    }
 					}
-				}	
+				}
 				.future-eggs-status {
 					margin-top: 15px;
 				    color: #000000;
 				    font-family: "Titillium Web";
 				    font-size: 13px;
 				    font-weight: 400;
-				    line-height: 15px;				
-				}		
+				    line-height: 15px;
+				}
 
 				.grab-more-eggs-btn {
 					margin-top: 15px;
@@ -131,7 +148,7 @@
 				    color: #ffffff;
 				    font-family: Phosphate-solid;
 				    font-size: 16px;
-				    letter-spacing: 0.72px;				
+				    letter-spacing: 0.72px;
 				}
 				.birdfeed-shop-btn {
 					position: relative;
@@ -143,20 +160,20 @@
 				    color: #ffffff;
 				    font-family: Phosphate-solid;
 				    font-size: 16px;
-				    letter-spacing: 0.72px;		
+				    letter-spacing: 0.72px;
 					color: #ffffff;
 					font-size: 16px;
 					letter-spacing: 0.72px;
-					text-transform: uppercase;				    		
+					text-transform: uppercase;
 
 					.closed-btn {
 						position: absolute;
 					    left: -10px;
-					    top: -15px;					
+					    top: -15px;
 					}
 					.question-mark {
 						float: right;
-					}	
+					}
 				}
 				.eggs-collection-wrapper {
 					.eggs-collection {
@@ -172,7 +189,7 @@
 						width: 100%;
 						margin-top: -10px;
 					}
-				}			
+				}
 
 			}
 			&.headers-skins-content {
@@ -180,7 +197,7 @@
 				    color: #434343;
 				    font-family: Phosphate-solid;
 				    font-size: 20px;
-				    letter-spacing: 0.9px;		
+				    letter-spacing: 0.9px;
 				    margin-bottom: 20px;
 
 				    .real-num {
@@ -192,7 +209,7 @@
 				    font-family: "Titillium Web";
 				    font-size: 13px;
 				    font-weight: 700;
-				    line-height: 13px;				
+				    line-height: 13px;
 
 				    .shape {
 					    position: relative;
@@ -202,7 +219,7 @@
 					    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 					    border-radius: 9px;
 					    border: 1px solid #707070;
-					    background-color: #f7f7f7;				    
+					    background-color: #f7f7f7;
 
 					    .selected-status {
 							position: absolute;
@@ -214,7 +231,7 @@
 						    color: #ffffff;
 						    font-family: Phosphate-solid;
 						    font-size: 13px;
-						    letter-spacing: 0.58px;					    
+						    letter-spacing: 0.58px;
 					    }
 					}
 				}
@@ -224,7 +241,7 @@
 					font-family: "Titillium Web";
 					font-size: 13px;
 					font-weight: 700;
-					line-height: 13px;					
+					line-height: 13px;
 				}
 
 				.header-content {
@@ -238,7 +255,7 @@
 					input.apply, button {
 					    position: absolute;
 					    bottom: calc(50% - 15px);
-					    right: 0;				
+					    right: 0;
 						background-color: #3ed4e0;
 					    color: #ffffff;
 					    font-family: Phosphate-solid;
@@ -246,8 +263,8 @@
 					    letter-spacing: 0.58px;
 					    border: none;
 					    min-width: 130px;
-					    text-align: center;		
-					    padding: 5px;			    	
+					    text-align: center;
+					    padding: 5px;
               cursor: pointer;
 
               &.current {
@@ -274,7 +291,7 @@
 						font-family: "Titillium Web";
 					    font-size: 13px;
 					    font-weight: 700;
-					    line-height: 15px;										
+					    line-height: 15px;
 					    padding: 10px 5px;
 					}
 					td {
@@ -282,7 +299,7 @@
 						font-family: "Titillium Web";
 						font-size: 13px;
 						font-weight: 400;
-						line-height: 15px;					
+						line-height: 15px;
 						padding: 15px 5px;
 
 						.download-type {
@@ -301,7 +318,7 @@
 											font-family: "Titillium Web";
 											font-size: 9px;
 											font-weight: 700;
-											line-height: 15px;											
+											line-height: 15px;
 										}
 
 										&.type-name {
@@ -309,7 +326,7 @@
 											font-family: Phosphate-solid;
 											font-size: 12px;
 											letter-spacing: 0.54px;
-											line-height: 13px;											
+											line-height: 13px;
 										}
 									}
 
@@ -333,11 +350,11 @@
 						}
 
 						.invoice-btn, .unfollow-btn {
-							background-color: #ff7979;							
+							background-color: #ff7979;
 							color: #ffffff;
 							font-family: Phosphate-solid;
 							font-size: 13px;
-							letter-spacing: 0.58px;							
+							letter-spacing: 0.58px;
 						    border: none;
 						    padding: 10px 30px;
 						    float: right;
@@ -346,7 +363,7 @@
 						}
 					}
 				}
-			}	
+			}
 
 			&.artists-content {
 				.artist {
@@ -371,7 +388,7 @@
 						font-size: 13px;
 						font-weight: 700;
 						line-height: 15px;
-						padding: 0px;						
+						padding: 0px;
 					}
 
 					.following-btn, .unfollow-btn {
@@ -379,13 +396,13 @@
 						color: #ffffff;
 						font-family: Phosphate-solid;
 						font-size: 13px;
-						letter-spacing: 0.58px;		
+						letter-spacing: 0.58px;
 						padding: 10px 20px;
-						width: 100%;	
-						border: none;	
-					}			
+						width: 100%;
+						border: none;
+					}
 				}
-			}			
+			}
 
 			&.notifications-content {
 				.notifications-form {
@@ -394,11 +411,11 @@
 						color: #ffffff;
 						font-family: Phosphate-solid;
 						font-size: 13px;
-						letter-spacing: 0.58px;		
+						letter-spacing: 0.58px;
 						padding: 10px 20px;
-						border: none;		
+						border: none;
 						margin-top: 20px;
-						min-width: 150px;	
+						min-width: 150px;
 					}
 				}
 
@@ -407,7 +424,7 @@
 						color: #434343;
 						font-family: Phosphate-solid;
 						font-size: 20px;
-						letter-spacing: 0.9px;						
+						letter-spacing: 0.9px;
 					}
 
 					.option-content {
@@ -451,7 +468,7 @@
         font-family: "Titillium Web";
         font-size: 16px;
         font-weight: 400;
-        line-height: 33px;      
+        line-height: 33px;
 
         .content-section {
           padding: 15px 0;
@@ -461,7 +478,7 @@
             color: #5f5f5f;
             font-family: Phosphate-solid;
             font-size: 25px;
-            line-height: 26px;        
+            line-height: 26px;
           }
 
           &.things-to-note {
@@ -474,8 +491,8 @@
             .note-no {
               font-family: "Phosphate-solid";
               font-weight: Bold;
-              font-size: 26px;             
-              margin-right: 5px;       
+              font-size: 26px;
+              margin-right: 5px;
             }
 
             .col-sm-12 {
@@ -487,19 +504,19 @@
         input[type='submit'] {
           color: #ffffff;
           font-family: Phosphate-solid;
-          font-size: 13px;            
+          font-size: 13px;
           padding: 10px 20px;
           border: none;
           outline: none;
           cursor: pointer;
-          
+
           &.cancel-membership-level {
-            background-color: #ff7979;          
+            background-color: #ff7979;
             margin-right: 10px;
           }
 
           &.cancel-account {
-            background-color: #3ed4e0;          
+            background-color: #3ed4e0;
           }
         }
       }
@@ -513,7 +530,7 @@
 		letter-spacing: 0.72px;
 		color: #434343;
 		font-family: 'Phosphate-Solid';
-	}	
+	}
 
 	.profile-btn {
 		height: 38px;
@@ -567,7 +584,7 @@
 
 	    .form-group {
 			margin: 15px;
-		    width: 100%;	    
+		    width: 100%;
 	    }
 	}
 
