@@ -36,7 +36,7 @@ class ReleasesController < ApplicationController
 
     @releases = set_filters @filters
 
-    @releases = releases_query( @releases, page, per_page, true )
+    # @releases = releases_query( @releases, page, per_page, true )
 
     @artists = User.with_role(:artist)
 

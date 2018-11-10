@@ -43,7 +43,8 @@
         <%= link_to "Details", release, class: "c-link" %>
       </div>
     </div>
-    <%= image_tag release.avatar.url(:large), class: "item-original-image item-image" %>
+    
+    <img class="item-original-image item-image lazy" data-src="<%= release.avatar.url(:large) %>" />
 
     <% case release.release_type %>
     <% when "Birdfeed Exclusive" %>
@@ -52,7 +53,8 @@
       <%= image_tag 'birdfeed.png', class: "item-release-type item-original-image" %>
     <% end %>
 
-    <%= image_tag release.avatar.url(:large), class: "item-darken-img item-image"%>
+    
+    <img class="item-darken-img item-image lazy" data-src="<%= release.avatar.url(:large) %>" />
   </div>
   
   <% time_slug = release.release_date > Time.now ? 'LATER' : 'AGO' %>

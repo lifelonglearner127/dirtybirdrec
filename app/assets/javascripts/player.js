@@ -45,4 +45,15 @@ $(document).on('turbolinks:load', () => {
   dragBars(draggedBars);
 
   timerAndLoadingForAudio(cpAudio);
+
+  $(".lazy").Lazy({
+    scrollDirection: 'vertical',
+    effect: 'fadeIn',
+    visibleOnly: true,
+    effectTime: 2000,
+  });
+});
+
+$(window).on('load', function() {
+   $('.music-wrapper').addClass('loaded');
 });
