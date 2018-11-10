@@ -69,7 +69,7 @@
     <div class="form-group">
       <%= f.label :birthdate, class: 'required' %>
       <div class="display-inline birthdate_select">
-        <%=date_select :birthdate, "dob", { start_year: 100.years.ago.year, end_year: Date.today.year, default: Date.today, order: [:month, :day, :year]}, class: 'form-control select-birthdate' %>
+        <%= f.date_select :birthdate, { start_year: 100.years.ago.year, end_year: Date.today.year, default: Date.today, order: [:month, :day, :year]}, class: 'form-control select-birthdate' %>
       </div>
     </div>
   </div>
