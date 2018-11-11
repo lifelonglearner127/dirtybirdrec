@@ -669,7 +669,7 @@
   function trackLoading(state, sourceType, sourceId) {
     if(state) {
       $('.jp-progress-container').addClass('loading');
-      $('.jp-play').addClass('loading');
+      $('.jp-audio .jp-play').addClass('loading');
       $('.pp-play').addClass('loading');
       $(`.jp-playlist-item`).removeClass('loading');
       $(`.play-${sourceType}-${sourceId}`).addClass('loading');
