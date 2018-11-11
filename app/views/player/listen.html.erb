@@ -19,40 +19,6 @@
       <%= render 'last_release_banner' %>
 
       <div class="container">
-        <div class="row connect-nav mb-4">
-          <div class="col-md-4 mb-4">
-            <div class="d-flex flex-column h-100">
-              <%= link_to 'artists',
-                  player_artists_path(current_user || @user), 
-                  class: 'connect-nav-item connect-nav-artists h-100 mb-4 py-4' %>
-              <%= link_to 'playlists',
-                  player_playlists_path(current_user || @user), 
-                  class: 'connect-nav-item connect-nav-playlists h-100 py-4' %>
-            </div>
-          </div>
-
-          <div class="col-md-4 mb-4">
-            <%= link_to releases_path(player: true, user_id: current_user.try(:id) || @user.id), 
-                class: "connect-nav-item connect-nav-releases h-100 flex-column py-4" do %>
-              <%= image_tag 'icons/egg-white.svg', width: 62 %>
-              <span class="my-2">dirtybird</span>
-              <span>releases</span>
-            <% end %>
-          </div>
-
-          <div class="col-md-4 mb-4">
-            <%= link_to releases_path(
-                  filters: { release_type: 1 }, 
-                  player: true,
-                  user_id: current_user.try(:id) || @user.id), 
-                class: "connect-nav-item connect-nav-exclusives h-100 flex-column py-4" do %>
-              <%= image_tag 'icons/bird-blue.svg', width: 69 %>
-              <span class="my-2">birdfeed</span>
-              <span>exclusives</span>
-            <% end %>
-          </div>
-        </div>
-
         <h2>Latest Releases</h2>
         <%= link_to 'see all', releases_path(user_id: current_user || @user, player: true), class: 'see-all' %>
         <hr class="mt-1">
