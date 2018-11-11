@@ -15,7 +15,12 @@
         <% end %>
 
         <div class="feed-new-type">
-          <%= image_tag "#{release.release_type.to_s}.png" %>
+          <% case release.release_type %>
+          <% when "Birdfeed Exclusive" %>
+            <%= image_tag 'birdfeed_exclusive.png' %>
+          <% when "Dirtybird" %>
+            <%= image_tag 'birdfeed.png' %>
+          <% end %>
         </div>
 
         <strong>
