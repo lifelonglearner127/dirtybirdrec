@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181103130140) do
+ActiveRecord::Schema.define(version: 20181111115939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -422,7 +422,6 @@ ActiveRecord::Schema.define(version: 20181103130140) do
     t.string "buy_uri"
     t.string "assembly_id"
     t.boolean "assembly_complete"
-    t.string "showcase"
   end
 
   create_table "releases_users", id: false, force: :cascade do |t|
@@ -577,6 +576,16 @@ ActiveRecord::Schema.define(version: 20181103130140) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "track_listen_progresses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "track_id"
+    t.integer "listen_progress", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_track_listen_progresses_on_track_id"
+    t.index ["user_id"], name: "index_track_listen_progresses_on_user_id"
+  end
+
   create_table "tracks", force: :cascade do |t|
     t.string "title"
     t.string "uri"
@@ -604,6 +613,7 @@ ActiveRecord::Schema.define(version: 20181103130140) do
     t.bigint "track_id"
     t.index ["track_id", "user_id"], name: "index_tracks_users_on_track_id_and_user_id", unique: true
     t.index ["track_id"], name: "index_tracks_users_on_track_id"
+    t.index ["user_id", "track_id"], name: "index_tracks_users_on_user_id_and_track_id", unique: true
     t.index ["user_id"], name: "index_tracks_users_on_user_id"
   end
 

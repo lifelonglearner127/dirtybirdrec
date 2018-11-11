@@ -5,7 +5,7 @@ Rails.application.routes.draw do
         registrations: 'users/registrations',
         sessions: 'users/sessions',
         omniauth_callbacks: 'users/omniauth_callbacks'
-      }   
+      }
 
   devise_scope :user do
     get 'usr/edit_profile', :to => 'users/registrations#edit_profile'
@@ -76,14 +76,14 @@ Rails.application.routes.draw do
       root 'users#home', as: :authenticated_root
     end
   end
-  
+
   get 'admins/:id', to: 'users#admin', as: 'admin'
   get 'artists/:id', to: 'users#artist', as: 'artist'
   get 'artist_releases/:id', to: 'users#artist_releases', as: 'artist_releases'
   get 'artist_tracks/:id', to: 'users#artist_tracks', as: 'artist_tracks'
   get 'artists', to: 'users#artists'
   get 'badges/:id', to: 'users#badges', as: 'badges'
-  
+
   get 'about', to: 'home#about'
   get 'birdfeed', to: 'home#birdfeed'
   post 'share', to: 'home#share'
@@ -105,6 +105,7 @@ Rails.application.routes.draw do
 
   resources :tracks
   get 'track_listened', to: 'tracks#track_listened'
+  get 'track_listened_for_review', to: 'tracks#track_listened_for_review'
   get 'tracks_play', to: 'tracks#play'
   get 'tracks_list', to: 'tracks#list'
   get 'track_clicked', to: 'tracks#track_clicked'
@@ -160,7 +161,7 @@ Rails.application.routes.draw do
   end
 
   resources :notifications
-  
+
   root "home#index"
 
   mount Shrine.presign_endpoint(:store) => "/presign"

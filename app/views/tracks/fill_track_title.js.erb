@@ -6,16 +6,20 @@ var jp_title = `
 var release_img = '<%= image_tag(@release.avatar.url(:thumb), style: "width: 28px; height: 28px; border-radius: 2px;") %>&nbsp;';
 var add_release = '<button class="playlist-add-source" data-source-type="release" data-source-id="<%= @release.id %>">+</button>';
 var like = '<%= escape_javascript( render "likes/like_button", object: @track )%>';
-  var user_rate_track = '<div class="rate-track-btn">Rate</div>';
+  var user_rate_track = '';
   var user_rate_mark = '<div class="user-rate-mark rate-track-btn"><img src="/images/rate/check-circle.png" /><%= get_user_rate_for_track @track %></div>';
 var rate_track = user_rate_track;
+<% if current_user && TrackListenProgress.find_by(user_id: current_user.id, track_id: @track.id) != nil && TrackListenProgress.find_by(user_id: current_user.id, track_id: @track.id).listen_progress >= 70 %>
+  rate_track = '<div class="rate-track-btn">Rate</div>';
+<% end %>
+
 <% if get_user_rate_for_track(@track) != 0 %>
   rate_track = user_rate_mark;
 <% end %>
 var rate =
   '<div class="nav-rate-track-wrapper" data-track-id="<%=@track.id%>">'  +
     '<div class="nav-track-star">' +
-      '<%= escape_javascript( rating_for( @track, "main", star: 4, cancel: false, disable_after_rate: true, star_on: image_path("rate/egg/star-on.png"), star_half: image_path("rate/egg/star-on.png"), star_off: image_path("rate/egg/star-off.png"))) %>' +
+      '<%= escape_javascript( rating_for( @track, "main", star: 4, cancel: false, readonly: true, disable_after_rate: true, star_on: image_path("rate/egg/star-on.png"), star_half: image_path("rate/egg/star-on.png"), star_off: image_path("rate/egg/star-off.png"))) %>' +
     '</div>' +
     '<div class="user-rate-wrapper"  data-track-id="<%=@track.id%>">' + rate_track + '</div>' +
   '</div>';

@@ -18,13 +18,13 @@ class User < ApplicationRecord
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   after_update :crop_avatar
-  
+
   attr_accessor :subscription
   enum gender: [:female, :male, :other]
 
   validates :first_name, presence: true
 
-  enum subscription_length: [:free, :monthly_old, :yearly_old, 
+  enum subscription_length: [:free, :monthly_old, :yearly_old,
       :monthly_insider, :monthly_vib, :yearly_insider, :yearly_vib]
 
   has_many :badge_levels, inverse_of: :user
@@ -56,6 +56,7 @@ class User < ApplicationRecord
   has_many :as_admin_releases, foreign_key: "admin_id", class_name: "Release"
 
   has_many :tracks_users
+  has_many :track_listen_progresses
   has_many :tracks, through: :tracks_users
   has_many :playlists
   has_many :downloads
@@ -64,7 +65,7 @@ class User < ApplicationRecord
   has_one :notification, foreign_key: "user_id"
   belongs_to :header, optional: true
   has_many :cancellations
-  
+
   include AlgoliaSearch
 
   algoliasearch do
@@ -72,17 +73,17 @@ class User < ApplicationRecord
   end
 
 
-  def soft_delete  
-    update_attribute(:deleted_at, Time.current)  
-  end  
-  
-  def active_for_authentication?  
-    super && !deleted_at  
-  end  
-  
-  def inactive_message   
-    !deleted_at ? super : :deleted_account  
-  end  
+  def soft_delete
+    update_attribute(:deleted_at, Time.current)
+  end
+
+  def active_for_authentication?
+    super && !deleted_at
+  end
+
+  def inactive_message
+    !deleted_at ? super : :deleted_account
+  end
 
   def badges_by_kind kind
     badge_kind = BadgeKind.find_by(ident: kind)
@@ -116,13 +117,13 @@ class User < ApplicationRecord
   end
 
   def followed object
-    follows.where( followable_id: object.id, 
+    follows.where( followable_id: object.id,
                         followable_type: object.class.to_s).first
   end
 
   def follow_requesters
     User.joins(:follow_requests)
-        .where("follow_requests.followable_id = ? AND follow_requests.followable_type = 'User'", 
+        .where("follow_requests.followable_id = ? AND follow_requests.followable_type = 'User'",
           id)
   end
 
@@ -151,7 +152,7 @@ class User < ApplicationRecord
 
     return if has_role?(:admin) || has_role?(:artist)
     return unless cahced_active_subscription?
-    
+
     kind_name = case action_model
     when "Comment"      then "music"
     when "Announcement" then "music"
@@ -189,7 +190,7 @@ class User < ApplicationRecord
         if action_type.count_to_achieve < (DateTime.now - self.created_at.to_datetime).to_i
           action_type.badges.each do |badge|
             unless self.badges.include?(badge)
-              self.badges << badge 
+              self.badges << badge
               self.badge_levels.last.update_attributes(notified: true)
               id_with_max_days = self.badge_levels.last.id
             end
@@ -210,7 +211,7 @@ class User < ApplicationRecord
       points_for_type = self.badge_points.where(badge_action_type_id: action_type.id).last
 
       if points_for_type.blank?
-        points_for_type = self.badge_points.create( 
+        points_for_type = self.badge_points.create(
               badge_kind_id: action_type.badge_kind_id,
               value: 0,
               accumulated_count: 0,
@@ -264,14 +265,14 @@ class User < ApplicationRecord
         # end
 
         # weight = BadgePointsWeight.joins(:badge_action_type)
-        #     .where('badge_action_types.name = ? AND badge_id = ?', 
+        #     .where('badge_action_types.name = ? AND badge_id = ?',
         #         income_action_type, badge.id).first
         # next unless weight.active?
 
         roles = BadgePointsWeight.joins(:badge_action_type)
               .where('badge_action_types.name LIKE ? AND badge_id = ? AND active = true', 'role%', badge.id)
 
-        if roles.present? && roles.count == 1 
+        if roles.present? && roles.count == 1
           role = roles[0].badge_action_type.name.split[1]
           next unless self.has_role? role
         end
@@ -310,7 +311,7 @@ class User < ApplicationRecord
             actions_left << action
           end
 
-        else 
+        else
 
           if points_for_action.value == 0
             actions_left << action
@@ -336,7 +337,7 @@ class User < ApplicationRecord
   def next_badges
     user_badges = self.badges.pluck(:id)
     badges = []
-    
+
     Badge.all.reject { |b| user_badges.include?(b.id) if user_badges.present? }.each do |badge|
       related_badges_should_be = badge.depended_badges.pluck(:id)
 
@@ -362,12 +363,12 @@ class User < ApplicationRecord
         points = self.badge_points.where(badge_action_type_id: type.id).first
 
         if points
-          persents[id] = 
+          persents[id] =
               ((points.accumulated_count.to_f / type.count_to_achieve)*100).round
         end
       else
-        persents[id] = 
-              (100.0 - (actions_left_for_badge(last_badge).count.to_f / 
+        persents[id] =
+              (100.0 - (actions_left_for_badge(last_badge).count.to_f /
               actions_should_be.count)*100).round
       end
     end
@@ -532,8 +533,8 @@ class User < ApplicationRecord
       tr = Release.published.first.tracks.first
       playlist = playlists.create(
             tracks_ids: tr.id,
-            default: true, 
-            name: 'last listened') 
+            default: true,
+            name: 'last listened')
     end
     playlist
   end

@@ -277,6 +277,7 @@
 
   var start = new Date().getTime();
   var sent = false;
+  var listen_70 = false;
 
   function timerAndLoadingForAudio(audio) {
 
@@ -293,6 +294,7 @@
         $('.pp-play-bar').css('width', current_time / duration * 100 + '%');
 
         if (current_time/duration < 0.8) {sent = false}
+        if (current_time/duration < 0.7) {listen_70 = false}
         if (current_time/duration > 0.8 && !sent){
           $.ajax({
             url: '/track_listened',
@@ -300,6 +302,15 @@
             data: { id: playlist[currentTrackIndex].id }
           });
           sent = true;
+        }
+
+        if (current_time/duration > 0.7 && !listen_70){
+          $.ajax({
+            url: '/track_listened_for_review',
+            dataType: 'JSON',
+            data: { id: playlist[currentTrackIndex].id }
+          });
+          listen_70 = true;
         }
 
         start = new Date().getTime();

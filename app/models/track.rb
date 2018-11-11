@@ -3,6 +3,7 @@ class Track < ApplicationRecord
   has_many :comments, as: :commentable
   belongs_to :release
   has_many :tracks_users, dependent: :destroy
+  has_many :track_listen_progresses
   has_many :users, through: :tracks_users
   has_many :track_files
   has_many :downloads

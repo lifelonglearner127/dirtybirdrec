@@ -28,7 +28,7 @@ class Rate < ActiveRecord::Base
     self.rateable.class.to_s
   end
 
-  private 
+  private
 
     def add_points
       self.rater.change_points( 'rate', self.rateable_type )

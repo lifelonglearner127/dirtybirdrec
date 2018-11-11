@@ -57,7 +57,7 @@ class TracksController < ApplicationController
   def track_clicked
     if current_user
       RecentlyItem.create(
-        user_id: current_user.id, 
+        user_id: current_user.id,
         track_id: params[:track_id]
       )
     end
@@ -80,7 +80,7 @@ class TracksController < ApplicationController
       if current_user.download_credits < 1
         redirect_to root_path, alert: "You have reached the limit of track downloads" and return
       end
-      
+
       current_user.decrement!(:download_credits)
     end
 
@@ -90,6 +90,19 @@ class TracksController < ApplicationController
 
     redirect_to tf.url_string
     # redirect_to S3_BUCKET.object(tf.s3_key).presigned_url(:get, response_content_disposition: 'attachment')
+  end
+
+  def track_listened_for_review
+    if current_user
+      track = Track.find params[:id]
+      begin
+        tp = current_user.track_listen_progresses.find_or_create_by(track: track)
+        tp.update(listen_progress: 70)
+      rescue
+      end
+    end
+
+    render json: {}
   end
 
   def track_listened
@@ -103,12 +116,12 @@ class TracksController < ApplicationController
     render json: {}
   end
 
-  private 
+  private
 
     def track_as_json track
       { id: track.id,
         track_number: '%02i' % track.track_number,
-        title: track.title, 
+        title: track.title,
         artists: track.artists,
         mp3: track.stream_uri,
         release_id: track.release_id,
