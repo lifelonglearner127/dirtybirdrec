@@ -527,16 +527,6 @@ class User < ApplicationRecord
     'CHIRP FREE'
   end
 
-  def apply_promo slug
-    code = Promocode.find_by_slug slug
-
-    if code.applied_to.present?
-      return flash[:error] = 'Promocode was already activated.'
-    end
-
-    code.update_attributes(applied_to: id)
-  end
-
   def has_promo_period? chosen_type=nil
     last_code = promocodes.where(promo_type: chosen_type || [:insider,:vib]).order(apply_date: :asc).last
 

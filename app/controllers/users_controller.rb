@@ -344,6 +344,36 @@ class UsersController < ApplicationController
     
   end
 
+  def apply_promocode
+    @flash = {}
+    code = Promocode.find_by_slug params[:promocode]
+
+    unless code
+      @flash[:alert] = "Promocode doesn't exist."
+      return
+    end
+
+    if code.applied_to.present?
+      @flash[:alert] = 'Promocode has already been activated.'
+      return
+    end
+
+    code.update_attributes(applied_to: current_user.id)
+
+    @fresh_eggs = code.value if code.promo_type == 'eggs'
+
+    @flash[:notice] = "Promocode has been activated"
+    @message = "Promocode has been activated. "
+
+    if code.promo_type == 'eggs'
+      @message << "#{code.value} eggs has been added"
+    elsif code.promo_type == 'insider'
+      @message << "You have promo Insider access."
+    elsif code.promo_type == 'vib'
+      @message << "You have promo VIB access."
+    end
+  end
+
   def terms_and_conduct
     current_user.update_attributes(terms_and_conditions: true, code_of_conduct: true)
   end
@@ -371,7 +401,6 @@ class UsersController < ApplicationController
   end
 
   def load_more_artists
-    logger.warn User.with_role(:artist)
     @artists = leaderboard_query(User.with_role(:artist), params[:page], 30, false)
   end
 

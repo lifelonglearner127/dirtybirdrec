@@ -159,14 +159,25 @@
               </div>
               
               <div class="col-lg-6">
-                <label for="promo-code">BirdFeed Promo Code</label>
-                <div class="tip float-right">
-                  <span class="icon">?</span>
-                  <div class="message">
-                    Add the promo code you were hooked up with
+                <%= form_tag apply_promocode_path,
+                    multipart: true,
+                    remote: true,
+                    id: 'promocode-form',
+                    style: 'max-width: 250px; display: inline-block;' do %>
+                  <label for="promo-code">BirdFeed Promo Code</label>
+                  <div class="tip float-right">
+                    <span class="icon">?</span>
+                    <div class="message">
+                      Add the promo code you were hooked up with
+                    </div>
                   </div>
-                </div>
-                <input type="text" id="promo-code" class="form-control mb-3">
+                  <div class="input-group mb-3">
+                    <%= text_field_tag :promocode, nil, class: 'form-control' %>
+                    <div class="input-group-append">
+                      <button class="btn c-btn-red" type="submit">use it!</button>
+                    </div>
+                  </div>
+                <% end %>
 
                 <div class="form-group text-muted" style="box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);">
                   <a href="https://www.braintreegateway.com/merchants/<%= ENV['BRAINTREE_MERCHANT_ID'] %>/verified" target="_blank">

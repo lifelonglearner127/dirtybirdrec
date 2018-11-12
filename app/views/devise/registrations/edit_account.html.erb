@@ -95,8 +95,25 @@
             </div>
           </div>
           <div class="col col-lg-4">
-            <span class="text-white">Birdfeed promo code</span>
-            <input type="text" />
+            <%= form_tag apply_promocode_path,
+                multipart: true,
+                remote: true,
+                id: 'promocode-form',
+                style: 'max-width: 250px; display: inline-block;' do %>
+              <label for="promo-code">BirdFeed Promo Code</label>
+              <div class="tip float-right">
+                <span class="icon">?</span>
+                <div class="message">
+                  Add the promo code you were hooked up with
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <%= text_field_tag :promocode, nil, class: 'form-control' %>
+                <div class="input-group-append">
+                  <button class="btn c-btn-red" type="submit">use it!</button>
+                </div>
+              </div>
+            <% end %>
           </div>
           <div class="col col-lg-4 cancel-account">
             <%= link_to "CANCEL ACCOUNT", usr_cancel_account_path, class: "btn btn-sm" %>

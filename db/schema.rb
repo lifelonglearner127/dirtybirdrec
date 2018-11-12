@@ -434,6 +434,7 @@ ActiveRecord::Schema.define(version: 20181111125714) do
     t.string "buy_uri"
     t.string "assembly_id"
     t.boolean "assembly_complete"
+    t.string "showcase"
   end
 
   create_table "releases_users", id: false, force: :cascade do |t|
@@ -625,7 +626,6 @@ ActiveRecord::Schema.define(version: 20181111125714) do
     t.bigint "track_id"
     t.index ["track_id", "user_id"], name: "index_tracks_users_on_track_id_and_user_id", unique: true
     t.index ["track_id"], name: "index_tracks_users_on_track_id"
-    t.index ["user_id", "track_id"], name: "index_tracks_users_on_user_id_and_track_id", unique: true
     t.index ["user_id"], name: "index_tracks_users_on_user_id"
   end
 

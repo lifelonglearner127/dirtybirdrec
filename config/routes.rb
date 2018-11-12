@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get "success_signup", to: "users#success_signup"
   get "terms_and_conduct", to: "users#terms_and_conduct"
   delete "cancel_subscription", to: "users#cancel_subscription"
+  post "apply_promocode", to: "users#apply_promocode"
   get "home", to: "users#home"
   get "final_cancellation", to: "home#final_cancellation"
 

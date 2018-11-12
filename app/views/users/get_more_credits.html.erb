@@ -105,6 +105,28 @@
 
     <%= link_to "Explain to me how eggs work again", how_eggs_work_path, 
         class: "credits-info py-2" %>
+
+    <div class="text-center mt-4">
+      <%= form_tag apply_promocode_path,
+          multipart: true,
+          remote: true,
+          id: 'promocode-form',
+          style: 'max-width: 250px; display: inline-block;' do %>
+        <label for="promo-code">BirdFeed Promo Code</label>
+        <div class="tip float-right">
+          <span class="icon">?</span>
+          <div class="message">
+            Add the promo code you were hooked up with
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <%= text_field_tag :promocode, nil, class: 'form-control' %>
+          <div class="input-group-append">
+            <button class="btn c-btn-red" type="submit">use it!</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 
@@ -142,14 +164,6 @@
           <%= hidden_field_tag :credits_count %>
           <div class="row">
             <div class="col-lg-6">
-              <label for="promo-code">BirdFeed Promo Code</label>
-              <div class="tip float-right">
-                <span class="icon">?</span>
-                <div class="message">
-                  Add the promo code you were hooked up with
-                </div>
-              </div>
-              <input type="text" id="promo-code" class="form-control mb-3">
               <a href="#step-1" class="btn c-btn-blue btn-wide">back</a>
               <%= submit_tag 'Purchase', class: 'btn c-btn-red btn-wide' %>
             </div>
