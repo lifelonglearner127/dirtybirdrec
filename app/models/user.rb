@@ -65,7 +65,8 @@ class User < ApplicationRecord
   has_one :notification, foreign_key: "user_id"
   belongs_to :header, optional: true
   has_many :cancellations
-
+  has_many :promocodes, foreign_key: "applied_to"
+  
   include AlgoliaSearch
 
   algoliasearch do
@@ -421,7 +422,7 @@ class User < ApplicationRecord
 
   def update_braintree_customer
     # If these fields changed and user is a Braintree customer
-    if (%w[first_name last_name email] & changes.keys).present? && braintree_customer
+    if (%w[first_name last_name email] & saved_changes.keys).present? && braintree_customer
       # Update Braintree's records
       Braintree::Customer.update(
         braintree_customer.id,
@@ -494,6 +495,7 @@ class User < ApplicationRecord
 
   def cached_active_subscription?
     return true if has_role?(:admin) || has_role?(:homey)
+    return true if has_promo_period?
     true if braintree_subscription_expires_at && Date.today <= braintree_subscription_expires_at
   end
 
@@ -525,6 +527,22 @@ class User < ApplicationRecord
     'CHIRP FREE'
   end
 
+  def apply_promo slug
+    code = Promocode.find_by_slug slug
+
+    if code.applied_to.present?
+      return flash[:error] = 'Promocode was already activated.'
+    end
+
+    code.update_attributes(applied_to: id)
+  end
+
+  def has_promo_period? chosen_type=nil
+    last_code = promocodes.where(promo_type: chosen_type || [:insider,:vib]).order(apply_date: :asc).last
+
+    return unless last_code.present?
+    return last_code.apply_date + last_code.value.to_i.days > DateTime.now
+  end
 
   def current_playlist
     playlist = Playlist.find_by_id current_playlist_id

@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181111115939) do
+ActiveRecord::Schema.define(version: 20181111125714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "announcements", force: :cascade do |t|
     t.integer "admin_id"
@@ -348,6 +349,17 @@ ActiveRecord::Schema.define(version: 20181111115939) do
     t.bigint "topic_category_id"
     t.string "image"
     t.index ["topic_category_id"], name: "index_promo_areas_on_topic_category_id"
+  end
+
+  create_table "promocodes", force: :cascade do |t|
+    t.string "slug"
+    t.integer "promo_type"
+    t.string "value"
+    t.integer "applied_to"
+    t.datetime "apply_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_promocodes_on_slug", unique: true
   end
 
   create_table "rates", force: :cascade do |t|

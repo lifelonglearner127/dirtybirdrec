@@ -46,6 +46,7 @@ class Release < ApplicationRecord
     return false unless user
     return true if user.has_role?(:admin)
     return true if user.has_role?(:homey)
+    return true if user.has_promo_period?(:vib)
     return false unless published?
     return false unless user.subscription_started_at
     return false if user.subscription_length == 'monthly_insider'
