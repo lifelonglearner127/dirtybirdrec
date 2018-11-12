@@ -83,7 +83,7 @@ var share = "<%= escape_javascript( render partial: 'layouts/share', locals: { o
 
 var release_menu;
 
-<% if current_user && (current_user.cahced_active_subscription? ||
+<% if current_user && (current_user.cached_active_subscription? ||
       current_user.has_role?(:admin) ||
       current_user.has_role?(:artist) ) %>
   release_menu = `<button id="jp-release-playlist-btn" style="display: none;">

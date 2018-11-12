@@ -151,8 +151,8 @@ class User < ApplicationRecord
     #points #TODO BadgePoint(badge_id) not needed
 
     return if has_role?(:admin) || has_role?(:artist)
-    return unless cahced_active_subscription?
-
+    return unless cached_active_subscription?
+    
     kind_name = case action_model
     when "Comment"      then "music"
     when "Announcement" then "music"
@@ -492,7 +492,7 @@ class User < ApplicationRecord
     false
   end
 
-  def cahced_active_subscription?
+  def cached_active_subscription?
     return true if has_role?(:admin) || has_role?(:homey)
     true if braintree_subscription_expires_at && Date.today <= braintree_subscription_expires_at
   end

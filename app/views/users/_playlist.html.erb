@@ -1,4 +1,4 @@
-<% if current_user && (current_user.cahced_active_subscription? || 
+<% if current_user && (current_user.cached_active_subscription? || 
     current_user.has_role?(:admin) ||
     current_user.has_role?(:artist) ) &&
     @user.current_playlist %>

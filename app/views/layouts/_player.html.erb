@@ -34,7 +34,7 @@
         <div class="jp-details"></div>
         <div class="jp-additions"></div>
 
-        <% if current_user && (current_user.cahced_active_subscription? ||
+        <% if current_user && (current_user.cached_active_subscription? ||
               current_user.has_role?(:admin) ||
               current_user.has_role?(:artist) ) %>
 

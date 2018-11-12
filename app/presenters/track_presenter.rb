@@ -9,7 +9,7 @@ class TrackPresenter < SimpleDelegator
     @current_user = current_user
     @browser = browser
     __setobj__(track)
-    @is_sample = !(current_user && current_user.cahced_active_subscription?)
+    @is_sample = !(current_user && current_user.cached_active_subscription?)
   end
 
   def stream_uri
