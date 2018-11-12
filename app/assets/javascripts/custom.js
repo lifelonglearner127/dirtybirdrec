@@ -1,4 +1,6 @@
 $(document).keypress(function(e) {
+  if( e.target.nodeName == "INPUT" || e.target.nodeName == "TEXTAREA" || $(':focus').length > 0){ return;
+  }
   if (e.keyCode == 32) {
     e.preventDefault();
     $('.jp-play').click();

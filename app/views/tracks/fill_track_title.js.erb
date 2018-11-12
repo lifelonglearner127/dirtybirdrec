@@ -122,11 +122,33 @@ $('.pp-share').html(share);
 
 $('.user-rate-wrapper').on('click', function(event) {
   $('.main-container').css({'filter': 'blur(15px)'});
-  $('.rate-track-modal[data-track-id="'+ $(this).data('track-id') + '"]').modal('show');
+  $('.rate-track-modal[data-track-id="'+ $(this).data('track-id') + '"]').first().modal('show');
 })
-$('.rating-submit').on('click', function(event){
-  $('.rate-track-modal').modal('hide');
-  $('.main-container').css({'filter': 'unset'});
+
+$('.rating-submit').off().on('click', function(event){
+  // $('.rate-track-modal').modal('hide');
+  score = $('#modal_score').children('div.star').children('input[name="score"]').val();
+  if (score == null) { score = 0; };
+  $.post('<%= Rails.application.class.routes.url_helpers.rate_path %>',
+    {
+      score: score,
+      dimension: $('#modal_score').children('div.star').attr('data-dimension'),
+      id: $('#modal_score').children('div.star').attr('data-id'),
+      klass: $('#modal_score').children('div.star').attr('data-classname')
+    },
+    function(data) {
+      if(data) {
+        // success code goes here ...
+        track_id = $('#modal_score').children('div.star').attr('data-id')
+        $('.rate-track-modal').modal('hide');
+        if($('.jp-release-playlist')[0]){
+          $('.jp-release-playlist').hide();
+        }
+        $('.main-container').css({'filter': 'blur(15px)'});
+        // $('.main-container').css({'filter': 'unset'});
+        $('.after-rate-track-modal[data-track-id="'+ track_id + '"]').first().modal('show')
+      }
+    });
 })
 
 var list = `
