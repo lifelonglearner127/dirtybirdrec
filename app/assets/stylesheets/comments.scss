@@ -23,6 +23,10 @@
   top: -2px;
 }
 
+.likes-count-body {
+  padding-left: 13px
+}
+
 .comment-body {
   position: relative;
   max-width: 430px;
@@ -31,7 +35,7 @@
 
 .comment-substring {
   position: absolute;
-  bottom: -10px;
+  bottom: -12px;
   left: 20px;
   white-space: nowrap;
   font-size: 10px;
