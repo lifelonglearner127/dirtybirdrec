@@ -70,7 +70,7 @@
         locals: { release: announcement, style: announcement.bg_color }  %>
 
     <%#= render 'comments/feed_item', object: announcement %>
-  <% else %>
+  <% elsif activity['activities'][0]['foreign_id'].class.to_s != "String" %>
 
     <% release = ReleasePresenter.new(activity['activities'][0]['object'], current_user) %>
 
