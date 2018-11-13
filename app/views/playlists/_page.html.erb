@@ -20,7 +20,8 @@
       </div>
 
       <div class="playlist-owner">
-        <%= link_to image_tag(@playlist.user.avatar.thumb, class: "user-avatar"), @playlist.user %>
+        <%= link_to image_tag(@playlist.user.avatar.thumb, class: "user-avatar", alt: ''),
+            @playlist.user %>
         By <%= link_to @playlist.user.name, @playlist.user %>
       </div>
     <% end %>

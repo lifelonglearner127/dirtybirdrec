@@ -103,10 +103,7 @@ class ReleasesController < ApplicationController
     end
 
     #special conditions for users from previous version of site
-    if current_user.subscription_length == 'monthly_vib' ||
-         current_user.subscription_length == 'yearly_vib' ||
-         current_user.subscription_length == 'monthly_old'
-      
+    if current_user.can_use_credits?
       if current_user.download_credits < 1
         redirect_to root_path, alert: "You have reached the limit of track downloads" and return
       end

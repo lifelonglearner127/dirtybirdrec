@@ -34,19 +34,13 @@
         <div class="jp-details"></div>
         <div class="jp-additions"></div>
 
-        <% if current_user && (current_user.cached_active_subscription? ||
-              current_user.has_role?(:admin) ||
-              current_user.has_role?(:artist) ) %>
-
+        <% if current_user && 
+              ( current_user.cached_active_subscription? ||
+              current_user.can_use_credits? ) %>
           <button id="jp-playlist-btn">
             <%= show_svg 'icons/playlist1.svg' %>
           </button>
-        <% end %>
 
-        <% if current_user && current_user.braintree_subscription_expires_at &&
-          (current_user.subscription_length == 'monthly_vib' ||
-           current_user.subscription_length == 'yearly_vib' ||
-           current_user.subscription_length == 'monthly_old') %>
           <div class="credits-menu mr-4">
             <button type="button" data-toggle="collapse" data-target="#credits-count" aria-expanded="false" aria-controls="collapseExample" class="credits-btn">
               <%= show_svg 'icons/egg-basket.svg' %>
@@ -62,12 +56,15 @@
                     EGGS AVAILABLE
                   </span>
                   <br>
-                  <div style="font-size: 0.7rem;">
-                    <strong>Your next 10 egg drop is on:</strong>
-                    <span style="font-weight: 100;">
-                      <%= current_user.braintree_subscription_expires_at.strftime("%m/%d/%Y") %>
-                    </span>
-                  </div>
+                  <% if current_user.subscription_length == 'monthly_old' ||
+                        current_user.subscription_length == 'yearly_old' %>
+                    <div style="font-size: 0.7rem;">
+                      <strong>Your next 10 egg drop is on:</strong>
+                      <span style="font-weight: 100;">
+                        <%= current_user.braintree_subscription_expires_at.strftime("%m/%d/%Y") %>
+                      </span>
+                    </div>
+                  <% end %>
                 </div>
                 <div class="col-md-6 padding-0 download-btn-heading" style="font-size: 0.8rem;padding-left: 0px;">
                   <% if @credits <= 18 %>

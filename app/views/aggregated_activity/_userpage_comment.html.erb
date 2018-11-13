@@ -18,7 +18,9 @@
         <div class="t-wide">
           <%= link_to _activity['actor'], 
         class: "#{avatar_style(_activity['actor'])} sm-style" do %>
-            <%= image_tag _activity['actor'].avatar.thumb.url, class: "feed-avatar" %>
+            <%= image_tag _activity['actor'].avatar.thumb.url, 
+                class: "feed-avatar",
+                alt: '' %>
             <strong><%= _activity['actor'].name %>:</strong>
           <% end %>
 
@@ -52,7 +54,7 @@
 
       <%= link_to _activity['actor'], 
           class: "#{avatar_style(_activity['actor'])} sm-style" do %>
-        <%= image_tag _activity['actor'].avatar.thumb.url, class: "feed-avatar" %>
+        <%= image_tag _activity['actor'].avatar.thumb.url, class: "feed-avatar", alt: '' %>
         <strong><%= _activity['actor'].name %>:</strong>
       <% end %>
 

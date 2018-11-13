@@ -1,5 +1,5 @@
 <% @flash.each do |type, message| %>
-  $('.<%= type %>').text('<%= message %>').show();
+  $('.<%= type %>').text("<%= message.html_safe %>").show();
 
   setTimeout(function(){
     $('.<%= type %>').fadeOut('slow');

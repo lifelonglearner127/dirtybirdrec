@@ -127,7 +127,8 @@ class ApplicationController < ActionController::Base
     end
 
     def record_not_uniq
-      redirect_back(fallback_location: root_path)
+      #TODO(Victor) maybe bad desision, hard to control callbacks, use resque intead
+      redirect_back(fallback_location: root_path) unless request.xhr?
     end
 
     def check_for_terms_and_conduct

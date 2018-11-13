@@ -76,7 +76,10 @@
         <div class="feed-new-artists">
           <% for artist in release.users %>
             <%= link_to artist do %>
-              <%= image_tag artist.avatar.thumb.url, class: "feed-avatar", title: artist.name %>
+              <%= image_tag artist.avatar.thumb.url,
+                  class: "feed-avatar",
+                  title: artist.name,
+                  alt: '' %>
             <% end %>
           <% end %>
         </div>

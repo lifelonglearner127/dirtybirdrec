@@ -19,7 +19,7 @@
           <% user = User.find u['id'] %>
           <li style="margin-bottom: 20px;">
             <%= link_to user, class: "d-inline-block align-middle #{avatar_style(user)}" do %>
-              <%= image_tag user.avatar.thumb, class: "user-avatar" %>
+              <%= image_tag user.avatar.thumb, class: "user-avatar", alt: '' %>
             <% end %>
 
             <div class="fan-body">
@@ -75,7 +75,9 @@
           <li>
             <%= link_to artist_path(artist), 
                 class: "d-inline-block align-middle #{avatar_style(artist)}" do %>
-              <%= image_tag artist.avatar.thumb, class: "user-avatar artist-style" %>
+              <%= image_tag artist.avatar.thumb,
+                  class: "user-avatar artist-style",
+                  alt: '' %>
             <% end %>
             <div>
               <h5>

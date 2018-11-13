@@ -3,12 +3,14 @@
     <% if current_user && current_user.id == @user.id %>
       <%= form_for(@user, remote: true,
           html: { id: 'header-change-avatar', class: 'userpage-avatar left-avatar', method: :put } ) do |f| %>
-        <%= image_tag @user.avatar.big_thumb %>
+        <%= image_tag @user.avatar.big_thumb, alt: '' %>
         <%= f.file_field :avatar, class: 'form-control-file' %>
         <%= f.hidden_field :avatar_cache %>
       <% end %>
     <% else %>
-      <%= image_tag(@user.avatar.big_thumb.url, class: "userpage-avatar left-avatar") %>
+      <%= image_tag(@user.avatar.big_thumb.url,
+          class: "userpage-avatar left-avatar",
+          alt: '') %>
     <% end %>
 
     <% if avatar_style(@user) == 'chirp-style' %>
@@ -87,8 +89,8 @@
   <div class="row">
     <div class="col-lg-3 px-0 c-btn-group two-btns">
       <% artist = current_page?(user_path(@user)) || current_page?(admin_path(@user)) %>
-      <% classes = ["btn btn-wide c-btn-blue btn-square", "btn btn-wide c-btn-black btn-square btn-disabled"] %>
-      <%= link_to "Feed", @user, 
+      <% classes = ["btn btn-wide c-btn-gray-dark btn-square", "btn btn-wide c-btn-black btn-square btn-disabled"] %>
+      <%= link_to "My Feed", @user, 
           class: artist ? classes[1] : classes[0] %><!--
      --><%= link_to "My Music", playlists_path(user_id: @user), 
           class: artist ? classes[0] : classes[1] %>

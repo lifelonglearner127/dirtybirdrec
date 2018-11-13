@@ -65,7 +65,8 @@ class User < ApplicationRecord
   has_one :notification, foreign_key: "user_id"
   belongs_to :header, optional: true
   has_many :cancellations
-  has_many :promocodes, foreign_key: "applied_to"
+  has_many :promocodes_users, inverse_of: :user
+  has_many :promocodes, through: :promocodes_users
   
   include AlgoliaSearch
 
@@ -152,7 +153,7 @@ class User < ApplicationRecord
     #points #TODO BadgePoint(badge_id) not needed
 
     return if has_role?(:admin) || has_role?(:artist)
-    return unless cached_active_subscription?
+    return unless cached_active_subscription? || can_use_credits?
     
     kind_name = case action_model
     when "Comment"      then "music"
@@ -499,6 +500,19 @@ class User < ApplicationRecord
     true if braintree_subscription_expires_at && Date.today <= braintree_subscription_expires_at
   end
 
+  def can_use_credits?
+    #special conditions for users from previous version of site
+    subscription_length == 'monthly_vib' ||
+    subscription_length == 'yearly_vib' ||
+    subscription_length == 'monthly_old' ||
+    subscription_length == 'yearly_old' ||
+    has_role?(:admin) ||
+    has_role?(:boss) ||
+    has_role?(:homey) ||
+    has_role?(:intern) ||
+    has_promo_period?(:vib)
+  end
+
   def cancel_braintree_subscription
     Braintree::Subscription.cancel(braintree_subscription_id) if braintree_subscription
     update!(
@@ -528,10 +542,13 @@ class User < ApplicationRecord
   end
 
   def has_promo_period? chosen_type=nil
-    last_code = promocodes.where(promo_type: chosen_type || [:insider,:vib]).order(apply_date: :asc).last
+    types = chosen_type || [:insider,:vib]
+    last_code = promocodes.where(promo_type: types).last
 
     return unless last_code.present?
-    return last_code.apply_date + last_code.value.to_i.days > DateTime.now
+    
+    code_given_at = last_code.promocodes_users.find_by_user_id(u.id).created_at
+    return code_given_at + last_code.value.to_i.days > DateTime.now
   end
 
   def current_playlist

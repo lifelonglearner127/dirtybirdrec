@@ -336,7 +336,7 @@ class UsersController < ApplicationController
 
   def get_more_credits
     #TODO add notify if 1 day left
-    redirect_to home_path and return unless current_user.cached_active_subscription? 
+    redirect_to home_path and return unless current_user.can_use_credits? 
     render 'users/success_credits_buy' if params[:success]
   end
 
@@ -353,16 +353,19 @@ class UsersController < ApplicationController
       return
     end
 
-    if code.applied_to.present?
-      @flash[:alert] = 'Promocode has already been activated.'
-      return
+    begin
+    current_user.promocodes << code
+    rescue ActiveRecord::RecordNotUnique
+    @flash[:alert] = "You have already activated this promocode"
+    return
+    rescue ActiveRecord::RecordInvalid => e
+    @flash[:alert] = e.message
+    return
     end
 
-    code.update_attributes(applied_to: current_user.id)
-
     @fresh_eggs = code.value if code.promo_type == 'eggs'
-
     @flash[:notice] = "Promocode has been activated"
+
     @message = "Promocode has been activated. "
 
     if code.promo_type == 'eggs'

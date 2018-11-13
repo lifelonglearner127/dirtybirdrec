@@ -3,7 +3,7 @@
 </p>
 
 <%= link_to activity['actor'], class: "#{avatar_style(activity['actor'])} sm-style" do %>
-  <%= image_tag activity['actor'].avatar.thumb.url, class: "feed-avatar" %>
+  <%= image_tag activity['actor'].avatar.thumb.url, class: "feed-avatar", alt: '' %>
   <%= activity['actor'].name %>
 <% end %>
 <em>has shared</em>

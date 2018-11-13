@@ -63,13 +63,15 @@ class Track < ApplicationRecord
   def user_allowed?(user)
     return false unless user
     return true if user.has_role?(:admin)
-    return true if user.has_role?(:homey)
-    return true if user.has_promo_period?(:vib)
     return false unless release.published?
+    return true if user.has_role?(:boss)
+    return true if user.has_role?(:homey)
+    return true if user.has_role?(:intern)
+    return true if user.has_promo_period?(:vib)
+    return true if release.available_to_all?
     return false unless user.subscription_started_at
     return false if user.subscription_length == 'monthly_insider'
     return false if user.subscription_length == 'yearly_insider'
-    return true if release.available_to_all?
     return true if release.published_at >= user.subscription_started_at - 3.months
     false
   end

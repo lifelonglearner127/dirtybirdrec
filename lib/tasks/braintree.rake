@@ -5,8 +5,7 @@ namespace :braintree do
       user.active_subscription?
 
       if user.subscription_started_at.day == Date.today.day &&
-         ( user.subscription_length == 'monthly_vib' ||
-           user.subscription_length == 'yearly_vib' ||
+         ( user.subscription_length == 'yearly_old' ||
            user.subscription_length == 'monthly_old' )
         user.increment!(:download_credits, 10)
       end

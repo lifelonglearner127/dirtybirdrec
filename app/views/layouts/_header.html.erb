@@ -91,7 +91,8 @@
         <% if current_user %>
           <ul class="navbar-nav align-items-center navbar-controls my-2 my-lg-0">
             <div class="header-user">
-              <%= link_to image_tag(current_user.avatar.thumb, class: "user-avatar"), root_path %>
+              <%= link_to image_tag(current_user.avatar.thumb, class: "user-avatar", alt: ''),
+                  root_path %>
               <span><%= link_to current_user.name, root_path %></span>
             </div>
 
@@ -193,7 +194,9 @@
                 <% if @ninja %>
                   <%= button_tag data: { toggle: 'modal', target: "#headerReportModal#{@ninja.id}" }, 
                       class: "btn c-btn-red btn-square mb-2" do %>
-                    <%= image_tag @ninja.avatar.thumb.url, class: 'user-avatar' %>
+                    <%= image_tag @ninja.avatar.thumb.url,
+                        class: 'user-avatar',
+                        alt: '' %>
                     ask Marcus
                     <% if @ninja.online? %>
                       <span class="ninja-online">online</span>

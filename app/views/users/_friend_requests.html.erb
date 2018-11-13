@@ -8,7 +8,9 @@
   <% if current_user.has_role?(:artist) %>
     <div class="nav-notify py-2 px-3">
       <%= link_to user, class: "#{avatar_style(user)} sm-style" do %>
-        <%= image_tag user.avatar.thumb.url, class: "feed-avatar align-top" %>
+        <%= image_tag user.avatar.thumb.url,
+            class: "feed-avatar align-top",
+            alt: '' %>
       <% end %>
 
       <%= link_to user, class: "notify-link" do %>
@@ -32,7 +34,7 @@
   <% else %>
     <div id="friend-request-item-<%= user.id %>" class="d-flex my-2 px-3 w-100">
       <%= link_to user, class: "#{avatar_style(user)} sm-style" do %>
-        <%= image_tag user.avatar.thumb, class: "user-avatar mr-2" %>
+        <%= image_tag user.avatar.thumb, class: "user-avatar mr-2", alt: '' %>
       <% end %>
 
       <div class="w-100">
