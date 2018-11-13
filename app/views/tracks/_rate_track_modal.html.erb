@@ -7,7 +7,12 @@
         </button>
       </div>
       <div class="modal-body w-100">
-        <h5 class="modal-title gray-text">RATE THIS TRACK</h5>
+        <% user_rate = get_user_rate_for_track track %>
+        <% if user_rate == 0 %>
+          <h5 class="modal-title gray-text">RATE THIS TRACK</h5>
+        <% else %>
+          <h5 class="modal-title gray-text">YOU RATED THIS TRACK</h5>
+        <% end %>
         <%= rating_for track, 'main',
             star: 4,
             cancel: false,
@@ -16,6 +21,7 @@
             star_half: image_path('rate/egg-stars/star-on.png'),
             star_off: image_path('rate/egg-stars/star-off.png')
           %>
+        <br>
         <div class="rate-track-detail">
           <%= link_to image_tag(image, style: "width: 28px; height: 28px; border-radius: 2px; margin: 0 5px 0 10px;"), release, :class => 'track-image' %>
           <div class="track-title jp-title-info" aria-label="title">
