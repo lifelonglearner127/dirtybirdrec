@@ -92,6 +92,16 @@ class Track < ApplicationRecord
     release.avatar
   end
 
+
+
+  def listened?(user)
+    if(TrackListenProgress.find_by(user_id: user.id, track_id: self.id) != nil && TrackListenProgress.find_by(user_id: user.id, track_id: self.id).listen_progress >= 70)
+      true
+    else
+      false
+    end
+  end
+
   private
 
     def step_name

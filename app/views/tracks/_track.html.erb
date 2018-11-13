@@ -53,7 +53,9 @@
           <div class="user-rate-wrapper" data-track-id="<%= track.id%>">
             <% user_rate = get_user_rate_for_track track %>
             <% if user_rate == 0 %>
-              <div class="rate-track-btn rate-word-btn">Rate</div>
+              <% if(track.listened?(current_user)) %>
+                <div class="rate-track-btn rate-word-btn">Rate</div>
+              <% end %>
             <% else %>
               <div class="user-rate-mark rate-track-btn">
                 <img src="/images/rate/check-circle.png" /><%= user_rate %>
