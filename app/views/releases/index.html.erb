@@ -101,7 +101,8 @@
           <% Release.release_types.each do |value, key| %>
             <li class="filter-type">
               <%= link_to releases_path( filters: { type: key } ) do %>
-                <%= image_tag "#{value}2.png" %>
+                <% image = value == 'Dirtybird' ? 'd_select2' : 'exclusive2' %>
+                <%= image_tag "#{image}.png" %>
               <% end %>
             </li>
           <% end %>
@@ -122,14 +123,15 @@
   <% end %>
 </div>
 
-<div class="text-center">
-  <% if @limit <= @releases.count %>
-    <% if params[:filters].present? %>
-      <% _params = { filters: params[:filters].permit! }.merge(page: params[:page] ? params[:page].to_i + 1 : 2) %>
-    <% else %>
-      <% _params = {page: params[:page] ? params[:page].to_i + 1 : 2} %>
-    <% end %>
-    <%= link_to "Show more", load_more_releases_path(_params), 
+<!-- <div class="text-center"> -->
+  <%# #TODO(Victor) make lazy laod as in player view %>
+  <%# if @limit <= @releases.count %>
+    <%# if params[:filters].present? %>
+      <%# _params = { filters: params[:filters].permit! }.merge(page: params[:page] ? params[:page].to_i + 1 : 2) %>
+    <%# else %>
+      <%# _params = {page: params[:page] ? params[:page].to_i + 1 : 2} %>
+    <%# end %>
+    <%#= link_to "Show more", load_more_releases_path(_params), 
         remote: true, class: "btn c-btn-blue show-more" %>
-  <% end %>
-</div>
+  <%# end %>
+<!-- </div> -->
