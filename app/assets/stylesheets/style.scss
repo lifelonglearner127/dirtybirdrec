@@ -183,10 +183,6 @@ strong {
   @include btn(#bbb,#434343,black);
 }
 
-.c-btn-gray-dark {
-  @include btn(#eaeaea,#323333 ,darken(#eaeaea, 5));
-}
-
 .star {
   display: inline-block;
 }
