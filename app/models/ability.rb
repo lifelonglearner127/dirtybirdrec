@@ -100,7 +100,7 @@ class Ability
     else
       cannot :manage, ActiveAdmin::Page
 
-      if user.cached_active_subscription?
+      if user.cached_active_subscription? || user.can_use_credits?
         can :read, Announcement
 
         can :manage, Topic, user_id: user.id

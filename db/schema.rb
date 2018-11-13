@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181111125714) do
+ActiveRecord::Schema.define(version: 20181113171159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -355,11 +355,18 @@ ActiveRecord::Schema.define(version: 20181111125714) do
     t.string "slug"
     t.integer "promo_type"
     t.string "value"
-    t.integer "applied_to"
-    t.datetime "apply_date"
+    t.datetime "expiration_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_promocodes_on_slug", unique: true
+  end
+
+  create_table "promocodes_users", force: :cascade do |t|
+    t.integer "promocode_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "promocode_id"], name: "index_promocodes_users_on_user_id_and_promocode_id", unique: true
   end
 
   create_table "rates", force: :cascade do |t|
@@ -662,7 +669,7 @@ ActiveRecord::Schema.define(version: 20181111125714) do
     t.date "braintree_subscription_expires_at"
     t.integer "subscription_length", default: 0, null: false
     t.integer "current_playlist_id"
-    t.integer "download_credits", default: 30, null: false
+    t.integer "download_credits", default: 0, null: false
     t.string "address_zip"
     t.string "address_street"
     t.string "address_street_number"

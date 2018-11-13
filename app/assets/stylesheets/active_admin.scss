@@ -103,6 +103,10 @@ input[disabled],
   }
 }
 
+.select2-dropdown {
+  z-index: 5000;
+}
+
 .sidebar_section.panel {
   margin-bottom: 0;
 }
@@ -146,3 +150,5 @@ input[disabled],
  #csv_upload_column {
   padding-top: 20px;
  }
+
+
