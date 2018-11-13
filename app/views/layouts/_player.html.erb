@@ -34,7 +34,7 @@
         <div class="jp-details"></div>
         <div class="jp-additions"></div>
 
-        <% if current_user && 
+        <% if current_user &&
               ( current_user.cached_active_subscription? ||
               current_user.can_use_credits? ) %>
           <button id="jp-playlist-btn">
@@ -296,7 +296,10 @@
           $.ajax({
             url: '/track_listened',
             dataType: 'JSON',
-            data: { id: playlist[currentTrackIndex].id }
+            data: { id: playlist[currentTrackIndex].id },
+            success: function(result) {
+              $('div.star[data-id="'+ playlist[currentTrackIndex].id + '"]').append('<div class="user-rate-wrapper"  data-track-id="' + playlist[currentTrackIndex].id + '">' + '<div class="rate-track-btn">Rate</div>' + '</div>');
+            }
           });
           sent = true;
         }
