@@ -76,7 +76,7 @@
         <div>
           <% @announcement.followers.each do |user| %>
             <%= link_to user, class: "d-inline-block mr-2 mb-2" do %>
-              <%= image_tag user.avatar.thumb, class: "user-avatar" %>
+              <%= image_tag user.avatar.thumb, class: "user-avatar", alt: '' %>
             <% end %>
           <% end %>
         </div>

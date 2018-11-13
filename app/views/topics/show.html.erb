@@ -90,7 +90,9 @@
         <div class="row topic-post-user">
           <% if @topic.user %>
             <div class="col-sm-1">
-                <%= image_tag @topic.user.avatar.thumb.url, class: "post-user-avatar" %>
+                <%= image_tag @topic.user.avatar.thumb.url,
+                    class: "post-user-avatar",
+                    alt: '' %>
             </div>
             <div class="col-sm-6 topic-post-user-detail user-name">
               <% last_name = @topic.user.last_name ? @topic.user.last_name : '' %>
@@ -142,9 +144,11 @@
           <div class="row">
             <% @users.compact.each do |user| %>
               <div class="col-sm-3">
-                <%= link_to image_tag(user.avatar.thumb.url, class: "post-user-avatar"),
-                  user, class: "#{avatar_style(user)} sm-style",
-                  title: user.name %>
+                <%= link_to(
+                    image_tag(user.avatar.thumb.url, class: "post-user-avatar", alt: ''),
+                    user,
+                    class: "#{avatar_style(user)} sm-style",
+                    title: user.name ) %>
               </div>
             <% end %>
           </div>

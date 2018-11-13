@@ -7,7 +7,7 @@
         <% @friends.each do |user| %>
           <li class="mb-2">
             <%= link_to user do %>
-              <%= image_tag user.avatar.thumb, class: "user-avatar mr-3" %>
+              <%= image_tag user.avatar.thumb, class: "user-avatar mr-3", alt: '' %>
               <%= user.name %>
             <% end %>
           </li>

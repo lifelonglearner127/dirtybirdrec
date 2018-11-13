@@ -145,7 +145,7 @@
             <% @followers.each do |user| %>
               <li>
                 <%= link_to user, class: "d-inline-block align-middle" do %>
-                  <%= image_tag user.avatar.thumb, class: "user-avatar" %>
+                  <%= image_tag user.avatar.thumb, class: "user-avatar", alt: '' %>
                 <% end %>
                 <div>
                   <h5>

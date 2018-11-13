@@ -45,7 +45,7 @@
           <% @artists.each do |user| %>
             <li class="filter-user">
               <%= link_to releases_path( filters: { artist: user.id } ) do %>
-                <%= image_tag(user.avatar.thumb, class: "user-avatar") %>
+                <%= image_tag(user.avatar.thumb, class: "user-avatar", alt: '') %>
                 <div><%= user.name %></div>
                 <div class="filter-user-caption">
                   <%= pluralize(user.tracks.count, 'track') %>
