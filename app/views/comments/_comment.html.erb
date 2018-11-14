@@ -19,11 +19,10 @@
 <% end %>
 
 <div id="comment-<%= comment.id %>-outer" class="comment-outer">
-  <div id="comment-<%= comment.id %>-inner" class="comment-inner text-left" style='<%= "#{to_right} #{unsolved}" %>'>
+  <div id="comment-<%= comment.id %>-inner" class="comment-inner text-left d-flex" style='<%= "#{to_right} #{unsolved}" %>'>
     <%= link_to image_tag(comment.user.avatar.thumb, class: "post-user-avatar", alt: ''),
         comment.user,
         class: " #{avatar_style(comment.user)}" %>
-
     <div class="comment-body">
       <div class="feed-reply <%= bg_color %>">
         <strong><%= comment.user.name %></strong>
@@ -41,10 +40,7 @@
           <i>edited</i>
         <% end %>
       </div>
-
-      <%= render 'likes/likes_count_with_thumb', object: comment %>
-
-      <%= render 'comments/comment_controls', object: comment %>
+      
 
       <div class="comment-substring">
 
@@ -64,6 +60,10 @@
 
         <%= time_ago_in_words( comment.created_at ) %>        
       </div>
+    </div>
+    <div class='likes-count-body ml-auto'>
+      <%= render 'likes/likes_count_with_thumb', object: comment %>
+      <%= render 'comments/comment_controls', object: comment %>
     </div>
   </div>
 
