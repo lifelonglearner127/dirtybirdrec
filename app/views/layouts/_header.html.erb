@@ -295,60 +295,73 @@
   <div class="modal modal-blured" id="signInModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog-centered container" role="document">
       <div class="modal-content sign-in-modal">
-        <%= image_tag 'dj1.jpg', class: 'img-left d-none d-xl-block' %>
-
         <div class="sign-in-modal-body">
           <h3>
             LOGIn
+            <%= image_tag 'icons/bird-orange.svg', class: 'ml-2' %>
           </h3>
 
-          <%= form_for(resource, as: resource_name, 
-              url: session_path(resource_name),
-              html: {id: "sign_in_user_modal", class: ""}) do |f| %>
-            <%= devise_error_messages! %>
+          <div class="d-flex flex-column flex-lg-row">
+            <%= form_for(resource, as: resource_name, 
+                url: session_path(resource_name),
+                html: {id: "sign_in_user_modal", class: "mr-0 mr-lg-4 flex-grow-1"}) do |f| %>
+              <%= devise_error_messages! %>
 
-            <div class="form-group">
-              <%= f.label :user_login_email_modal, "E-mail" %>
-              <%= f.email_field :email, autocomplete: "email", 
-                  class: 'form-control', id: "user_login_email_modal", 
-                  required: true %>
-            </div>
+              <div class="form-group">
+                <%= f.label :user_login_email_modal, "E-mail" %>
+                <%= f.email_field :email, autocomplete: "email", 
+                    class: 'form-control', id: "user_login_email_modal", 
+                    required: true %>
+              </div>
 
-            <div class="form-group mb-4">
-              <%= f.label :user_login_password_modal, "Password" %>
-              <%= f.password_field :password, autocomplete: "off", 
-                  required: true, class: 'form-control', 
-                  id: "user_login_password_modal" %>
-            </div>
+              <div class="form-group mb-4">
+                <%= f.label :user_login_password_modal, "Password" %>
+                <%= f.password_field :password, autocomplete: "off", 
+                    required: true, class: 'form-control', 
+                    id: "user_login_password_modal" %>
+              </div>
 
-            <%= f.submit "login", class: "btn c-btn-red btn-square btn-wide" %>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <% if devise_mapping.rememberable? %>
+                  <div class="checkbox">
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me, class: 'mb-0' %>
+                  </div>
+                <% end %>
 
-            <span class="mx-2">or</span>
-            <div class="d-block mb-3 d-sm-none"></div>
+                <%= f.submit "login", class: "btn c-btn-red btn-wide" %>
+              </div>
 
-            <%= link_to user_facebook_omniauth_authorize_path, class: "" do %>
-              <%= image_tag 'icons/flogo_rgb_hex-brc-site-250.png', height: 30 %>
+
+              <div class="d-flex justify-content-between">
+                <strong>
+                  <%= link_to "Register Now", new_user_registration_path, class: "text-danger" %>
+                </strong>
+                <strong class="text-danger">|</strong>
+                <%= link_to "Forgot Password", new_password_path(resource_name), class: "text-danger" %>
+              </div>
+
             <% end %>
 
-            <%= link_to user_google_oauth2_omniauth_authorize_path, class: "" do %>
-              <%= image_tag 'icons/btn_google_dark_normal_ios.svg', height: 34 %>
-            <% end %>
-          <% end %>
-          
-          <%= link_to "I Forgot", new_password_path(resource_name), class: 'c-text' %>
 
-          <div class="text-right mb-4">
-            <span class="or">or</span>
+            <span class="or m-4">or</span>
+<!--             <span class="mx-2">or</span>
+            <div class="d-block mb-3 d-sm-none"></div> -->
+
+            <div class="ml-0 ml-lg-4 flex-grow-1 d-flex flex-column justify-content-around">
+              <%= link_to user_facebook_omniauth_authorize_path,
+                  class: 'btn c-btn-blue py-2 my-2' do %>
+                <i class="fa fa-facebook-f align-middle mr-3" style="font-size: 30px;"></i>
+                <span class="align-middle">Login with Facebook</span>
+              <% end %>
+
+              <%= link_to user_google_oauth2_omniauth_authorize_path,
+                  class: 'btn c-btn-red py-2 my-2' do %>
+                <i class="fa fa-google-plus align-middle mr-3" style="font-size: 30px;"></i>
+                <span class="align-middle">Login with Google+</span>
+              <% end %>
+            </div>
           </div>
-
-          <%= link_to "Create an account", new_user_registration_path, 
-              class: "btn c-btn-blue btn-square btn-wide float-right mt-4 mb-3" %>
-        </div>
-
-        <div class="sign-in-modal-owl d-none d-xl-block">
-          <%= image_tag 'owl.png' %>
-          <%= image_tag 'dialog.png', class: 'dialog-img' %>
-          <%= image_tag 'key.png', class: 'key-img' %>
         </div>
       </div>
     </div>
