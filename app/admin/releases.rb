@@ -50,6 +50,9 @@ ActiveAdmin.register Release do
     end
   end
 
+  action_item :edit,  only: [ :show ] do
+    link_to 'Encode Release', encode_admin_release_path(release), class: "member_link"
+  end
   show do
     panel "Release" do
       h3 "#{release.title} - #{release.artist}"
