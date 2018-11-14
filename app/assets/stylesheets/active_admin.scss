@@ -146,6 +146,11 @@ input[disabled],
       color: #fff;
     }
   }
+
+  form#collection_selection {
+    max-width: 1224px;
+    overflow: auto;
+  }
 }
  #csv_upload_column {
   padding-top: 20px;
