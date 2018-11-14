@@ -24,12 +24,17 @@
 }
 
 .likes-count-body {
-  padding-left: 13px
+  padding-left: 13px;
 }
 
 .comment-body {
   position: relative;
   max-width: 430px;
+  display: inline-block;
+}
+
+.comment-controls-body {
+  position: relative;
   display: inline-block;
 }
 
