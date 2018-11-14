@@ -602,6 +602,10 @@ class User < ApplicationRecord
       payload << { source: "announcement_user_feed:#{user.id}", target: 'announcement_create:1' }
       payload << { source: "timeline_aggregated:#{user.id}", target: "timeline:#{user.id}" }
       payload << { source: "user_aggregated:#{user.id}", target: "user:#{user.id}" }
+
+      ninja_id = SiteSetting.where(ident: 'ninja-id').first.try(:val)
+      ninja = User.find_by_id ninja_id if ninja_id
+      payload << { source: "timeline_aggregated:#{user.id}", target: "user:#{ninja.id}" } if ninja
     end
 
     payload
