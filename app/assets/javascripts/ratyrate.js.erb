@@ -13,6 +13,7 @@ function ratyRate() {
   var $half     = ($(this).attr('data-enable-half') == 'true');
   var $halfShow = ($(this).attr('data-half-show') == 'true');
   var $single   = ($(this).attr('data-single') == 'true');
+  $(this).html('');
   $(this).raty({
     score: function() {
       return $(this).attr('data-rating')
