@@ -54,6 +54,7 @@ ActiveAdmin.register Release do
     link_to 'Encode Release', encode_admin_release_path(release), class: "member_link"
   end
   show do
+    release.update(encode_status: nil) if release.pending?
     panel "Release" do
       h3 "#{release.title} - #{release.artist}"
 
