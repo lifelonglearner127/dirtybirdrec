@@ -67,6 +67,9 @@ ActiveAdmin.register Release do
       div ('Text: ' + release.text).html_safe
 
       table_for release.tracks do
+        column("View User") do |track|
+          link_to 'Encode Track', encode_track_admin_track_path(track), class: "member_link"
+        end
         column :track_number
         column :title
         column :artist

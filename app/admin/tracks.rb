@@ -44,4 +44,9 @@ ActiveAdmin.register Track do
       x.input :lyrics
     end
   end
+
+  member_action :encode_track, method: :get do
+    TransloaditApi::EncodeTrack.new(resource).call
+    redirect_to admin_release_path(resource.release.id), notice: "Encoding Release! This may take up to 10 minutes."
+  end
 end
