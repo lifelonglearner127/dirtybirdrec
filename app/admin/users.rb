@@ -114,8 +114,31 @@ ActiveAdmin.register User do
 
       super
     end
+
+    def apply_pagination(chain)
+        chain = super unless formats.include?(:json) || formats.include?(:csv)
+        chain
+    end
   end
 
+  csv do
+    column :email
+    column "Name" do |user|
+      user.name
+    end
+    column "Role" do |user|
+      user.roles.pluck(:name).join.html_safe
+    end
+    column :subscription_length
+    column :braintree_subscription_expires_at
+    column :created_at
+    column "Reports" do |user|
+      user.reports.count
+    end
+    column "Badges" do |user|
+      user.badges.pluck(:name).join(', ')
+    end
+  end
 end
 
 ActiveAdmin.register ArtistInfo do
