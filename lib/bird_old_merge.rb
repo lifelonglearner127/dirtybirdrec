@@ -129,7 +129,8 @@ class BirdOldMerge
           subscription_started_at,
           subscription_length,
           
-          address_zip || ' ' || address_line_1 || '' || address_line_2 || ' ' || address_city || ' ' || address_state || ' ' || address_country as shipping_address,
+          address_line_1,
+          address_line_2,
           
           shirt_size as t_shirt_size,
           subscription_type,
@@ -140,8 +141,6 @@ class BirdOldMerge
           address_city,
           address_country,
           address_state,
-          address_line_1 as address_street,
-          address_line_2 as address_quarter,
           last_name,
           TRUE as terms_and_conditions,
           TRUE as code_of_conduct,

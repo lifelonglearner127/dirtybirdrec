@@ -527,10 +527,13 @@ class User < ApplicationRecord
 
   def additional_info_set?
     [
+      address_line_1,
       address_city,
-      shipping_address,
+      address_state,
+      address_zip,
+      address_country,
+      t_shirt_size,
       birthdate,
-      t_shirt_size
     ].all?(&:present?)
   end
 

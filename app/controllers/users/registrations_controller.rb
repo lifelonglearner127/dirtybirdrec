@@ -4,6 +4,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :authenticate_scope!, only: [:edit_profile, :edit_account, :update_account, :update_profile, :destroy]
   prepend_before_action :set_minimum_password_length, only: [:edit_profile, :edit_account]
 
+  def new
+    countries = JSON.parse(File.read(Rails.root.join('app/assets/countries.json')))
+    @countries = countries.map {|k,v| v }.sort
+    super
+  end
+
   def edit_profile
     render :edit_profile
   end
@@ -88,7 +94,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def account_update_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :t_shirt_size, :birthdate, :gender, :shipping_address, :address_quarter, :address_country, :address_city, :address_state, :address_zip, :profile_url, :header_id)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :t_shirt_size, :birthdate, :gender, :address_line_1, :address_line_1, :address_country, :address_city, :address_state, :address_zip, :profile_url, :header_id)
   end
 
 end

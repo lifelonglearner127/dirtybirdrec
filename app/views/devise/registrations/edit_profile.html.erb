@@ -82,16 +82,16 @@
                   </div>
                   <div class="col-lg-8">
                     <div class="form-group">
-                      <%= f.label :shipping_address, 'ADDRESS', class: 'required' %>
-                      <%= f.text_field :shipping_address, 
+                      <%= f.label :address_line_1, 'ADDRESS', class: 'required' %>
+                      <%= f.text_field :address_line_1, 
                           class: 'form-control autocomplete', 
                           required: true %>
                     </div>
                   </div>
                   <div class="col-lg-4">
                     <div class="form-group">
-                      <%= f.label :address_quarter, 'ADDRESS #2', class: 'required' %>
-                      <%= f.text_field :address_quarter, 
+                      <%= f.label :address_line_2, 'ADDRESS #2', class: 'required' %>
+                      <%= f.text_field :address_line_2, 
                           class: 'form-control autocomplete' %>
                     </div>
                   </div>
@@ -99,7 +99,7 @@
                     <div class="form-group">
                       <%= f.label :address_country, 'COUNTRY', class: 'required' %>
                       <%= f.text_field :address_country, 
-                          class: 'form-control locality' %>
+                          class: 'form-control locality', required: true %>
                     </div>
                   </div>
                   <div class="col-lg-6">

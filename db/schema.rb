@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181113171159) do
+ActiveRecord::Schema.define(version: 20181115152136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -652,7 +652,6 @@ ActiveRecord::Schema.define(version: 20181113171159) do
     t.string "first_name"
     t.string "avatar"
     t.string "braintree_customer_id"
-    t.string "shipping_address"
     t.datetime "birthdate"
     t.integer "gender"
     t.string "t_shirt_size"
@@ -671,9 +670,8 @@ ActiveRecord::Schema.define(version: 20181113171159) do
     t.integer "current_playlist_id"
     t.integer "download_credits", default: 0, null: false
     t.string "address_zip"
-    t.string "address_street"
-    t.string "address_street_number"
-    t.string "address_quarter"
+    t.string "address_line_1"
+    t.string "address_line_2"
     t.string "address_state"
     t.string "address_country"
     t.boolean "terms_and_conditions", default: false
