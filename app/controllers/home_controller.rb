@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     @releases = Release.published.where(
       'published_at <= :now AND (published_at >= :user_max OR available_to_all = true)',
       now: DateTime.now,
-      user_max: DateTime.now - 1.month
+      user_max: DateTime.now - 2.month
     ).order('published_at DESC')
     .limit(10)
 
