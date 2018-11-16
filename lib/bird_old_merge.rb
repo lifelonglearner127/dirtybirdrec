@@ -165,6 +165,10 @@ class BirdOldMerge
         !new_user_ids.include?(c["email"])
       end
 
+      users.each do |user|
+        user["credits_count"] = 30 if %w(1 2).include?(user['subscription_length'].to_s)
+      end
+
       BirdNewDb.table_name = "users"
       BirdNewDb.bulk_insert values: users
 
