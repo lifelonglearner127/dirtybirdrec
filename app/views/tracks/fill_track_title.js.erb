@@ -95,10 +95,12 @@ var release_menu;
 
 $('.jp-details').html('');
 $('.jp-details').append(release_menu);
-$('.jp-additions').html('');
-$('.jp-additions').append(add_release);
-$('.jp-additions').append(like);
-$('.jp-additions').append(download_release);
+<% if current_user %>
+  $('.jp-additions').html('');
+  $('.jp-additions').append(add_release);
+  $('.jp-additions').append(like);
+  $('.jp-additions').append(download_release);
+<% end %>
 // $('.jp-details').data('trackTitle', '<%#= @track.title %>');
 // $('.jp-details').data('trackArtist', '<%#= @track.artists %>');
 
