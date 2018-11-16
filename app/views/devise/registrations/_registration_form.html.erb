@@ -29,9 +29,11 @@
   </div>
   <div class="col-lg-4">
     <div class="form-group">
-      <%= f.label :address_zip, class: 'required' %>
-      <%= f.text_field :address_zip,
-          class: 'form-control postal_code', required: true %>
+      <%= f.label :gender, 'Gender' %>
+      <%= f.select :gender,
+          User.genders.keys.reverse,
+          {},
+          class: "select", 'data-minimum-results-for-search' => -1, "data-width" => "100%" %>
     </div>
   </div>
   <div class="col-lg-6">
@@ -60,9 +62,16 @@
   </div>
   <div class="col-lg-4">
     <div class="form-group">
-      <%= f.label :address_state, 'State', class: 'required' %>
+      <%= f.label :address_state, 'State Provenience / Region', class: 'required' %>
       <%= f.text_field :address_state,
           class: 'form-control administrative_area_level_1', required: true %>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="form-group">
+      <%= f.label :address_zip, 'Zip / Postal Code', class: 'required' %>
+      <%= f.text_field :address_zip,
+          class: 'form-control postal_code', required: true %>
     </div>
   </div>
   <div class="col-lg-4">
@@ -72,15 +81,6 @@
           @countries,
           { include_blank: 'Select Country' },
           class: "select", 'data-allow-clear' => 'true', "data-width" => "100%" %>
-    </div>
-  </div>
-  <div class="col-lg-4">
-    <div class="form-group">
-      <%= f.label :gender, 'Gender' %>
-      <%= f.select :gender,
-          User.genders.keys.reverse,
-          {},
-          class: "select", 'data-minimum-results-for-search' => -1, "data-width" => "100%" %>
     </div>
   </div>
   <div class="col-lg-4">
