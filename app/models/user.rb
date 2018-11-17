@@ -10,6 +10,9 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
   rolify
   ratyrate_rater
+  has_many :users_roles
+  has_many :roles, through: :users_roles
+  accepts_nested_attributes_for :users_roles, :allow_destroy => true
 
   before_create :set_default_avatar, only: :create
   after_create :follow_general_actions, only: :create
@@ -552,6 +555,12 @@ class User < ApplicationRecord
     
     code_given_at = last_code.promocodes_users.find_by_user_id(u.id).created_at
     return code_given_at + last_code.value.to_i.days > DateTime.now
+  end
+
+  def can_handle? user_id
+    return false unless has_role?(:handler)
+    return false if users_roles.where(assigned_to: user_id).blank?
+    true
   end
 
   def current_playlist

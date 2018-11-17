@@ -4,10 +4,11 @@ ActiveAdmin.register User do
       :first_name, :last_name,
       :address_zip, :address_country, :address_state, :address_city,
       :address_line_1, :address_line_2, :open_for_follow,
-      track_ids: [], role_ids: [], release_ids: [],
+      track_ids: [], release_ids: [],
       artist_info_attributes: [:id, :image, :bio_short, :bio_long, :facebook, :twitter, 
       :instagram, :video, :genre, :user, :_destroy],
-      videos_attributes: [:id, :title, :video_link, :user, :_destroy]
+      videos_attributes: [:id, :title, :video_link, :user, :_destroy],
+      users_roles_attributes: [:id, :user, :role_id, :assigned_to, :_destroy]
 
   jcropable
 
@@ -62,7 +63,14 @@ ActiveAdmin.register User do
       f.input :password_confirmation
 
       if current_user.has_role?(:admin)
-        f.input :roles, as: :check_boxes
+        # f.input :roles, as: :check_boxes
+        f.has_many :users_roles, allow_destroy: true do |ur|
+          ur.input :role
+          if ur.object.role && ur.object.role.name == 'handler' || ur.object.new_record?
+            ur.input :assigned_to, as: :select, label: "Assigned to Artist",
+                collection: User.with_role(:artist).map {|a| [a.name, a.id] }
+          end
+        end
         f.input :braintree_subscription_expires_at, as: :date_time_picker
       end
       f.input :open_for_follow

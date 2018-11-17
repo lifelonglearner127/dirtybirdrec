@@ -684,9 +684,13 @@ ActiveRecord::Schema.define(version: 20181117070954) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "users_roles", id: false, force: :cascade do |t|
+  create_table "users_roles", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
+    t.integer "assigned_to"
+    t.datetime "created_at", default: "2018-11-17 10:10:56", null: false
+    t.datetime "updated_at", default: "2018-11-17 10:10:56", null: false
+    t.index ["assigned_to"], name: "index_users_roles_on_assigned_to"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"

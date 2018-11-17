@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/Resetyo/rolify
+  revision: 30cfcdf63c89f4093acff5d01f75a007d0e93f5b
+  specs:
+    rolify (6.0.0)
+
+GIT
   remote: https://github.com/wazery/ratyrate.git
   revision: d61cfb73343e4b461f536e56c7b1bd1f7465d0a4
   specs:
@@ -904,7 +910,6 @@ GEM
       netrc (~> 0.8)
     rfc822 (0.1.5)
     rmagick (2.16.0)
-    rolify (5.2.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.6.0)
@@ -1032,7 +1037,7 @@ DEPENDENCIES
   ratyrate!
   redis (~> 4.0)
   rmagick
-  rolify
+  rolify!
   sass-rails (~> 5.0)
   selenium-webdriver
   shrine (~> 2.11)

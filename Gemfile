@@ -27,7 +27,7 @@ gem 'devise'
 gem 'omniauth-facebook', '~> 4.0'
 gem 'omniauth-google-oauth2'
 gem 'cancancan', '~> 2.0'
-gem 'rolify'
+gem 'rolify', git: 'https://github.com/Resetyo/rolify'
 
 gem 'activeadmin'
 gem 'active_admin_jcrop'

@@ -38,6 +38,8 @@ class CommentsController < ApplicationController
 
     if current_user.has_role?(:admin)
       @comment.user_id = params[:comment][:user_id] || current_user.id
+    elsif current_user.can_handle?(params[:comment][:user_id])
+      @comment.user_id = params[:comment][:user_id]
     elsif @comment.commentable_type == "User" &&
             @comment.commentable_id != current_user.id
       redirect_back(fallback_location: root_path) and return
