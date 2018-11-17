@@ -32,15 +32,15 @@
                   class: "#{'active' if current_page?(user_path(@user))}" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Announcements", announcement_feed_path(anchor: "user-feed"),
+              <%= link_to "Birdcall", announcement_feed_path(anchor: "user-feed"),
                   class: "#{'active' if current_page?(announcement_feed_path)}" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Releases", release_feed_path(anchor: "user-feed"),
+              <%= link_to "Releases Feed", release_feed_path(anchor: "user-feed"),
                   class: "#{'active' if current_page?(release_feed_path)}" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Forum", chirp_feed_path(anchor: "user-feed"),
+              <%= link_to "Chirp Topics", chirp_feed_path(anchor: "user-feed"),
                   class: "#{'active' if current_page?(chirp_feed_path)}" %>
             </li>
             <!-- <li class="nav-item"> -->
