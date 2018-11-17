@@ -8,6 +8,6 @@ class TopicCategory < ApplicationRecord
   validates :group_id, presence: true
 
   def promo_area
-    PromoArea.where('? IN topic_categories_ids', id).first
+    PromoArea.where("'?' = ANY(topic_category_ids)", id).first
   end
 end
