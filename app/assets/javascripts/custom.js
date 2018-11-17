@@ -24,12 +24,12 @@ var ready = function() {
 
        ) {
     loginByTime = setTimeout(function(){
-      $('#signInModal').modal('show');
+      window.location.replace('/usr/sign_in');
     }, 15000);
 
     $(window).on('scroll.popupLogin', function(e) {
       if ($(this).scrollTop() > 300) {
-        $('#signInModal').modal('show');
+        window.location.replace('/usr/sign_in');
         clearTimeout(loginByTime);
         $(this).off('scroll.popupLogin');
       }
