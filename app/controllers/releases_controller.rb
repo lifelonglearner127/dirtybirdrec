@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ReleasesController < ApplicationController
   include ReleasesHelper
-  before_action :set_notifications, only: [:show, :index]
+  before_action :set_notifications, only: %i[show index]
 
   def show
     release = Release.find(params[:id])
@@ -8,7 +10,7 @@ class ReleasesController < ApplicationController
     @shares = Share.where(shareable_type: 'Release', shareable_id: @release.id)
     begin
       feed = StreamRails.feed_manager.get_feed('release', @release.id)
-      results = feed.get()['results']
+      results = feed.get['results']
     rescue Faraday::Error::ConnectionFailed, Stream::StreamApiResponseException
       results = []
     end
@@ -19,11 +21,11 @@ class ReleasesController < ApplicationController
 
     if params[:player]
       if params[:user_id]
-        @user = User.find params[:user_id] 
+        @user = User.find params[:user_id]
         @playlists = @user.playlists
       end
-      
-      render 'player/release' and return
+
+      render('player/release') && return
     end
   end
 
@@ -42,13 +44,11 @@ class ReleasesController < ApplicationController
 
     if params[:player]
       if params[:user_id]
-        @user = User.find params[:user_id] 
+        @user = User.find params[:user_id]
         @playlists = @user.playlists
       end
 
-      unless request.xhr?
-        render 'player/releases' and return
-      end
+      render('player/releases') && return unless request.xhr?
     end
 
     if current_user && params[:player].blank?
@@ -56,29 +56,29 @@ class ReleasesController < ApplicationController
     end
   end
 
-  def set_filters filters
+  def set_filters(filters)
     if filters.present?
       filters.each do |filter, value|
         case filter
-        when 'release_type' 
-          @releases = @releases.where("release_type = ?", value)
-        when 'never_released' 
-          @releases = @releases.where("release_date > ? OR release_date = NULL", Date.today)
-        when 'three_months' 
-          @releases = @releases.where("release_date > ? AND release_date < ?", Date.today - 3.months, Date.today)
+        when 'release_type'
+          @releases = @releases.where('release_type = ?', value)
+        when 'never_released'
+          @releases = @releases.where('release_date > ? OR release_date = NULL', Date.today)
+        when 'three_months'
+          @releases = @releases.where('release_date > ? AND release_date < ?', Date.today - 3.months, Date.today)
         when 'year'
-          @releases = @releases.where("extract(year from release_date) = ?", value)
+          @releases = @releases.where('extract(year from release_date) = ?', value)
         when 'artist'
-          @releases = @releases.joins(:releases_users).where("releases_users.user_id = ?", value)
-        when 'not_downloaded' 
-          @releases = @releases.where("release_date > ? OR release_date = NULL")
+          @releases = @releases.joins(:releases_users).where('releases_users.user_id = ?', value)
+        when 'not_downloaded'
+          @releases = @releases.where('release_date > ? OR release_date = NULL')
         when 'liked'
           tracks_likes = "SELECT release_id FROM tracks WHERE id IN (SELECT likeable_id FROM likes WHERE user_id = #{current_user.id} AND likeable_type = 'Track')"
           releases_likes = "SELECT likeable_id FROM likes WHERE user_id = #{current_user.id} AND likeable_type = 'Release'"
 
           @releases = @releases.where("id IN (#{tracks_likes} UNION #{releases_likes})")
-        when 'type' 
-          @releases = @releases.where("release_type = ?", value)
+        when 'type'
+          @releases = @releases.where('release_type = ?', value)
         end
       end
     end
@@ -92,7 +92,7 @@ class ReleasesController < ApplicationController
     @player_view = params[:player] == 'true'
     per_page = @player_view ? 15 : 16
 
-    @releases = releases_query( @releases, params[:page], per_page, false )
+    @releases = releases_query(@releases, params[:page], per_page, false)
   end
 
   def download
@@ -102,10 +102,10 @@ class ReleasesController < ApplicationController
       raise ActionController::RoutingError, 'Not Found'
     end
 
-    #special conditions for users from previous version of site
+    # special conditions for users from previous version of site
     if current_user.can_use_credits?
       if current_user.download_credits < 1
-        redirect_to root_path, alert: "You have reached the limit of track downloads" and return
+        redirect_to(root_path, alert: 'You have reached the limit of track downloads') && return
       end
 
       current_user.decrement!(:download_credits, @release.tracks.size)
@@ -130,17 +130,15 @@ class ReleasesController < ApplicationController
     @tracks = []
 
     release_presenter.tracks.each do |track|
-
-      @tracks << { 
+      @tracks << {
         release_id: release_presenter.id,
         track_number: track.track_number,
         id: track.id,
-        title: track.title, 
-        artists: track.artists, 
+        title: track.title,
+        artists: track.artists,
         mp3: track.stream_uri
       }
     end
-
 
     # if current_user && current_user.playlists.present?
     #   current_user.current_playlist.update_attributes(

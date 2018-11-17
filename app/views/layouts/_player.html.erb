@@ -44,7 +44,7 @@
           <div class="credits-menu mr-4">
             <button type="button" data-toggle="collapse" data-target="#credits-count" aria-expanded="false" aria-controls="collapseExample" class="credits-btn">
               <%= show_svg 'icons/egg-basket.svg' %>
-              <span class="credits-count-text"><%= pluralize(@credits, "egg") %></span>
+              <span class="credits-count-text"><%= @credits %></span>
             </button>
 
             <div id="credits-count" class="collapse credits-dropdown" style="width: 24rem;">
