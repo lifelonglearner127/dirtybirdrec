@@ -16,45 +16,20 @@ ActiveAdmin.register PromoArea do
 
   config.filters = false
 
-  permit_params :image, :url, :topic_category_id
+  permit_params :image, :url, topic_category_ids: []
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
-      if action_name == 'new'
-        f.input :topic_category_id, as: :select, multiple: true,
-                                    collection: TopicCategory.where('id NOT IN (?)', PromoArea.all.pluck(:topic_category_id)).map { |tc| [tc.title.to_s, tc.id] }
-      else
-        f.input :topic_category_id, as: :select,
-                                    collection: TopicCategory.where('id NOT IN (?)', PromoArea.all.pluck(:topic_category_id)).map { |tc| [tc.title.to_s, tc.id] }
-      end
+      f.input :topic_category_ids,
+              as: :select, multiple: true,
+              collection: TopicCategory.all.map { |tc| [tc.title.to_s, tc.id] },
+              allow_blank: false
       f.input :url
       f.input :image, as: :file
     end
 
     f.actions
-  end
-
-  controller do
-    def promo_area_params
-      params.require(:promo_area).permit(:image, :url, topic_category_id: [])
-    end
-
-    def create
-      promo_area_params[:topic_category_id].each do |tp_id|
-        promo_area = PromoArea.where(topic_category_id: tp_id)
-
-        if promo_area.present?
-          promo_area.update(image: promo_area_params[:image], url: promo_area_params[:url])
-        else
-          promo_area.create(image: promo_area_params[:image],
-                            url: promo_area_params[:url],
-                            topic_category_id: tp_id)
-        end
-      end
-
-      redirect_to collection_url
-    end
   end
 end

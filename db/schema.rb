@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181115152136) do
+ActiveRecord::Schema.define(version: 20181117070954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -346,9 +346,8 @@ ActiveRecord::Schema.define(version: 20181115152136) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "topic_category_id"
     t.string "image"
-    t.index ["topic_category_id"], name: "index_promo_areas_on_topic_category_id"
+    t.string "topic_category_ids", default: [], array: true
   end
 
   create_table "promocodes", force: :cascade do |t|
@@ -706,6 +705,5 @@ ActiveRecord::Schema.define(version: 20181115152136) do
   add_foreign_key "billing_order_histories", "users"
   add_foreign_key "cancellations", "users"
   add_foreign_key "notifications", "users"
-  add_foreign_key "promo_areas", "topic_categories"
   add_foreign_key "users", "headers"
 end

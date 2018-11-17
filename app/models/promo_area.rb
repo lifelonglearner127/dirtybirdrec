@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class PromoArea < ApplicationRecord
-  belongs_to :topic_category
+  before_validation do |model|
+    model.topic_category_ids&.reject!(&:blank?)
+  end
 
   mount_uploader :image, HeaderUploader
 end
