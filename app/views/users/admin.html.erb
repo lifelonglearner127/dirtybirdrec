@@ -1,5 +1,12 @@
 <%= render 'users/user_header' %>
 
+<style type="text/css">
+  .nav-item {
+    padding-right: 15px;
+    font-size: 15px !important;
+  }
+</style>
+
 <div class="row mb-2 mt-4 pt-4">
   <!-- FAN FEED -->
   <div class="col-md-8" id="user-feed">
@@ -12,8 +19,35 @@
         </button>
       <% end %>
 
-      <div class="feed-block" data-feed-id="<%= @user.id %>" data-feed="user">
-        <%#= render 'feeds/commentable_feed' %>
+      <div class="feed-block" data-feed-id="<%= @user.id %>" data-feed="<%= @data_feed %>">
+        <ul class="feed-tabs" style="margin-left: -55px;">
+          <% if current_user && @user.id == current_user.id %>
+            <li class="nav-item">
+              <%= link_to "All", user_path(@user, anchor: "user-feed"),
+                  class: "#{'active' if current_page?(user_path(@user))}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Birdcall", announcement_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(announcement_feed_path)}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Releases Feed", release_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(release_feed_path)}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Chirp Topics", chirp_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(chirp_feed_path)}" %>
+            </li>
+            <!-- <li class="nav-item"> -->
+              <%#= link_to "Artists", artists_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(artists_feed_path)}" %>
+            <!-- </li> -->
+            <!-- <li class="nav-item"> -->
+              <%#= link_to "Friends", friends_feed_path(anchor: "user-feed"),
+                  class: "#{'active' if current_page?(friends_feed_path)}" %>
+            <!-- </li>  -->
+          <% end %>
+        </ul>
         <%= render 'feeds/aggregated_user' %>
       </div>
 
@@ -51,14 +85,14 @@
           <div class="modal-body">
             <h5 class="modal-title">What's in your mind?</h5>
 
-            <%= form_for current_user.comments.build, 
+            <%= form_for current_user.comments.build,
                 html: { class: "feed-form w-100" },
                 remote: true do |f| %>
               <%= f.hidden_field :commentable_type, value: "User" %>
               <%= f.hidden_field :commentable_id, value: @user.id %>
 
               <%= f.label :body, class: "sr-only" %>
-              <%= f.text_area :body, rows: 10, placeholder: "Type text", 
+              <%= f.text_area :body, rows: 10, placeholder: "Type text",
                   max: 200, class: "emoji-area" %>
               <%= f.submit "ADD TO FEED", class: "btn c-btn-blue btn-wide mt-2" %>
             <% end %>
