@@ -9,31 +9,38 @@
   });
 </script>
 
+<style type="text/css">
+  .nav-item {
+    padding-right: 15px;
+    font-size: 15px !important;
+  }
+</style>
+
 <%= render 'users/user_header' %>
 
 <div class="row mb-2 mt-4 pt-4">
   <!-- FAN FEED -->
   <div class="col-md-8" id="user-feed">
     <div class="c-panel bg-white">
-      <div class="c-flag mb-4">BIRDFEED</div>
+      <div class="c-flag mb-4" style="border: 0px solid #faae03;">FEED</div>
 
       <div class="feed-block" data-feed-id="<%= @user.id %>" data-feed="<%= @data_feed %>">
-        <ul class="feed-tabs">
+        <ul class="feed-tabs" style="margin-left: -55px;">
           <% if current_user && @user.id == current_user.id %>
             <li class="nav-item">
               <%= link_to "All", user_path(@user, anchor: "user-feed"),
                   class: "#{'active' if current_page?(user_path(@user))}" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Announcements", announcement_feed_path(anchor: "user-feed"), 
+              <%= link_to "Announcements", announcement_feed_path(anchor: "user-feed"),
                   class: "#{'active' if current_page?(announcement_feed_path)}" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Releases", release_feed_path(anchor: "user-feed"), 
+              <%= link_to "Releases", release_feed_path(anchor: "user-feed"),
                   class: "#{'active' if current_page?(release_feed_path)}" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Forum", chirp_feed_path(anchor: "user-feed"), 
+              <%= link_to "Forum", chirp_feed_path(anchor: "user-feed"),
                   class: "#{'active' if current_page?(chirp_feed_path)}" %>
             </li>
             <!-- <li class="nav-item"> -->
@@ -50,7 +57,7 @@
       </div>
 
       <div id="loading" style="display: none;">Loading...</div>
-      
+
     </div>
   </div>
 
@@ -61,7 +68,7 @@
         <div class="c-flag c-flag-inner mb-4">BADGES ACHIEVED</div>
 
         <%= link_to "SEE ALL", badges_path(@user), class: "btn c-btn-blue" %>
-        
+
         <div>
           <% if @user.badges.present? %>
             <% @user.badges.each do |badge| %>
@@ -99,7 +106,7 @@
                     <%= image_tag 'icons/point-green.svg', class: "point-green" if user.online? %>
                   </h5>
                   <div>
-                    <%= "from #{user.address_city}" %> 
+                    <%= "from #{user.address_city}" %>
                   </div>
                 </div>
               </li>
