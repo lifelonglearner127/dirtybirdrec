@@ -15,11 +15,9 @@
     <div class="release-header">
       <div class="release-type">
         <% if @release.exclusive? %>
-          <%= image_tag 'icons/bird-blue.svg', style: 'width: 35px;' %>
-          <span class="text-big ml-2">exclusive</span>
+          <%= image_tag 'birdfeed-exclusive-white.png', style: 'height: 40px;' %>
         <% elsif @release.dirtybird? %>
-          <%= image_tag 'icons/bird-blue.svg', style: 'width: 35px;' %>
-          <span class="text-big ml-2">select</span>
+          <%= image_tag 'dirtybird-logo-white.png', style: 'height: 40px;' %>
         <% end %>
       </div>
 
