@@ -329,6 +329,8 @@ class UsersController < ApplicationController
   end
 
   def choose_profile
+    countries = JSON.parse(File.read(Rails.root.join('app/assets/countries.json')))
+    @countries = countries.map {|k,v| v }.sort
   end
 
   def final_cancellation
