@@ -86,16 +86,6 @@
   flex-direction: row;
   justify-content: space-around;
   position: relative;
-
-  .dropdown.show {
-    position: static;
-
-    .dropdown-menu {
-      position: absolute;
-      top: 30px;
-      z-index: 2;
-    }
-  }
 }
 
 @media (min-width: 992px) { 
