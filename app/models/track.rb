@@ -67,6 +67,7 @@ class Track < ApplicationRecord
     return true if user.has_role?(:boss)
     return true if user.has_role?(:homey)
     return true if user.has_role?(:intern)
+    return true if user.has_role?(:handler)
     return true if user.has_promo_period?(:vib)
     return true if release.available_to_all?
     return false unless user.subscription_started_at

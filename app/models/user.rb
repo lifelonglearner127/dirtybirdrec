@@ -513,6 +513,7 @@ class User < ApplicationRecord
     has_role?(:boss) ||
     has_role?(:homey) ||
     has_role?(:intern) ||
+    has_role?(:handler) ||
     has_promo_period?(:vib)
   end
 
