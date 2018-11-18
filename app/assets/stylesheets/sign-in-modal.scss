@@ -1,71 +1,90 @@
-// #signInModal {
-//   .modal-dialog-centered {
-//     width: 100%;
-//   }
-// }
+#signInModal {
+  .modal-dialog-centered {
+    width: 100%;
+  }
+}
 
-// @media (min-width: 768px) { 
-//   #signInModal {
-//     .modal-dialog-centered {
-//       width: 75vw;
-//     }
-//   }
-// }
+@media (min-width: 576px) { 
+  #signInModal {
+    .modal-dialog-centered {
+      width: 75vw;
+    }
+  }
+}
 
 .sign-in-modal {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
   border-radius: 8px;
+  overflow: hidden;
   background-color: white;
+
+  .img-left {
+    max-width: 515px;
+    width: 30vw;
+    object-fit: cover;
+    max-height: 630px;
+    height: 85vh;
+  }
+}
+
+.sign-in-modal-owl {
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  z-index: 2;
+
+  .dialog-img {
+    position: absolute;
+    top: -48px;
+    right: -144px;
+  }
+
+  .key-img {
+    position: absolute;
+    z-index: 2;
+    right: -87px;
+    top: 0;
+  }
 }
 
 .sign-in-modal-body {
-  margin: 40px 30px;
-  border-left: 10px solid #ff7979;
-  border-right: 10px solid #ff7979;
-  border-bottom: 10px solid #ff7979;
-  padding: 10px;
+  flex-grow: 1;
+  margin: 7vh 3vw 7vh;
+  border-right: 10px solid #faae03;
+  border-bottom: 10px solid #faae03;
+  padding-right: 80px;
   position: relative;
   z-index: 1;
-
-  @media (min-width: 992px) {
-    padding: 40px;
-    margin: 7vh;
-  }
 
   &:before {
     content: '';
     position: absolute;
     top: 0;
     right: 0;
-    width: calc(100% - 350px);
+    width: calc(100% - 150px);
     height: 10px;
-    background-color: #ff7979;
+    background-color: #faae03;
   }
 
   &:after {
     content: '';
     position: absolute;
-    top: -6px;
-    left: calc(350px - 41px);
-    border-top: 11px solid transparent;
-    border-bottom: 11px solid transparent;
-    border-left: 21px solid transparent;
-    border-right: 21px solid #ff7979;
-    height: 22px;
-    width: 42px;
+    top: -11px;
+    left: calc(150px - 32px);
+    border: 16px solid transparent;
+    border-right: 16px solid #faae03;
+    width: 32px;
+    height: 32px;
   }
 
   h3 {
-    color: #3ed4e0;
-    font-family: 'Phosphate-Inline';
-    font-size: 45px;
+    color: #4d4d4d;
+    font-family: 'Phosphate-Solid';
+    font-size: 39px;
     position: relative;
-    top: -30px;
-    margin-bottom: -30px;
-
-    @media (min-width: 992px) {
-      font-size: 65px;
-      top: -75px;
-    }
+    top: -20px;
   }
 
   .form-control {
@@ -89,24 +108,24 @@
     line-height: 70px;
     background-color: white;
     text-align: center;
-    align-self: center;
 
     &:before {
       content: '';
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%,0%);
-      height: 0px;
-      width: 200px;
-      border: 1px solid #3ed4e0;
+      transform: translateX(-50%);
+      width: 277px;
+      border-top: 2px solid #3ed4e0;
       z-index: -1;
-
-      @media (min-width: 992px) {
-        width: 0px;
-        height: 237px;
-        transform: translate(0%,-50%);
-      }
     }
+  }
+
+  .c-text {
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 10px;
+    display: inline-block;
   }
 }
