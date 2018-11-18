@@ -1,16 +1,16 @@
 class UsersController < ApplicationController
   include UsersHelper
   include ReleasesHelper
-  
+
   before_action :authenticate_user!, except: [
         :index, :parse_youtube, :admin, :artist, :announcements_feed,
         :interviews_feed, :videos_feed, :others_feed, :artists, :leaderboard,
         :load_more, :get_tracks, :artist_releases, :artist_tracks, :badges]
 
-  before_action :set_notifications, only: [:leaderboard, :index, :show, :home, 
-        :artist, :artists, :admin, :friends, :idols, :choose_profile, 
-        :announcement_feed, :release_feed, :chirp_feed, :artists_feed, 
-        :friends_feed, :others_feed, :artist_releases , :artist_tracks, 
+  before_action :set_notifications, only: [:leaderboard, :index, :show, :home,
+        :artist, :artists, :admin, :friends, :idols, :choose_profile,
+        :announcement_feed, :release_feed, :chirp_feed, :artists_feed,
+        :friends_feed, :others_feed, :artist_releases , :artist_tracks,
         :badges, :get_more_credits, :success_signup]
 
   before_action :set_enricher
@@ -27,9 +27,15 @@ class UsersController < ApplicationController
 
   def set_userpage_feed
     @user = User.find(params[:id])
-
     begin
-      feed = StreamRails.feed_manager.get_feed('user_aggregated', @user.id)
+      if current_user.present? && @user.id == current_user.id
+
+        feed = StreamRails.feed_manager.get_news_feeds(@user.id)[:aggregated]
+      else
+        feed = StreamRails.feed_manager.get_feed('user_aggregated', @user.id)
+
+        # feed = StreamRails.feed_manager.get_user_feed(@user.id)
+      end
       results = feed.get()['results']
     rescue Faraday::Error::ConnectionFailed, Stream::StreamApiResponseException
       results = []
@@ -64,10 +70,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    puts 'xxx'*400
     @user = User.where(id: params[:id])
     if @user.any?
       @user = @user.first
-    else 
+    else
       @user = User.where(profile_url: params[:id])
       if @user.any?
         @user = @user.first
@@ -110,7 +117,7 @@ class UsersController < ApplicationController
     @user = User.where(id: params[:id])
     if @user.any?
       @user = @user.first
-    else 
+    else
       @user = User.where(profile_url: params[:id])
       if @user.any?
         @user = @user.first
@@ -132,7 +139,7 @@ class UsersController < ApplicationController
   def artist_releases
     @user = User.find(params[:id])
     @playlists = @user.playlists
-    
+
     authorize! :read, @user
 
     page = params[:page] || 1
@@ -188,7 +195,7 @@ class UsersController < ApplicationController
   #   rescue Faraday::Error::ConnectionFailed
   #     results = []
   #   end
-    
+
   #   unseen = results.select { |r| r['is_seen'] == false }
   #   @unseen_count = unseen.count
 
@@ -199,7 +206,7 @@ class UsersController < ApplicationController
   #   end
 
   #   if @user.has_role?(:artist)
-  #     render :artist 
+  #     render :artist
   #   else
   #     render :show
   #   end
@@ -310,7 +317,7 @@ class UsersController < ApplicationController
     unless current_user.additional_info_set? || current_user.has_role?(:admin)
       redirect_to choose_profile_path and return
     end
-    
+
     redirect_to correct_user_path(current_user)
   end
 
@@ -338,12 +345,12 @@ class UsersController < ApplicationController
 
   def get_more_credits
     #TODO add notify if 1 day left
-    redirect_to home_path and return unless current_user.can_use_credits? 
+    redirect_to home_path and return unless current_user.can_use_credits?
     render 'users/success_credits_buy' if params[:success]
   end
 
   def success_signup
-    
+
   end
 
   def apply_promocode
@@ -385,7 +392,7 @@ class UsersController < ApplicationController
 
   def get_feed_from objects, verb, target
     results = objects.map do |object|
-      { "updated_at" => object.created_at, 
+      { "updated_at" => object.created_at,
         "activities" => [{
           'actor' => @user,
           'object' => object,
@@ -442,7 +449,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:avatar, :avatar_cache, 
+      params.require(:user).permit(:avatar, :avatar_cache,
           :crop_x, :crop_y, :crop_w, :crop_h)
     end
 end
