@@ -22,19 +22,19 @@
           <% if current_user && @user.id == current_user.id %>
             <li class="nav-item">
               <%= link_to "All", user_path(@user, anchor: "user-feed"),
-                  class: "#{'active' if current_page?(user_path(@user))}" %>
+                  class: "#{'active' if current_page?(user_path(@user))}", remote: true %>
             </li>
             <li class="nav-item">
               <%= link_to "Birdcall", announcement_feed_path(anchor: "user-feed"),
-                  class: "#{'active' if current_page?(announcement_feed_path)}" %>
+                  class: "#{'active' if current_page?(announcement_feed_path)}", remote: true %>
             </li>
             <li class="nav-item">
               <%= link_to "Releases Feed", release_feed_path(anchor: "user-feed"),
-                  class: "#{'active' if current_page?(release_feed_path)}" %>
+                  class: "#{'active' if current_page?(release_feed_path)}", remote: true %>
             </li>
             <li class="nav-item">
               <%= link_to "Chirp Topics", chirp_feed_path(anchor: "user-feed"),
-                  class: "#{'active' if current_page?(chirp_feed_path)}" %>
+                  class: "#{'active' if current_page?(chirp_feed_path)}", remote: true %>
             </li>
             <!-- <li class="nav-item"> -->
               <%#= link_to "Artists", artists_feed_path(anchor: "user-feed"),
