@@ -35,20 +35,24 @@ class Announcement < ApplicationRecord
 
       announcement_create_feed.add_activity(activity)
       masterfeed.add_activity(activity)
+      User.all.each do |u|
+        user_feed = StreamRails.feed_manager.get_user_feed(u.id)
+        user_feed.add_activity(activity)
+      end
     end
 
     def remove_from_general_feed
       feed = StreamRails.feed_manager.get_feed( 'announcement_create', 1 )
       feed.remove_activity("Announcement:#{self.id}", foreign_id=true)
     end
-  
+
     # def change_published_date
     #   if published_at_changed?
     #     feed = StreamRails.feed_manager.get_feed( 'general_actions', 1 )
     #     feed.remove_activity("Announcement:#{self.id}", foreign_id=true)
 
     #     activity = create_activity
-        
+
     #     feed.add_activity(activity)
     #   end
     # end

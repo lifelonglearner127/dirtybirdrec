@@ -126,7 +126,13 @@ class Comment < ApplicationRecord
       end
 
       # autofollow
-      return if user_id == commentable_id && commentable_type == 'User'
+      if user_id == commentable_id && commentable_type == 'User'
+        return if user.roles.where('name = ? OR name = ?', 'admin', 'boss').empty?
+        masterfeed = StreamRails.feed_manager.get_feed( 'masterfeed', 1 )
+        masterfeed.add_activity(activity)
+        return
+      end
+
       return if user_id == commentable.try(:user_id)
 
       if user.followed( commentable ).blank?
