@@ -53,7 +53,3 @@ $(document).on('turbolinks:load', () => {
     effectTime: 2000,
   });
 });
-
-$(window).on('load', function() {
-   $('.music-wrapper').addClass('loaded');
-});

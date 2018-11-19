@@ -688,8 +688,8 @@ ActiveRecord::Schema.define(version: 20181117070954) do
     t.bigint "user_id"
     t.bigint "role_id"
     t.integer "assigned_to"
-    t.datetime "created_at", default: "2018-11-17 10:10:56", null: false
-    t.datetime "updated_at", default: "2018-11-17 10:10:56", null: false
+    t.datetime "created_at", default: "2018-11-17 14:56:31", null: false
+    t.datetime "updated_at", default: "2018-11-17 14:56:32", null: false
     t.index ["assigned_to"], name: "index_users_roles_on_assigned_to"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
