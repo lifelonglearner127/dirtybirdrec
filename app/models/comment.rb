@@ -130,6 +130,8 @@ class Comment < ApplicationRecord
         return if user.roles.where('name = ? OR name = ?', 'admin', 'boss').empty?
         masterfeed = StreamRails.feed_manager.get_feed( 'masterfeed', 1 )
         masterfeed.add_activity(activity)
+        announcement_create_feed = StreamRails.feed_manager.get_feed( 'announcement_create', 1 )
+        announcement_create_feed.add_activity(activity)
         return
       end
 
