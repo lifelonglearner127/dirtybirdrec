@@ -13,8 +13,10 @@ var ready = function() {
   });
 
   $(window).off('scroll.popupLogin');
-  var loginByTime;
-  clearTimeout(loginByTime);
+
+  if (window.loginByTime) {
+    clearTimeout(window.loginByTime);
+  }
 
   if ( $("#notify-menu").length === 0 &&
        $('.signup-header').length === 0 &&
@@ -23,7 +25,7 @@ var ready = function() {
        window.location.pathname !== '/usr/password/new'
 
        ) {
-    loginByTime = setTimeout(function(){
+    window.loginByTime = setTimeout(function(){
       $('#signInModal').modal('show');
     }, 15000);
 

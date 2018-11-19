@@ -20,6 +20,7 @@ module ApplicationHelper
     return 'intern-style' if user.has_role?(:intern)
     return 'boss-style' if user.has_role?(:boss)
     return 'homey-style' if user.has_role?(:homey)
+    return 'handler-style' if user.has_role?(:handler)
     return 'artist-style' if user.has_role?(:artist)
     return 'insider-style' if %w(monthly_insider yearly_insider).include? user.subscription_length
     if %w(monthly_vib yearly_vib monthly_old yearly_old).include? user.subscription_length
