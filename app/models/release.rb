@@ -14,7 +14,7 @@ class Release < ApplicationRecord
   belongs_to :admin, optional: true, foreign_key: "admin_id", class_name: "User"
 
   after_create :add_to_general_feed
-  after_update :change_published_date
+  # after_update :change_published_date
   after_destroy :remove_from_general_feed
 
   accepts_nested_attributes_for :tracks, :allow_destroy => true
