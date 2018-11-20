@@ -20,6 +20,7 @@
 //= require jquery.Jcrop.min
 //= require emojionearea.min
 //= require bootstrap-datepicker.min
+//= require uikit.min
 //= require_tree .
 //= stub footer
 
