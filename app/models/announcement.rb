@@ -35,10 +35,10 @@ class Announcement < ApplicationRecord
 
       announcement_create_feed.add_activity(activity)
       masterfeed.add_activity(activity)
-      User.all.each do |u|
-        user_feed = StreamRails.feed_manager.get_user_feed(u.id)
-        user_feed.add_activity(activity)
-      end
+      # User.all.each do |u|
+      #   user_feed = StreamRails.feed_manager.get_user_feed(u.id)
+      #   user_feed.add_activity(activity)
+      # end
     end
 
     def remove_from_general_feed
