@@ -16,7 +16,7 @@ if (!params) {
   params = 'releases?page=2';
 }
 
-window.history.replaceState("", "", "releases" + params);
+// window.history.replaceState("", "", "releases" + params);
 
 var href = $('.show-more').attr('href').replace(/page=(\d+)/, function(match, offset) {
     return "page=" + (parseInt(offset)+1);
