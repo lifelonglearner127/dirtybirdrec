@@ -3,8 +3,8 @@
     <div class="container">
       <div class="jp-interface">
         <% if current_user %>
-          <%= link_to player_connect_path(current_user), class: "jp-player-btn" do %>
-            PLAYER
+          <%= link_to player_connect_path(current_user, active_playlist: 'All Releases'), class: "jp-player-btn" do %>
+            Releases
           <% end %>
         <% end %>
 

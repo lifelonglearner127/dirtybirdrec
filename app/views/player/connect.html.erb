@@ -79,3 +79,11 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+  activePlaylist = "<%= params[:active_playlist] %>";
+
+  if (activePlaylist == 'All Releases') {
+    $('a#playlist-all-releases').click();
+  }
+</script>
