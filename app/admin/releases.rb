@@ -54,7 +54,6 @@ ActiveAdmin.register Release do
     link_to 'Encode Release', encode_admin_release_path(release), class: "member_link"
   end
   show do
-    release.update(encode_status: nil) if release.pending?
     panel "Release" do
       h3 "#{release.title} - #{release.artist}"
 
@@ -158,7 +157,8 @@ ActiveAdmin.register Release do
   end
 
   member_action :encode, method: :get do
-    TransloaditApi::EncodeRelease.new(resource).call
+    # TransloaditApi::EncodeRelease.new(resource).call
+    EncodeReleaseJob.perform_later(resource)
     redirect_to resource_path, notice: "Encoding Release! This may take up to 10 minutes."
   end
 

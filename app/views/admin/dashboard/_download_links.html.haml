@@ -1,5 +1,13 @@
 %h2
   Download Links
+- if release.pending?
+  %h1
+    Encoding is still running. Please check back in a few minutes
+  .text-info
+    Contact dev team if the encode process is taking longer than usual
+- elsif release.failed?
+  %h4
+    Your recent encoding attempt failed please run the encoding again with correct files and values.
 - if release.assembly_complete?
   %h2
     Release Files
