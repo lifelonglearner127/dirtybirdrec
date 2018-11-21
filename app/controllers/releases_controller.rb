@@ -91,6 +91,7 @@ class ReleasesController < ApplicationController
     @releases = set_filters params[:filters]
     @player_view = params[:player] == 'true'
     per_page = @player_view ? 9 : 16
+    set_previous_page_on_player if @player_view
 
     @releases = releases_query(@releases, params[:page], per_page, false)
   end
@@ -149,5 +150,17 @@ class ReleasesController < ApplicationController
 
   def search
     @releases = params[:ids].map { |id| Release.find_by_id id }.compact
+  end
+
+  private
+
+  def set_previous_page_on_player
+    release_type = params[:filters].present? ? params[:filters][:release_type].to_i : 0
+
+    if session[:page_on_player]
+      session[:page_on_player][release_type] = params[:page]
+    else
+      session[:page_on_player] = []
+    end
   end
 end

@@ -12,14 +12,15 @@
         </li>
         <li class="playlist-nav-subheader">Music&nbsp;</li>
         <li class="<%= 'active' if current_page?("/releases?player=true&user_id=#{@user.id}") %>">
-          <%= link_to "All Releases", releases_path(player: true, user_id: @user.id), id: "playlist-all-releases", remote: true %>
+          <%= link_to "All Releases", releases_path(player: true, user_id: @user.id, page: session[:page_on_player][0]), id: "playlist-all-releases", remote: true %>
         </li>        
         <li class="<%= 'active' if current_page?("/releases?filters[release_type]=2&player=true&user_id=#{@user.id}") %>">
           <%= link_to "Dirtybird", 
               releases_path(
                 filters: { release_type: 2 }, 
                 player: true,
-                user_id: @user.id), 
+                user_id: @user.id,
+                page: session[:page_on_player][2]),
               id: "playlist-select-releases", remote: true %>
         </li>
         <li class="<%= 'active' if current_page?("/releases?filters[release_type]=1&player=true&user_id=#{@user.id}") %>">
@@ -27,7 +28,7 @@
               releases_path(
                 filters: { release_type: 1 }, 
                 player: true,
-                user_id: @user.id), 
+                page: session[:page_on_player][1]),
               id: "playlist-exclusive-releases", remote: true %>
         </li>
         <li class="playlist-nav-subheader">Library&nbsp;</li>
