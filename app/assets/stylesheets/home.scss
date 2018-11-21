@@ -215,8 +215,8 @@
       left: 0;
       z-index: 2;
       border-radius: 5px;
-      width: 236px;
-      height: 248px;
+      height: auto;
+      max-height: 300px;
       object-fit: cover;
     }
 
