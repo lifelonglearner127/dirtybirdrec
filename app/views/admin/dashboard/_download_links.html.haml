@@ -1,13 +1,13 @@
-%h2
-  Download Links
 - if release.pending?
-  %h1
+  %h3
     Encoding is still running. Please check back in a few minutes
-  .text-info
+  .text-info{style: 'color: blue'}
     Contact dev team if the encode process is taking longer than usual
 - elsif release.failed?
   %h4
     Your recent encoding attempt failed please run the encoding again with correct files and values.
+%h2
+  Download Links
 - if release.assembly_complete?
   %h2
     Release Files
@@ -38,5 +38,5 @@
             = file.format
 - else
   %p.text-danger
-    The encoding for this release is pending or resulted in an error!
+    This release has not been encoded yet
     Please Hit the encode button again
