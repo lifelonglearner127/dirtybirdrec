@@ -49,19 +49,19 @@
   }
 
   &::-webkit-scrollbar-track {
-      background: $tr-color; 
+      background: $tr-color;
       -webkit-border-radius: 7px;
   }
-   
+
   &::-webkit-scrollbar-thumb {
-      background: $th-color; 
+      background: $th-color;
       border-radius: 8px;
       border: 5px solid rgba(0, 0, 0, 0);
       background-clip: padding-box;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-      background: $h-color; 
+      background: $h-color;
       border-radius: 7px;
       border: 5px solid rgba(0, 0, 0, 0);
       background-clip: padding-box;
@@ -89,7 +89,7 @@ main {
   background-color: #4b4b4b;
 }
 
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
   main {
     padding-top: 100px;
   }
@@ -209,7 +209,7 @@ strong {
   .btn {
     border-radius: 0;
     border-right: 1px solid gray;
-    
+
     &:first-child {
       border-radius: 6px 0 0 6px;
     }
@@ -349,8 +349,8 @@ strong {
     left: 0px;
     width: 10px;
     height: 10px;
-    border: 5px solid transparent; 
-    border-top: 5px solid #d2d2d2; 
+    border: 5px solid transparent;
+    border-top: 5px solid #d2d2d2;
     border-right: 5px solid #d2d2d2;
     z-index: -1;
   }
@@ -454,11 +454,11 @@ strong {
   position: relative;
 
   img {
-    border: 3px solid #faae03;
+    border: 2px solid #faae03;
   }
 
   &:after {
-    content: 'management';
+    content: 'mgmt';
     position: absolute;
     padding: 3px;
     bottom: 0;
@@ -570,7 +570,7 @@ strong {
     left: 0;
     bottom: 0;
   }
-} 
+}
 
 .post-user-avatar {
   width: 44px;
@@ -585,29 +585,29 @@ strong {
 
 .rating-chart {
   .rating-kinds {
-    float: left; 
-    line-height: 20px; 
+    float: left;
+    line-height: 20px;
     margin-right: 10px;
   }
 
   .rating-kind-points {
-    float: right; 
-    line-height: 20px; 
+    float: right;
+    line-height: 20px;
     width: 30px;
     font-weight: 700;
   }
 
   .progress-wrapper {
-    display: inline-block; 
-    vertical-align: top; 
+    display: inline-block;
+    vertical-align: top;
     margin: 3px 10px 0 0;
   }
 
 }
   .progress-wrapper-sm {
-    display: inline-block; 
-    vertical-align: top; 
-    margin: 3px 10px 0 0; 
+    display: inline-block;
+    vertical-align: top;
+    margin: 3px 10px 0 0;
     width: 50%;
   }
 
@@ -680,7 +680,7 @@ strong {
   &:hover:after{
     height: 30px;
   }
-  
+
   &:after {
     transition: height 0.3s;
     content: 'Update Profile Picture';
@@ -855,14 +855,14 @@ strong {
   color: #fff;
 }
 .select2-container--default .select2-selection--single .select2-selection__arrow b {
-  border-color: #fff transparent transparent transparent; 
+  border-color: #fff transparent transparent transparent;
 }
 .select2-container--default .select2-results__option[aria-selected=true] {
   background-color: #3ed4e0;
   color: #fff;
 }
 .select2-results__option {
-  font-family: "Titillium Web"; 
+  font-family: "Titillium Web";
   font-size: 16px;
   font-weight: 400;
   color: #747474;
@@ -891,15 +891,15 @@ strong {
   .col {
     display: flex;
     justify-content: center;
-    flex-direction: column;   
+    flex-direction: column;
   }
 }
 
 .custom-vertical-align {
   display: flex;
-  align-items: center;  
+  align-items: center;
 }
 
 .ff-phos {
-  font-family: 'Phosphate-Solid';  
+  font-family: 'Phosphate-Solid';
 }

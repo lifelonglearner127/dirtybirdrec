@@ -12,8 +12,8 @@
   <% end %>
 <% end %>
 
-<% if comment.reports.unsolved.present? && 
-      current_user && 
+<% if comment.reports.unsolved.present? &&
+      current_user &&
       current_user.has_role?(:admin) %>
   <% unsolved = "comment-unsolved" %>
 <% end %>
@@ -40,12 +40,12 @@
           <i>edited</i>
         <% end %>
       </div>
-      
+
 
       <div class="comment-substring">
 
         <strong>
-          <%= render partial: 'likes/like_button', 
+          <%= render partial: 'likes/like_button',
               locals: { object: comment,  style: 'thumbup-reply' } %>
           &middot;
           <%= link_to comment_reply_form_path(
@@ -58,10 +58,10 @@
           &middot;
         </strong>
 
-        <%= time_ago_in_words( comment.created_at ) %>        
+        <%= time_ago_in_words( comment.created_at ) %>
       </div>
     </div>
-    <div class='likes-count-body ml-auto'>
+    <div class='likes-count-body margin-left-neg-10'>
       <%= render 'likes/likes_count_with_thumb', object: comment %>
       <%= render 'comments/comment_controls', object: comment %>
     </div>

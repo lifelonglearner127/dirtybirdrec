@@ -7,8 +7,8 @@
           <div class="col-sm-1">
             <%= link_to image_tag(user.avatar.thumb.url, class: "post-user-avatar", alt: ''),
                 user,
-                class: "#{avatar_style(user)} sm-style" %>
-            <div id="message-<%= comment.id %>"></div>        
+                class: "#{avatar_style(user)}" %>
+            <div id="message-<%= comment.id %>"></div>
           </div>
           <div class="col-sm-11">
             <div class="feed-name">
@@ -58,21 +58,21 @@
                 <%= (render partial: 'comments/comment', collection: replies.order(created_at: :asc)) %>
               <% end %>
             </div>
-            
+
             <% if replies.count > 3 %>
               <a href="#" class="show-more-comments">View more comments (<%= replies.count - 3 %>)</a>
             <% end %>
 
             <% if current_user %>
-              <%= link_to "Reply", 
-                comment_reply_form_path( 
+              <%= link_to "Reply",
+                comment_reply_form_path(
                   commentable_id: comment.id,
-                  commentable_type: comment.class.to_s 
+                  commentable_type: comment.class.to_s
                 ), remote: true, class: "btn c-btn-white btn-wide", id: "comment-reply-btn-#{comment.id}" %>
             <% end %>
           </div>
         </div>
-      </div>    
+      </div>
     </div>
   </div>
 <% end %>
