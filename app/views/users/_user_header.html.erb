@@ -60,7 +60,24 @@
       <div class="user-since">Admin</div>
     <% else %>
       <div class="user-since">
-        <%= image_tag 'icons/user-logo-icon.svg' %>
+
+        <% case avatar_style(@user) %>
+        <% when 'ninja-style' %>
+          <%= image_tag 'user_badges/3-Ninja-Bacon.png' %>
+        <% when 'boss-style' %>
+          <%= image_tag 'user_badges/5-boss.png' %>
+        <% when 'intern-style' %>
+          <%= image_tag 'user_badges/4-Intern.png' %>
+        <% when 'handler-style' %>
+          <%= image_tag 'user_badges/10-Handler.png' %>
+        <% when 'insider-style' %>
+          <%= image_tag 'user_badges/8-Insider.png' %>
+        <% when 'vib-style' %>
+          <%= image_tag 'user_badges/9-VIB.png' %>
+        <% else %>
+          <%= image_tag 'user_badges/7-chirp.png' %>
+        <% end %>
+
         <h4>
           <%= link_to choose_profile_path do %>
             <%= @user.subscriber_type %>
