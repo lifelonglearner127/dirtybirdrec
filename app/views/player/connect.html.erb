@@ -86,4 +86,8 @@
   if (activePlaylist == 'All Releases') {
     $('a#playlist-all-releases').click();
   }
+
+  $(window).on('load', function(){
+    $('html, body').animate({ scrollTop: 0 }, 100);
+  })
 </script>

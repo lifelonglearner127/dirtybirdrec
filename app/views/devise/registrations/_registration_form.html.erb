@@ -80,6 +80,7 @@
       <%= f.select :address_country,
           @countries,
           { include_blank: 'Select Country' },
+          required: true,
           class: "select", 'data-allow-clear' => 'true', "data-width" => "100%" %>
     </div>
   </div>
@@ -120,14 +121,14 @@
       <div class="form-group">
         <%= f.label :password, class: 'required' %>
         <%= f.password_field :password, autocomplete: "off",
-            class: 'form-control', required: true %>
+            class: 'form-control', required: !defined?(current_user) %>
       </div>
     </div>
     <div class="col-lg-4">
       <div class="form-group">
         <%= f.label :password_confirmation, class: 'required' %>
         <%= f.password_field :password_confirmation, autocomplete: "off",
-            class: 'form-control', required: true %>
+            class: 'form-control', required: !defined?(current_user) %>
       </div>
     </div>
     <% if current_user %>

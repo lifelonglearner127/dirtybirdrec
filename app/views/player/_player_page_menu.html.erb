@@ -32,6 +32,7 @@
               releases_path(
                 filters: { release_type: 1 }, 
                 player: true,
+                user_id: @user.id,
                 page: session[:page_on_player] ? session[:page_on_player][0] : nil),
               id: "playlist-exclusive-releases", remote: true %>
         </li>

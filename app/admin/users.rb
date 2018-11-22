@@ -16,6 +16,7 @@ ActiveAdmin.register User do
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
+  filter :roles, as: :select, collection: proc { Role.all }
 
   index do
     selectable_column
@@ -25,7 +26,7 @@ ActiveAdmin.register User do
       user.name
     end
     column "Role" do |user|
-      user.roles.pluck(:name).join.html_safe
+      user.roles.pluck(:name).join(', ')
     end
     column "Subscription", :subscription_length
     column :current_sign_in_at
@@ -133,7 +134,7 @@ ActiveAdmin.register User do
       user.name
     end
     column "Role" do |user|
-      user.roles.pluck(:name).join.html_safe
+      user.roles.pluck(:name).join
     end
     column :subscription_length
     column :braintree_subscription_expires_at

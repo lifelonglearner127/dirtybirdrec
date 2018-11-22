@@ -542,6 +542,11 @@ class User < ApplicationRecord
   end
 
   def subscriber_type
+    return 'ninja' if self == @ninja
+    return 'intern' if self.has_role?(:intern)
+    return 'boss' if self.has_role?(:boss)
+    return 'homey' if self.has_role?(:homey)
+    return 'handler' if self.has_role?(:handler)
     if braintree_subscription_expires_at && Date.today <= braintree_subscription_expires_at
       return "Birdfeed #{subscription_length.split('_')[0].titleize}"
     end

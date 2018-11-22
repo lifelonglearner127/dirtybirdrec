@@ -321,7 +321,7 @@ class UsersController < ApplicationController
   def home
     #force user to fill needed fields
     unless current_user.additional_info_set? || current_user.has_role?(:admin)
-      redirect_to choose_profile_path and return
+      redirect_to choose_profile_path(anchor: "step-1") and return
     end
 
     redirect_to correct_user_path(current_user)
@@ -343,7 +343,7 @@ class UsersController < ApplicationController
 
   def choose_profile
     countries = JSON.parse(File.read(Rails.root.join('app/assets/countries.json')))
-    @countries = countries.map {|k,v| v }.sort
+    @countries = countries.map {|k,v| [v,k] }.sort
   end
 
   def final_cancellation
