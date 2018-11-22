@@ -40,10 +40,10 @@
         <%= render partial: 'layouts/share', locals: { object: release, icon: 'white' } %>
       </div>
       <div class="item-footer">
-        <%= link_to "Details", release, class: "c-link" %>
+        <%= link_to "Details", "/releases/#{release.id}?player=true&user_id=#{current_user.id}", class: "c-link" %>
       </div>
     </div>
-    
+
     <img class="item-original-image item-image lazy" data-src="<%= release.avatar.url(:large) %>" />
 
     <% case release.release_type %>
@@ -53,10 +53,10 @@
       <%= image_tag 'birdfeed.png', class: "item-release-type item-original-image" %>
     <% end %>
 
-    
+
     <img class="item-darken-img item-image lazy" data-src="<%= release.avatar.url(:large) %>" />
   </div>
-  
+
   <% time_slug = release.release_date > Time.now ? 'LATER' : 'AGO' %>
   <mark class="t-small">
     <%= "#{time_ago_in_words( release.release_date ).upcase} #{time_slug}" %>
