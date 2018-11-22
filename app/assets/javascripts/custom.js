@@ -40,6 +40,11 @@ var ready = function() {
 
   $('.select').select2();
 
+  if (window.location.pathname == '/choose_profile' && 
+      window.location.hash == '#step-1') {
+    $('#step-1').show();
+  }
+
   $('.scroll-back-btn').click(function(){
     $($(this).attr('href')).show();
   });

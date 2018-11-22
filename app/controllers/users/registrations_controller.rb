@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new
     countries = JSON.parse(File.read(Rails.root.join('app/assets/countries.json')))
-    @countries = countries.map {|k,v| v }.sort
+    @countries = countries.map {|k,v| [v,k] }.sort
     super
   end
 
@@ -82,13 +82,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update_resource(resource, params)
-    #TODO Why without password???
-    resource.update_without_password(params) 
-    # if resource.provider.present?
-    #   resource.update_without_password(params) 
-    # else
-    #   resource.update_with_password(params)
-    # end
+    if resource.provider.present?
+      resource.update_without_password(params) 
+    else
+      resource.update_with_password(params)
+    end
   end
 
   private
