@@ -140,6 +140,7 @@ class ApplicationController < ActionController::Base
           !current_page?(pricing_path) &&
           !current_page?(information_path) &&
           !current_page?(terms_and_conduct_path) &&
+          !current_page?(success_signup_path) &&
           !devise_controller?
         redirect_to choose_profile_path(anchor: "step-3")
       end

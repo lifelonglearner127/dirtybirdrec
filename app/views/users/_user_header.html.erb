@@ -88,15 +88,31 @@
       </div>
 
       <div class="fan-points">
-        <%= number_with_delimiter(user_position(@user), :delimiter => ',') %>
+        <% if @user.cached_active_subscription? %>
+          <%= number_with_delimiter(user_position(@user), :delimiter => ',') %>
+        <% else %>
+          -
+        <% end %>
+
         <h4>Fam Status</h4>
       </div>
 
       <div class="fan-points">
-        <%= number_with_delimiter(@user.points, :delimiter => ',') %>
+        <% if @user.cached_active_subscription? %>
+          <%= number_with_delimiter(@user.points, :delimiter => ',') %>
+        <% else %>
+          -
+        <% end %>
+
         <h4>FAM POINTS</h4>
       </div>
 
+    <% end %>
+
+    <% if current_user && current_user == @user && !@user.cached_active_subscription? %>
+      <%= link_to 'Join now', choose_profile_path, 
+          class: 'btn c-btn-red btn-square h-100 d-flex align-items-center ml-auto',
+          style: 'position: relative; right: -3px;' %>
     <% end %>
 
     <%= render partial: 'follows/follow_button', 
