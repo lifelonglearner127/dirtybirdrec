@@ -34,6 +34,9 @@ $('.music-block').append('<div class="text-center"></div>')
 
   $('.music-block .text-center').append('<%= link_to "Show more", load_more_releases_path(_params), remote: true, class: "btn c-btn-blue show-more", style: "display:none" %>');
 <% end %>
+
+$('html, body').animate({ scrollTop: 0 }, 100);
+
 var isLoading = false;
 
 $(window).scroll(function(){
