@@ -215,8 +215,7 @@
       left: 0;
       z-index: 2;
       border-radius: 5px;
-      height: auto;
-      max-height: 300px;
+      width: 100%;
       object-fit: cover;
     }
 
@@ -247,8 +246,8 @@
   .item-darken-img {
     filter: contrast(70%) brightness(40%);
     border-radius: 5px;
-    width: 236px;
-    height: 248px;
+    width: 100%;
+    min-height: 248px;
     object-fit: cover;
   }
 
