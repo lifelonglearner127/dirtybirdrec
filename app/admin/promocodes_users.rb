@@ -7,7 +7,7 @@ ActiveAdmin.register PromocodesUser do
     selectable_column
     column :user, sortable: 'users.first_name'
     column "User Role" do |pu|
-      pu.user.roles.join(', ')
+      pu.user.roles.pluck(:name).join(', ')
     end
     column "Promocode", sortable: 'promocodes.slug' do |pu|
       link_to pu.promocode.slug, admin_promocode_path(pu.promocode)
