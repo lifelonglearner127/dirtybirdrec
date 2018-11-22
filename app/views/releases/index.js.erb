@@ -2,10 +2,13 @@ $('.playlist-nav-body li.active').removeClass('active')
 
 <% if not @filters %>
   $('#playlist-all-releases').parent().addClass('active');
+  window.history.pushState('', '', '?active_playlist=All Releases');
 <% elsif @filters[:release_type] == '1' %>
   $('#playlist-exclusive-releases').parent().addClass('active');
+  window.history.pushState('', '', '?active_playlist=Birdfeed Exclusive');
 <% elsif @filters[:release_type] == '2' %>
   $('#playlist-select-releases').parent().addClass('active');
+  window.history.pushState('', '', '?active_playlist=Dirtybird');
 <% end %>
 
 $('.music-wrapper').empty();

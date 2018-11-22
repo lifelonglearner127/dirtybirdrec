@@ -83,8 +83,26 @@
 <script type="text/javascript">
   activePlaylist = "<%= params[:active_playlist] %>";
 
-  if (activePlaylist == 'All Releases') {
-    $('a#playlist-all-releases').click();
+  switch (activePlaylist) {
+    case 'All Releases':
+      $('a#playlist-all-releases').click();
+      break;
+    
+    case 'Dirtybird':
+      $('a#playlist-select-releases').click();
+      break;
+    
+    case 'Birdfeed Exclusive':
+      $('a#playlist-exclusive-releases').click();
+      break;
+  
+    default:
+      $('a#playlist-all-releases').click();
+      break;
+  }
+  
+  if (activePlaylist == '') {
+    
   }
 
   $(window).on('load', function(){
